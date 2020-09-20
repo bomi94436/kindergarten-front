@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SearchKindergarten from "./SearchKindergarten";
+import { contents } from "./reigsterContents";
 
 const RegisterForm = ({ history, location }) => {
   const [title, setTitle] = useState("");
@@ -26,33 +27,17 @@ const RegisterForm = ({ history, location }) => {
         회원가입
       </h1>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="userId">아이디</label>
-        <input id="userId" type="text" placeholder="8자리 이상 입력" />
-        <br />
-
-        <label htmlFor="password">비밀번호</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="숫자, 영어 조합하여 8자리 이상 입력"
-        />
-        <br />
-
-        <label htmlFor="re_password">비밀번호 확인</label>
-        <input id="re_password" type="password" />
-        <br />
-
-        <label htmlFor="name">이름</label>
-        <input id="name" type="text" placeholder="2글자 이상 입력" />
-        <br />
-
-        <label htmlFor="phone">휴대폰 번호</label>
-        <input id="phone" type="number" placeholder="숫자만 입력" />
-        <br />
-
-        <label htmlFor="email">이메일</label>
-        <input id="email" type="email" />
-        <br />
+        {contents.map((element) => (
+          <React.Fragment key={element.id}>
+            <label htmlFor={element.id}>{element.title}</label>
+            <input
+              id={element.id}
+              type={element.type}
+              placeholder={element.placeholder}
+            />
+            <br />
+          </React.Fragment>
+        ))}
 
         {title === "선생님" || title === "원장님" ? (
           <SearchKindergarten />
