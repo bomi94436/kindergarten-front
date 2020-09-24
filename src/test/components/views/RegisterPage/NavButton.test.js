@@ -20,6 +20,11 @@ describe("<NavButton /> 에서", () => {
     const component = setup();
   });
 
+  it("스냅샷이 일치한다", () => {
+    const component = setup();
+    expect(component.container).toMatchSnapshot();
+  });
+
   it("3개의 회원가입 버튼들과 로그인 링크가 있다", () => {
     const component = setup();
     component.getByText("학부모(일반회원)로 회원가입");
