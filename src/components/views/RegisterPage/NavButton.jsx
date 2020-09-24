@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NabButton = () => {
+const NavButton = () => {
   return (
     <div>
       <Link to="/register/parent">
@@ -21,4 +21,4 @@ const NabButton = () => {
   );
 };
 
-export default NabButton;
+export default NavButton;

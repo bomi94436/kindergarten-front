@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RegisterPage />에서 스냅샷이 일치한다 1`] = `
+<div>
+  <div>
+    <div>
+      <a
+        href="/register/parent"
+      >
+        <button>
+          학부모(일반회원)로 회원가입
+        </button>
+      </a>
+      <br />
+      <a
+        href="/register/teacher"
+      >
+        <button>
+          선생님으로 회원가입
+        </button>
+      </a>
+      <br />
+      <a
+        href="/register/director"
+      >
+        <button>
+          원장님으로 회원가입
+        </button>
+      </a>
+      <br />
+      이미 계정이 있으신가요? 
+      <a
+        href="/login"
+      >
+        로그인
+      </a>
+    </div>
+  </div>
+</div>
+`;
