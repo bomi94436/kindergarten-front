@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> 에서 스냅샷이 일치한다 1`] = `
+<div>
+  <div
+    class="App"
+  >
+    <div
+      class="sc-bdnylx hCYiOI"
+    >
+      <a
+        aria-current="page"
+        class="sc-gtssRu active"
+        href="/"
+      >
+        엄마, 나 요기 갈래
+      </a>
+      <a
+        class="sc-dlnjPT"
+        href="/register"
+      >
+        회원가입
+      </a>
+    </div>
+    <div>
+      LandingPage
+    </div>
+  </div>
+</div>
+`;
