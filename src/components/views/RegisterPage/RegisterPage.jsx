@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavButton from "./NavButton";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "../../../containers/RegisterPage/RegisterFormContainer";
 
 const RegisterPage = () => {
   return (
