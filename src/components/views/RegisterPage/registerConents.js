@@ -1,7 +1,7 @@
 export const contents = [
   {
     html: "input",
-    id: "userId",
+    id: "userid",
     title: "아이디",
     type: "text",
     placeholder: "8자리 이상 입력",
@@ -42,14 +42,14 @@ export const contents = [
   },
   {
     html: "input",
-    id: "email",
+    id: "firstEmail",
     title: "이메일",
     type: "text",
     placeholder: "",
   },
   {
     html: "input",
-    id: "emailDetail",
+    id: "lastEmail",
     type: "text",
     placeholder: "",
   },
