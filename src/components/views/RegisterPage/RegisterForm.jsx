@@ -58,7 +58,7 @@ const RegisterForm = ({ history, state, setRegister, postRegister }) => {
     } else if (path === "director") {
       setTitle("원장님");
     }
-  }, []);
+  }, [history.location.pathname]);
 
   const handleSubmit = (e) => {
     const path = history.location.pathname.split("/")[2];
