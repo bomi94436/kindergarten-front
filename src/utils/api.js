@@ -28,3 +28,27 @@ export const register = (dataToSubmit, path) =>
         };
       }
     });
+
+export const existid = (id) =>
+  axios
+    .get(`${USER_SERVER}/${id}`)
+    .then((response) => response)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return {
+          data: {
+            success: false,
+            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
+          },
+        };
+      } else {
+        return {
+          data: {
+            success: false,
+            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
+          },
+        };
+      }
+    });

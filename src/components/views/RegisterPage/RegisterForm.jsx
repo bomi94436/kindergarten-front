@@ -1,32 +1,83 @@
 import React, { useEffect, useState } from "react";
 import SearchKindergarten from "./SearchKindergarten";
 import { contents } from "./registerConents";
+import {
+  inputClassNameByValid,
+  isEveryFieldValid,
+} from "../../../utils/validation";
+import styled from "styled-components";
 
-const Input = ({ element, br, setRegister, state }) => (
-  <>
-    <label htmlFor={element.id}>{element.title}</label>
-    <input
-      id={element.id}
-      type={element.type}
-      placeholder={element.placeholder}
-      onChange={(event) =>
-        setRegister({ name: element.id, value: event.target.value })
+const FormTitle = styled.label`
+  font-size: 1rem;
+`;
+
+const FormInput = styled.input`
+  font-size: 1rem;
+
+  width: ${(props) =>
+    props.id === "firstEmail" || props.id === "lastEmail" ? "10rem" : "15rem"};
+  border: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 1rem;
+  padding: 0.7rem 0.3rem;
+
+  :focus {
+    outline: none;
+  }
+  border-bottom: 2px solid
+    ${(props) => {
+      switch (props.className) {
+        case "is-valid":
+          return "green";
+        case "is-invalid":
+          return "red";
+        default:
+          return "black";
       }
-      value={state.value[element.id]}
-    />
-    {br}
-  </>
+    }};
+`;
+
+const FormButton = styled.button`
+  margin-bottom: 1rem;
+`;
+
+const FormDropDown = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const FormCover = styled.div`
+  max-width: 60%;
+  margin: 50px auto 0;
+  padding: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  h1 {
+  }
+`;
+
+const Input = ({ element, setRegister, state }) => (
+  <FormInput
+    id={element.id}
+    type={element.type}
+    placeholder={element.placeholder}
+    className={`${inputClassNameByValid(state.valid[element.id])}`}
+    onChange={(event) =>
+      setRegister({ name: element.id, value: event.target.value })
+    }
+    value={state.value[element.id]}
+  />
 );
 
-const Button = ({ element, br }) => (
-  <>
-    <button id={element.id}>{element.title}</button>
-    {br}
-  </>
+const Button = ({ element, getExistId, id }) => (
+  <FormButton id={element.id} onClick={(event) => getExistId(id)}>
+    {element.title}
+  </FormButton>
 );
 
-const Dropdown = ({ element, br, setRegister }) => (
-  <>
+const Dropdown = ({ element, setRegister }) => (
+  <FormDropDown>
     <select
       id={element.id}
       onChange={(event) =>
@@ -42,11 +93,16 @@ const Dropdown = ({ element, br, setRegister }) => (
         </option>
       ))}
     </select>
-    {br}
-  </>
+  </FormDropDown>
 );
 
-const RegisterForm = ({ history, state, setRegister, postRegister }) => {
+const RegisterForm = ({
+  history,
+  state,
+  setRegister,
+  postRegister,
+  getExistId,
+}) => {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
@@ -85,56 +141,111 @@ const RegisterForm = ({ history, state, setRegister, postRegister }) => {
   };
 
   return (
-    <>
-      <h1>
-        {title}
-        <br />
-        회원가입
-      </h1>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <FormCover>
+        <h1>{title} 회원가입</h1>
 
-      <form onSubmit={(e) => handleSubmit(e)}>
-        {contents.map((element) => {
-          let content;
-          let br = <br />;
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <FormTitle htmlFor={contents.userid.title}>
+            {contents.userid.title}
+          </FormTitle>
+          <br />
+          <div style={{ display: "flex" }}>
+            <Input
+              element={contents.userid}
+              setRegister={setRegister}
+              state={state}
+            />
 
-          if (element.html === "input") {
-            if (element.id === "firstEmail") {
-              br = <span>@</span>;
-            } else if (element.id === "userid" || element.id === "lastEmail") {
-              br = null;
-            }
-            return (
-              <Input
-                key={element.id}
-                element={element}
-                setRegister={setRegister}
-                state={state}
-                br={br}
-              />
-            );
-          } else if (element.html === "button") {
-            return <Button key={element.id} element={element} br={br} />;
-          } else if (element.html === "dropdown") {
-            return (
-              <Dropdown
-                key={element.id}
-                element={element}
-                br={br}
-                setRegister={setRegister}
-              />
-            );
-          }
+            <Button
+              element={contents.checkDuplication}
+              getExistId={getExistId}
+              id={state.value.userid}
+            />
+          </div>
 
-          return content;
-        })}
+          <FormTitle htmlFor={contents.password.title}>
+            {contents.password.title}
+          </FormTitle>
+          <br />
+          <Input
+            element={contents.password}
+            setRegister={setRegister}
+            state={state}
+          />
+          <br />
 
-        {title === "선생님" || title === "원장님" ? (
-          <SearchKindergarten />
-        ) : null}
+          <FormTitle htmlFor={contents.rePassword.title}>
+            {contents.rePassword.title}
+          </FormTitle>
+          <br />
+          <Input
+            element={contents.rePassword}
+            setRegister={setRegister}
+            state={state}
+          />
+          <br />
 
-        <button type="submit">회원가입</button>
-      </form>
-    </>
+          <FormTitle htmlFor={contents.name.title}>
+            {contents.name.title}
+          </FormTitle>
+          <br />
+          <Input
+            element={contents.name}
+            setRegister={setRegister}
+            state={state}
+          />
+          <br />
+
+          <FormTitle htmlFor={contents.phone.title}>
+            {contents.phone.title}
+          </FormTitle>
+          <br />
+          <Input
+            element={contents.phone}
+            setRegister={setRegister}
+            state={state}
+          />
+          <br />
+
+          <FormTitle htmlFor={contents.firstEmail.title}>
+            {contents.firstEmail.title}
+          </FormTitle>
+          <br />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Input
+              element={contents.firstEmail}
+              setRegister={setRegister}
+              state={state}
+            />
+            <span>@</span>
+            <Input
+              element={contents.lastEmail}
+              setRegister={setRegister}
+              state={state}
+            />
+            <Dropdown element={contents.emailList} setRegister={setRegister} />
+          </div>
+          {title === "선생님" || title === "원장님" ? (
+            <SearchKindergarten />
+          ) : null}
+
+          {isEveryFieldValid(state.valid) ? (
+            <button type="submit" className="btn btn-primary btn-block">
+              회원가입
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="btn btn-primary btn-block"
+              disabled
+            >
+              회원가입
+            </button>
+          )}
+        </form>
+      </FormCover>
+    </div>
   );
 };
 
