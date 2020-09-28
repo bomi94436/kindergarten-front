@@ -50,7 +50,7 @@ export const contents = {
   lastEmail: {
     html: "input",
     id: "lastEmail",
-    title: " ",
+    title: "",
     type: "text",
     placeholder: "",
   },

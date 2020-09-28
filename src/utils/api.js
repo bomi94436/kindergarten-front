@@ -31,7 +31,7 @@ export const register = (dataToSubmit, path) =>
 
 export const existid = (id) =>
   axios
-    .get(`${USER_SERVER}/${id}`)
+    .get(`${USER_SERVER}/existid/${id}`)
     .then((response) => response)
     .catch((error) => {
       if (error.response) {

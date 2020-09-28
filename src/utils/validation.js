@@ -40,16 +40,26 @@ export const validateRegister = (target, value, password) => {
   }
 };
 
-export const inputClassNameByValid = (valid) => {
+export const inputPropsByValid = (valid) => {
   switch (valid) {
-    case true:
-      return "is-valid";
-
     case false:
-      return "is-invalid";
+      return true;
 
     default:
-      return "";
+      return false;
+  }
+};
+
+export const inputIdByValid = (valid) => {
+  switch (valid) {
+    case true:
+      return "outlined-basic";
+
+    case false:
+      return "outlined-error";
+
+    default:
+      return "outlined-basic";
   }
 };
 

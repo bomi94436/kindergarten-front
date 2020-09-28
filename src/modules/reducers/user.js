@@ -90,6 +90,11 @@ const user = handleActions(
             value,
             draft.register.value.password
           );
+        } else if (name === "emailList") {
+          draft.register.valid.lastEmail = validateRegister(
+            name,
+            draft.register.value.lastEmail
+          );
         } else {
           draft.register.valid[name] = validateRegister(name, value);
         }
@@ -116,10 +121,12 @@ const user = handleActions(
     [GET_EXISTID_SUCCESS]: (state, action) =>
       produce(state, (draft) => {
         draft.loading.GET_EXISTID = false;
+        draft.register.valid.checkDuplication = true;
       }),
     [GET_EXISTID_FAILURE]: (state) =>
       produce(state, (draft) => {
         draft.loading.GET_EXISTID = false;
+        draft.register.valid.checkDuplication = false;
       }),
   },
   initState
