@@ -12,10 +12,9 @@ jobs:
         uses: actions/checkout@master
         env:
           BACKEND_SERVER_URL: ${{ secrets.BACKEND_SERVER_URL }}
-          CI: ""
 
-      - name: Cache node modules # node modules 캐싱
-        uses: actions/cache@v1
+      - name: Cache node modules
+        uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
