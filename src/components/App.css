@@ -1,7 +1,8 @@
 .App {
-  text-align: center;
+  justify-content: center;
   margin: 0 auto;
   width: 1000px;
+  font-family: "나눔바른고딕";
 
   @media screen and (max-width: 1000px) {
     width: 100%;

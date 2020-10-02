@@ -1,6 +1,10 @@
 import RegisterForm from "../../components/views/RegisterPage/RegisterForm";
 import { connect } from "react-redux";
-import { setRegister, postRegister } from "../../modules/reducers/user";
+import {
+  setRegister,
+  postRegister,
+  getExistId,
+} from "../../modules/reducers/user";
 
 const RegisterFormContainer = connect(
   (state) => ({
@@ -8,7 +12,9 @@ const RegisterFormContainer = connect(
   }),
   (dispatch) => ({
     setRegister: (data) => dispatch(setRegister(data)),
-    postRegister: (data, path) => dispatch(postRegister(data, path)),
+    postRegister: (dataToSubmit, path) =>
+      dispatch(postRegister(dataToSubmit, path)),
+    getExistId: (id) => dispatch(getExistId(id)),
   })
 )(RegisterForm);
 

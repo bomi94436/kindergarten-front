@@ -1,61 +1,62 @@
-export const contents = [
-  {
+export const contents = {
+  userid: {
     html: "input",
     id: "userid",
     title: "아이디",
     type: "text",
-    placeholder: "8자리 이상 입력",
+    placeholder: "숫자, 영어 조합하여 6자리 이상 입력",
   },
-  {
+  checkDuplication: {
     html: "button",
     id: "checkDuplication",
     title: "중복 확인",
     type: "button",
   },
-  {
+  password: {
     html: "input",
     id: "password",
     title: "비밀번호",
     type: "password",
     placeholder: "숫자, 영어 조합하여 8자리 이상 입력",
   },
-  {
+  rePassword: {
     html: "input",
     id: "rePassword",
     title: "비밀번호 확인",
     type: "password",
     placeholder: "",
   },
-  {
+  name: {
     html: "input",
     id: "name",
     title: "이름",
     type: "text",
     placeholder: "2글자 이상 입력",
   },
-  {
+  phone: {
     html: "input",
     id: "phone",
     title: "휴대폰 번호",
     type: "number",
     placeholder: "숫자만 입력",
   },
-  {
+  firstEmail: {
     html: "input",
     id: "firstEmail",
     title: "이메일",
     type: "text",
     placeholder: "",
   },
-  {
+  lastEmail: {
     html: "input",
     id: "lastEmail",
+    title: "",
     type: "text",
     placeholder: "",
   },
-  {
+  emailList: {
     html: "dropdown",
     id: "emailList",
     list: ["직접 입력", "naver.com", "daum.net", "gmail.com"],
   },
-];
+};

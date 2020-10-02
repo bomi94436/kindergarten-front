@@ -1,6 +1,7 @@
 const initState = {
   loading: {
     POST_REGISTER: false,
+    GET_EXISTID: false,
   },
   register: {
     value: {
@@ -14,6 +15,7 @@ const initState = {
     },
     valid: {
       userid: null,
+      checkDuplication: null,
       password: null,
       rePassword: null,
       name: null,
