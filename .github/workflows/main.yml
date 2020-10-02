@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout source code.
         uses: actions/checkout@master
+        env:
+          BACKEND_SERVER_URL: ${{ secrets.BACKEND_SERVER_URL }}
 
       - name: Install Dependencies
         run: npm install
