@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@master
         env:
           BACKEND_SERVER_URL: ${{ secrets.BACKEND_SERVER_URL }}
-          CI: false
+          CI: ""
 
       - name: Cache node modules # node modules 캐싱
         uses: actions/cache@v1
