@@ -12,6 +12,16 @@ jobs:
         uses: actions/checkout@master
         env:
           BACKEND_SERVER_URL: ${{ secrets.BACKEND_SERVER_URL }}
+          process.env.CI: false
+
+      - name: Cache node modules # node modules 캐싱
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
 
       - name: Install Dependencies
         run: npm install
