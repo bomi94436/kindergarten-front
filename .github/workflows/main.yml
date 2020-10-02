@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
         env:
           BACKEND_SERVER_URL: ${{ secrets.BACKEND_SERVER_URL }}
 
