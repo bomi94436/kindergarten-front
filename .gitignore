@@ -24,3 +24,4 @@ yarn-error.log*
 
 .env
 key.js
+build
