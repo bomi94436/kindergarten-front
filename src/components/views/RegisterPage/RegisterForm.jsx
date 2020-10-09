@@ -17,11 +17,11 @@ const FormCover = styled.div`
   justify-content: center;
 `;
 
-const ButtonCover = styled(Button)({
-  height: "4rem",
-  flexGrow: 1,
-  borderRadius: 50,
-});
+const ButtonCover = styled(Button)`
+  height: 4rem;
+  flex-grow: 1;
+  font-size: 1.2rem;
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
