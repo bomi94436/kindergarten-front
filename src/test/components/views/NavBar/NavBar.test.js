@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import NavBar from "components/views/NavBar/NavBar";
+import NavBar from "../../../../components/views/NavBar/NavBar";
 
 describe("<NavBar /> 에서", () => {
   const history = createMemoryHistory();

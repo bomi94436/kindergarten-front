@@ -2,123 +2,375 @@
 
 exports[`<RegisterForm /> 에서 스냅샷이 일치한다 1`] = `
 <div>
-  <h1>
-    학부모(일반회원)
-    <br />
-    회원가입
-  </h1>
-  <form>
-    <label
-      for="userId"
+  <div
+    style="display: flex; justify-content: center;"
+  >
+    <div
+      class="sc-gtssRu ffMtlP"
     >
-      아이디
-    </label>
-    <input
-      id="userId"
-      placeholder="8자리 이상 입력"
-      type="text"
-    />
-    <button
-      id="checkDuplication"
-    >
-      중복 확인
-    </button>
-    <br />
-    <label
-      for="password"
-    >
-      비밀번호
-    </label>
-    <input
-      id="password"
-      placeholder="숫자, 영어 조합하여 8자리 이상 입력"
-      type="password"
-    />
-    <br />
-    <label
-      for="rePassword"
-    >
-      비밀번호 확인
-    </label>
-    <input
-      id="rePassword"
-      placeholder=""
-      type="password"
-    />
-    <br />
-    <label
-      for="name"
-    >
-      이름
-    </label>
-    <input
-      id="name"
-      placeholder="2글자 이상 입력"
-      type="text"
-    />
-    <br />
-    <label
-      for="phone"
-    >
-      휴대폰 번호
-    </label>
-    <input
-      id="phone"
-      placeholder="숫자만 입력"
-      type="number"
-    />
-    <br />
-    <label
-      for="email"
-    >
-      이메일
-    </label>
-    <input
-      id="email"
-      placeholder=""
-      type="text"
-    />
-    <span>
-      @
-    </span>
-    <label
-      for="emailDetail"
-    />
-    <input
-      id="emailDetail"
-      placeholder=""
-      type="text"
-    />
-    <select
-      id="emailList"
-    >
-      <option
-        value="직접 입력"
+      <p
+        style="font-size: 2rem; font-weight: 500;"
       >
-        직접 입력
-      </option>
-      <option
-        value="naver.com"
+        학부모(일반회원)
+         회원가입
+      </p>
+      <form
+        class="makeStyles-root-7"
       >
-        naver.com
-      </option>
-      <option
-        value="daum.net"
-      >
-        daum.net
-      </option>
-      <option
-        value="gmail.com"
-      >
-        gmail.com
-      </option>
-    </select>
-    <br />
-    <button
-      type="submit"
-    >
-      회원가입
-    </button>
-  </form>
+        <div
+          style="margin-bottom: 2rem;"
+        >
+          <div
+            class="MuiFormControl-root MuiTextField-root sc-bdnylx hZnkVr"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              data-shrink="false"
+              for="userid outlined-basic"
+              id="userid outlined-basic-label"
+            >
+              아이디
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+            >
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input"
+                id="userid outlined-basic"
+                placeholder="숫자, 영어 조합하여 6자리 이상 입력"
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="PrivateNotchedOutline-legendLabelled-10"
+                >
+                  <span>
+                    아이디
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <div
+            style="display: flex; align-self: stretch; margin-left: 1rem;"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+              id="checkDuplication"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                중복 확인
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="MuiFormControl-root MuiTextField-root sc-bdnylx hZnkVr"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+            data-shrink="false"
+            for="password outlined-basic"
+            id="password outlined-basic-label"
+          >
+            비밀번호
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input"
+              id="password outlined-basic"
+              placeholder="숫자, 영어 조합하여 8자리 이상 입력"
+              type="password"
+              value=""
+            />
+            <fieldset
+              aria-hidden="true"
+              class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="PrivateNotchedOutline-legendLabelled-10"
+              >
+                <span>
+                  비밀번호
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <br />
+        <div
+          class="MuiFormControl-root MuiTextField-root sc-bdnylx hZnkVr"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+            data-shrink="false"
+            for="rePassword outlined-basic"
+            id="rePassword outlined-basic-label"
+          >
+            비밀번호 확인
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input"
+              id="rePassword outlined-basic"
+              placeholder=""
+              type="password"
+              value=""
+            />
+            <fieldset
+              aria-hidden="true"
+              class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="PrivateNotchedOutline-legendLabelled-10"
+              >
+                <span>
+                  비밀번호 확인
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <br />
+        <div
+          class="MuiFormControl-root MuiTextField-root sc-bdnylx hZnkVr"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+            data-shrink="false"
+            for="name outlined-basic"
+            id="name outlined-basic-label"
+          >
+            이름
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input"
+              id="name outlined-basic"
+              placeholder="2글자 이상 입력"
+              type="text"
+              value=""
+            />
+            <fieldset
+              aria-hidden="true"
+              class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="PrivateNotchedOutline-legendLabelled-10"
+              >
+                <span>
+                  이름
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <br />
+        <div
+          class="MuiFormControl-root MuiTextField-root sc-bdnylx hZnkVr"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+            data-shrink="false"
+            for="phone outlined-basic"
+            id="phone outlined-basic-label"
+          >
+            휴대폰 번호
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input"
+              id="phone outlined-basic"
+              placeholder="숫자만 입력"
+              type="number"
+              value=""
+            />
+            <fieldset
+              aria-hidden="true"
+              class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="PrivateNotchedOutline-legendLabelled-10"
+              >
+                <span>
+                  휴대폰 번호
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <br />
+        <div
+          style="display: flex; align-items: center; justify-content: space-between;"
+        >
+          <div
+            class="MuiFormControl-root MuiTextField-root sc-bdnylx hZnkVr"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              data-shrink="false"
+              for="firstEmail outlined-basic"
+              id="firstEmail outlined-basic-label"
+            >
+              이메일
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+            >
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input"
+                id="firstEmail outlined-basic"
+                placeholder=""
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="PrivateNotchedOutline-legendLabelled-10"
+                >
+                  <span>
+                    이메일
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <span
+            style="margin: 1rem;"
+          >
+            @
+          </span>
+          <div
+            class="MuiFormControl-root MuiTextField-root sc-bdnylx hZnkVr"
+          >
+            
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+            >
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input"
+                id="lastEmail outlined-basic"
+                placeholder=""
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+                style="padding-left: 8px;"
+              >
+                <legend
+                  class="PrivateNotchedOutline-legend-9"
+                  style="width: 0.01px;"
+                >
+                  <span>
+                    ​
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <div
+            class="MuiFormControl-root makeStyles-formControl-12"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-filled"
+              data-shrink="true"
+              id="dropdown"
+            >
+              주소
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+            >
+              <div
+                aria-haspopup="listbox"
+                aria-labelledby="dropdown emailList"
+                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input"
+                id="emailList"
+                role="button"
+                tabindex="0"
+              >
+                직접 입력
+              </div>
+              <input
+                aria-hidden="true"
+                class="MuiSelect-nativeInput"
+                tabindex="-1"
+                value="직접 입력"
+              />
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M7 10l5 5 5-5z"
+                />
+              </svg>
+              <fieldset
+                aria-hidden="true"
+                class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="PrivateNotchedOutline-legendLabelled-10 PrivateNotchedOutline-legendNotched-11"
+                >
+                  <span>
+                    주소
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div
+          style="margin-top: 3rem;"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained sc-dlnjPT bLdILs MuiButton-containedPrimary Mui-disabled Mui-disabled"
+            disabled=""
+            tabindex="-1"
+            type="submit"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              회원가입
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 `;
