@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import SearchKindergarten from "./SearchKindergarten";
 import { contents } from "./registerConents";
 import { isEveryFieldValid } from "../../../utils/validation";
-import { FormInput, FormButton, FormDropdown } from "./RegisterFormComponent";
+import { FormInput, FormButton, FormDropdown } from "./RegisterFormComp";
 
 const FormCover = styled.div`
   max-width: 50%;
@@ -17,16 +17,17 @@ const FormCover = styled.div`
   justify-content: center;
 `;
 
-const ButtonCover = styled(Button)`
+const StyledButton = styled(Button)`
   height: 4rem;
   flex-grow: 1;
   font-size: 1.2rem;
+  border-radius: 30px;
 `;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0.5),
       display: "flex",
     },
   },
@@ -93,7 +94,6 @@ const RegisterForm = ({
             <div
               style={{
                 display: "flex",
-                alignSelf: "stretch",
                 marginLeft: "1rem",
               }}
             >
@@ -145,7 +145,7 @@ const RegisterForm = ({
               setRegister={setRegister}
               state={state}
             />
-            <span style={{ margin: "1rem" }}>@</span>
+            <span style={{ margin: "0.5rem" }}>@</span>
             <FormInput
               element={contents.lastEmail}
               setRegister={setRegister}
@@ -159,23 +159,27 @@ const RegisterForm = ({
           </div>
 
           {title === "선생님" || title === "원장님" ? (
-            <SearchKindergarten />
+            <>
+              <p style={{ borderBottom: "1px solid gray", margin: "2rem" }}></p>
+              <span style={{ margin: "1rem" }}>소속 유치원</span>
+              <SearchKindergarten />
+            </>
           ) : null}
 
           <div style={{ marginTop: "3rem" }}>
             {isEveryFieldValid(state.valid) ? (
-              <ButtonCover type="submit" variant="contained" color="primary">
+              <StyledButton type="submit" variant="contained" color="primary">
                 회원가입
-              </ButtonCover>
+              </StyledButton>
             ) : (
-              <ButtonCover
+              <StyledButton
                 type="submit"
                 variant="contained"
                 color="primary"
                 disabled
               >
                 회원가입
-              </ButtonCover>
+              </StyledButton>
             )}
           </div>
         </form>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 
-const StyledForm = styled.div`
+const Cover = styled.div`
   max-width: 50%;
   margin: 1rem auto 0;
   padding: 20px;
@@ -17,6 +17,7 @@ const StyledButton = styled(Button)`
   width: 17rem;
   flex-grow: 1;
   font-size: 1.1rem;
+  border-radius: 30px;
 `;
 
 const StyledLink = styled(Link)`
@@ -33,7 +34,7 @@ const NavButton = () => {
         marginTop: "7rem",
       }}
     >
-      <StyledForm>
+      <Cover>
         <StyledLink to="/register/parent">
           <StyledButton variant="contained" color="primary">
             학부모(일반회원)로 회원가입
@@ -55,7 +56,7 @@ const NavButton = () => {
         <p>
           이미 계정이 있으신가요? <StyledLink to="/login">로그인</StyledLink>
         </p>
-      </StyledForm>
+      </Cover>
     </div>
   );
 };
