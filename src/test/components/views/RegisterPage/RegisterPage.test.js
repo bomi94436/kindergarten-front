@@ -37,7 +37,7 @@ describe("<RegisterPage />에서", () => {
     it("학부모(일반회원)로 회원가입 버튼을 클릭했을 때, 잘 이동된다", () => {
       const component = setup();
       fireEvent.click(component.getByText("학부모(일반회원)로 회원가입"));
-      expect(history.location.pathname).toBe("/register/parent");
+      expect(history.location.pathname).toBe("/register/user");
     });
 
     it("선생님으로 회원가입 버튼을 클릭했을 때, 잘 이동된다", () => {

@@ -37,6 +37,7 @@ const RegisterForm = ({
   history,
   state,
   setRegister,
+  setRegisterValid,
   postRegister,
   getExistId,
 }) => {
@@ -45,14 +46,17 @@ const RegisterForm = ({
 
   useEffect(() => {
     const path = history.location.pathname.split("/")[2];
-    if (path === "parent") {
+    if (path === "user") {
       setTitle("학부모(일반회원)");
+      setRegisterValid({ type: "user" });
     } else if (path === "teacher") {
       setTitle("선생님");
+      setRegisterValid({ type: "teacher" });
     } else if (path === "director") {
       setTitle("원장님");
+      setRegisterValid({ type: "director" });
     }
-  }, [history.location.pathname]);
+  }, [history.location.pathname, setRegisterValid]);
 
   const handleSubmit = (e) => {
     const path = history.location.pathname.split("/")[2];
@@ -64,10 +68,10 @@ const RegisterForm = ({
       name: state.value.name,
       phone: state.value.phone,
       email: `${state.value.firstEmail}@${state.value.lastEmail}`,
+      role: path.toUpperCase(),
     };
 
-    if (path === "선생님" || path === "원장님") {
-      // 선택한 소속 유치원을 dataToSubmit에 추가
+    if (path === "teacher" || path === "director") {
       dataToSubmit.kindergarten_id = state.search.selected.id;
     }
 

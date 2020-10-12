@@ -3,7 +3,7 @@ import { USER_SERVER, KINDERGARTEN_SERVER } from "./config";
 
 export const register = (dataToSubmit, path) =>
   axios
-    .post(`${USER_SERVER}/${path}`, dataToSubmit)
+    .post(`${USER_SERVER}/`, dataToSubmit)
     .then((response) => response.data)
     .catch((error) => {
       if (error.response) {

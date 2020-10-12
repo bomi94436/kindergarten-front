@@ -6,7 +6,7 @@ import initState from "../../../../modules/initState";
 
 describe("<RegisterForm /> 에서", () => {
   const history = createMemoryHistory();
-  const paths = ["parent", "teacher", "director"];
+  const paths = ["user", "teacher", "director"];
   const title = [
     "학부모(일반회원) 회원가입",
     "선생님 회원가입",
@@ -28,7 +28,7 @@ describe("<RegisterForm /> 에서", () => {
   });
 
   it("스냅샷이 일치한다", () => {
-    const component = setup("parent");
+    const component = setup("user");
     expect(component.container).toMatchSnapshot();
   });
 

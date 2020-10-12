@@ -35,7 +35,7 @@ const NavButton = () => {
       }}
     >
       <Cover>
-        <StyledLink to="/register/parent">
+        <StyledLink to="/register/user">
           <StyledButton variant="contained" color="primary">
             학부모(일반회원)로 회원가입
           </StyledButton>

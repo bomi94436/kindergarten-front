@@ -8,8 +8,12 @@ import { validateRegister } from "../../utils/validation";
   회원가입 필드 입력
 */
 const SET_REGISTER = "user/SET_REGISTER";
-
 const SET_REGISTER_SEARCH = "user/SET_REGISTER_SEARCH";
+
+/*
+  회원 역할에 맞는 validation 설정
+*/
+const SET_REGISTER_VALID = "user/SET_REGISTER_VALID";
 
 /* 
   회원가입 버튼 클릭
@@ -33,8 +37,14 @@ const GET_REGISTER_SEARCH_SUCCESS = "user/GET_REGISTER_SEARCH_SUCCESS";
 const GET_REGISTER_SEARCH_FAILURE = "user/GET_REGISTER_SEARCH_FAILURE";
 
 export const setRegister = createAction(SET_REGISTER, (data) => data);
+
 export const setRegisterSearch = createAction(
   SET_REGISTER_SEARCH,
+  (data) => data
+);
+
+export const setRegisterValid = createAction(
+  SET_REGISTER_VALID,
   (data) => data
 );
 
@@ -153,6 +163,21 @@ const user = handleActions(
       });
     },
 
+    [SET_REGISTER_VALID]: (state, action) => {
+      const type = action.payload.type;
+
+      return produce(state, (draft) => {
+        if (type === "user") {
+          delete draft.register.valid.kindergarten_id;
+        } else {
+          if (!draft.register.search.selected.id) {
+            draft.register.valid.kindergarten_id = null;
+          }
+          delete draft.register.valid.student;
+        }
+      });
+    },
+
     [SET_REGISTER_SEARCH]: (state, action) => {
       const name = action.payload.name;
       const value = action.payload.value;
@@ -160,6 +185,7 @@ const user = handleActions(
       return produce(state, (draft) => {
         draft.register.search[name] = value;
         if (name === "selected") {
+          draft.register.valid.kindergarten_id = true;
           draft.register.search.opened = false;
         }
       });
@@ -172,6 +198,7 @@ const user = handleActions(
     [POST_REGISTER_SUCCESS]: (state, action) =>
       produce(state, (draft) => {
         draft.loading.POST_REGISTER = false;
+        draft.register = initState.register;
       }),
     [POST_REGISTER_FAILURE]: (state) =>
       produce(state, (draft) => {
@@ -200,13 +227,12 @@ const user = handleActions(
       }),
     [GET_REGISTER_SEARCH_SUCCESS]: (state, action) =>
       produce(state, (draft) => {
+        let stateSearch = draft.register.search;
+
         draft.loading.GET_REGISTER_SEARCH = false;
-        draft.register.search.contents =
-          action.payload.response.data.kinderGartens;
-        draft.register.search.page.current =
-          action.payload.response.data.currentpage;
-        draft.register.search.page.total =
-          action.payload.response.data.totalPage;
+        stateSearch.contents = action.payload.response.data.kinderGartens;
+        stateSearch.page.current = action.payload.response.data.currentpage;
+        stateSearch.page.total = action.payload.response.data.totalPage;
       }),
     [GET_REGISTER_SEARCH_FAILURE]: (state) =>
       produce(state, (draft) => {
