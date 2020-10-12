@@ -28,6 +28,7 @@ export const FormInput = ({ element, setRegister, state }) => (
     error={inputPropsByValid(state.valid[element.id])}
     type={element.type}
     placeholder={element.placeholder}
+    helperText="helper text"
     label={element.title}
     onChange={(event) =>
       setRegister({ name: element.id, value: event.target.value })
@@ -44,7 +45,7 @@ export const FormButton = ({ element, getExistId, id }) => (
     color="primary"
     onClick={(event) =>
       getExistId(id).then((res) => {
-        alert(res.data.msg);
+        alert(res.data);
       })
     }
   >

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
-import SearchKindergarten from "./SearchKindergarten";
+import SearchKindergarten from "../../../containers/RegisterPage/SearchKindergartenContainer";
 import { contents } from "./registerConents";
 import { isEveryFieldValid } from "../../../utils/validation";
 import { FormInput, FormButton, FormDropdown } from "./RegisterFormComp";
@@ -68,11 +68,12 @@ const RegisterForm = ({
 
     if (path === "선생님" || path === "원장님") {
       // 선택한 소속 유치원을 dataToSubmit에 추가
+      dataToSubmit.kindergarten_id = state.search.selected.id;
     }
 
     postRegister(dataToSubmit, path).then((res) => {
-      alert(res.data.msg);
-      if (res.data.success) {
+      alert(res.msg);
+      if (res.success) {
         history.push("/");
       }
     });
@@ -159,11 +160,7 @@ const RegisterForm = ({
           </div>
 
           {title === "선생님" || title === "원장님" ? (
-            <>
-              <p style={{ borderBottom: "1px solid gray", margin: "2rem" }}></p>
-              <span style={{ margin: "1rem" }}>소속 유치원</span>
-              <SearchKindergarten />
-            </>
+            <SearchKindergarten />
           ) : null}
 
           <div style={{ marginTop: "3rem" }}>

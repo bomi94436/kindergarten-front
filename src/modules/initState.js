@@ -2,6 +2,7 @@ const initState = {
   loading: {
     POST_REGISTER: false,
     GET_EXISTID: false,
+    GET_REGISTER_SEARCH: false,
   },
   register: {
     value: {
@@ -22,6 +23,20 @@ const initState = {
       phone: null,
       firstEmail: null,
       lastEmail: null,
+    },
+    search: {
+      opened: false,
+      type: "name",
+      value: "",
+      selected: {
+        id: null,
+        name: null,
+      },
+      contents: null,
+      page: {
+        total: null,
+        current: null,
+      },
     },
   },
 };

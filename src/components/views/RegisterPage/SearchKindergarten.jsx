@@ -8,9 +8,11 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
+import Pagination from "@material-ui/lab/Pagination";
 import { ImNewTab } from "react-icons/im";
 import { FaSearch } from "react-icons/fa";
-import SearchKindergartenItems from "./SearchKindergartenItems";
+
+import SearchKindergartenItem from "./SearchKindergartenItem";
 
 const ModalCover = styled(Modal)`
   display: flex;
@@ -22,8 +24,8 @@ const ModalCover = styled(Modal)`
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    width: 500,
-    height: 700,
+    width: "500px",
+    height: "700px",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -57,10 +59,16 @@ const StyledRow = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-const StyledRadio = () => {
+const StyledRadio = ({ value, setRegisterSearch }) => {
   return (
-    <FormControl component="fieldset">
-      <RadioGroup row aria-label="gender" name="gender1">
+    <FormControl>
+      <RadioGroup
+        row
+        value={value}
+        onChange={(event) =>
+          setRegisterSearch({ name: "type", value: event.target.value })
+        }
+      >
         <FormControlLabel
           value="name"
           control={<Radio color="primary" />}
@@ -68,7 +76,7 @@ const StyledRadio = () => {
         />
         <div style={{ margin: "1rem" }}></div>
         <FormControlLabel
-          value="address"
+          value="addr"
           control={<Radio color="primary" />}
           label="주소로 검색"
         />
@@ -81,16 +89,26 @@ const StyledInput = styled(TextField)`
   flex-grow: 1;
 `;
 
-const SearchKindergarten = () => {
+const SearchKindergarten = ({
+  state,
+  setRegisterSearch,
+  getRegisterSearch,
+}) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    setRegisterSearch({ name: "opened", value: true });
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setRegisterSearch({ name: "opened", value: false });
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    getRegisterSearch(state.type, state.value, 0).then((res) => {
+      // console.log(res);
+    });
   };
 
   const contents = (
@@ -106,58 +124,100 @@ const SearchKindergarten = () => {
         }}
       >
         <StyledRow>
-          <StyledRadio />
+          <StyledRadio
+            value={state.type}
+            setRegisterSearch={setRegisterSearch}
+          />
         </StyledRow>
 
         <StyledRow>
-          <StyledInput variant="outlined" type="text" />
+          <StyledInput
+            variant="outlined"
+            type="text"
+            value={state.value}
+            onChange={(event) =>
+              setRegisterSearch({ name: "value", value: event.target.value })
+            }
+          />
           <Button
-            type="button"
+            type="submit"
             variant="contained"
             color="primary"
             style={{ marginLeft: "1rem" }}
+            onClick={(event) => handleSearch(event)}
           >
             <FaSearch />
           </Button>
         </StyledRow>
 
-        <div>
-          <SearchKindergartenItems />
-        </div>
+        <StyledRow style={{ flexFlow: "column wrap" }}>
+          <div
+            style={{ overflow: "hidden", overflowY: "scroll", height: "460px" }}
+          >
+            {state.contents
+              ? state.contents.map((element) => {
+                  return (
+                    <SearchKindergartenItem
+                      key={element.id}
+                      id={element.id}
+                      name={element.name}
+                      address={element.address}
+                      type={element.type}
+                      setRegisterSearch={setRegisterSearch}
+                    />
+                  );
+                })
+              : null}
+          </div>
+        </StyledRow>
+
+        <StyledRow>
+          <Pagination
+            count={state.page.total}
+            color="primary"
+            style={{ margin: "0.5rem" }}
+            onChange={(event, value) =>
+              getRegisterSearch(state.type, state.value, value)
+            }
+          />
+        </StyledRow>
       </div>
     </StyledContents>
   );
 
   return (
-    <div>
-      <StyledInput variant="outlined" type="text" disabled />
-      <div
-        style={{
-          display: "flex",
-          alignSelf: "stretch",
-          marginLeft: "1rem",
-        }}
-      >
+    <>
+      <p style={{ borderBottom: "1px solid gray", margin: "2rem" }}></p>
+      <span style={{ margin: "1rem" }}>소속 유치원</span>
+      <div>
+        <StyledInput
+          variant="outlined"
+          type="text"
+          value={state.selected.name || ""}
+          height="50%"
+          disabled
+        />
         <Button
           type="button"
           variant="contained"
           color="primary"
+          style={{ marginLeft: "1rem" }}
           onClick={handleOpen}
         >
           유치원 검색&nbsp;
           <ImNewTab />
         </Button>
-      </div>
 
-      <ModalCover
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        {contents}
-      </ModalCover>
-    </div>
+        <ModalCover
+          open={state.opened}
+          onClose={handleClose}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+        >
+          {contents}
+        </ModalCover>
+      </div>
+    </>
   );
 };
 

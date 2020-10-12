@@ -5,6 +5,7 @@ import * as api from "../../utils/api";
 import { validateRegister } from "../../utils/validation";
 
 const SET_REGISTER = "user/SET_REGISTER";
+const SET_REGISTER_SEARCH = "user/SET_REGISTER_SEARCH";
 
 const POST_REGISTER = "user/POST_REGISTER";
 const POST_REGISTER_SUCCESS = "user/POST_REGISTER_SUCCESS";
@@ -14,7 +15,15 @@ const GET_EXISTID = "user/GET_EXISTID";
 const GET_EXISTID_SUCCESS = "user/GET_EXISTID_SUCCESS";
 const GET_EXISTID_FAILURE = "user/GET_EXISTID_FAILURE";
 
+const GET_REGISTER_SEARCH = "user/GET_REGISTER_SEARCH";
+const GET_REGISTER_SEARCH_SUCCESS = "user/GET_REGISTER_SEARCH_SUCCESS";
+const GET_REGISTER_SEARCH_FAILURE = "user/GET_REGISTER_SEARCH_FAILURE";
+
 export const setRegister = createAction(SET_REGISTER, (data) => data);
+export const setRegisterSearch = createAction(
+  SET_REGISTER_SEARCH,
+  (data) => data
+);
 
 export const postRegister = (dataToSubmit, path) => async (dispatch) => {
   dispatch({ type: POST_REGISTER });
@@ -47,7 +56,7 @@ export const getExistId = (id) => async (dispatch) => {
   dispatch({ type: GET_EXISTID });
   try {
     const response = await api.existid(id);
-    console.log(response);
+
     if (response.success) {
       dispatch({
         type: GET_EXISTID_SUCCESS,
@@ -67,6 +76,33 @@ export const getExistId = (id) => async (dispatch) => {
     return response;
   } catch (e) {
     dispatch({ type: GET_EXISTID_FAILURE, payload: e, error: true });
+  }
+};
+
+export const getRegisterSearch = (type, value, page) => async (dispatch) => {
+  dispatch({ type: GET_REGISTER_SEARCH });
+  try {
+    const response = await api.searchKindergarten(type, value, page);
+
+    if (response.success) {
+      dispatch({
+        type: GET_REGISTER_SEARCH_SUCCESS,
+        payload: {
+          response,
+        },
+      });
+    } else {
+      dispatch({
+        type: GET_REGISTER_SEARCH_FAILURE,
+        payload: {
+          response,
+        },
+      });
+    }
+
+    return response;
+  } catch (e) {
+    dispatch({ type: GET_REGISTER_SEARCH_FAILURE, payload: e, error: true });
   }
 };
 
@@ -101,6 +137,18 @@ const user = handleActions(
       });
     },
 
+    [SET_REGISTER_SEARCH]: (state, action) => {
+      const name = action.payload.name;
+      const value = action.payload.value;
+
+      return produce(state, (draft) => {
+        draft.register.search[name] = value;
+        if (name === "selected") {
+          draft.register.search.opened = false;
+        }
+      });
+    },
+
     [POST_REGISTER]: (state) =>
       produce(state, (draft) => {
         draft.loading.POST_REGISTER = true;
@@ -127,6 +175,25 @@ const user = handleActions(
       produce(state, (draft) => {
         draft.loading.GET_EXISTID = false;
         draft.register.valid.checkDuplication = false;
+      }),
+
+    [GET_REGISTER_SEARCH]: (state) =>
+      produce(state, (draft) => {
+        draft.loading.GET_REGISTER_SEARCH = true;
+      }),
+    [GET_REGISTER_SEARCH_SUCCESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.loading.GET_REGISTER_SEARCH = false;
+        draft.register.search.contents =
+          action.payload.response.data.kinderGartens;
+        draft.register.search.page.current =
+          action.payload.response.data.currentpage;
+        draft.register.search.page.total =
+          action.payload.response.data.totalPage;
+      }),
+    [GET_REGISTER_SEARCH_FAILURE]: (state) =>
+      produce(state, (draft) => {
+        draft.loading.GET_REGISTER_SEARCH = false;
       }),
   },
   initState

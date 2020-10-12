@@ -52,7 +52,7 @@ export const contents = {
     id: "lastEmail",
     title: "",
     type: "text",
-    placeholder: "",
+    placeholder: "example.com",
   },
   emailList: {
     html: "dropdown",

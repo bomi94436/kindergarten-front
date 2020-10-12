@@ -15,19 +15,7 @@ const persistConfig = {
 
 // persist 미적용
 
-// const reducer = reduceReducers(initState, user);
-
-// export default function configureStore() {
-//   const store = createStore(
-//     reducer,
-//     composeWithDevTools(applyMiddleware(ReduxThunk))
-//   );
-//   const persistor = persistStore(store);
-//   return { store };
-// }
-
-const rootReducer = reduceReducers(initState, user);
-const reducer = persistReducer(persistConfig, rootReducer);
+const reducer = reduceReducers(initState, user);
 
 export default function configureStore() {
   const store = createStore(
@@ -35,5 +23,17 @@ export default function configureStore() {
     composeWithDevTools(applyMiddleware(ReduxThunk))
   );
   const persistor = persistStore(store);
-  return { store, persistor };
+  return { store };
 }
+
+// const rootReducer = reduceReducers(initState, user);
+// const reducer = persistReducer(persistConfig, rootReducer);
+
+// export default function configureStore() {
+//   const store = createStore(
+//     reducer,
+//     composeWithDevTools(applyMiddleware(ReduxThunk))
+//   );
+//   const persistor = persistStore(store);
+//   return { store, persistor };
+// }
