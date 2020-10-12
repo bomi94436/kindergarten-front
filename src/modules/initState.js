@@ -16,7 +16,10 @@ const initState = {
     },
     valid: {
       userid: null,
-      checkDuplication: null,
+      checkDuplication: {
+        checked: null,
+        id: null,
+      },
       password: null,
       rePassword: null,
       name: null,

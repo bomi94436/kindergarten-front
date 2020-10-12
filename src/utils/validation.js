@@ -66,6 +66,7 @@ export const inputIdByValid = (valid) => {
 export const isEveryFieldValid = (state) => {
   for (const [key, value] of Object.entries(state)) {
     if (!value) return false;
+    else if (key === "checkDuplication" && value.checked !== true) return false;
   }
   return true;
 };

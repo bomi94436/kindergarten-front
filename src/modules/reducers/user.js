@@ -4,17 +4,30 @@ import initState from "../../modules/initState";
 import * as api from "../../utils/api";
 import { validateRegister } from "../../utils/validation";
 
+/* 
+  회원가입 필드 입력
+*/
 const SET_REGISTER = "user/SET_REGISTER";
+
 const SET_REGISTER_SEARCH = "user/SET_REGISTER_SEARCH";
 
+/* 
+  회원가입 버튼 클릭
+*/
 const POST_REGISTER = "user/POST_REGISTER";
 const POST_REGISTER_SUCCESS = "user/POST_REGISTER_SUCCESS";
 const POST_REGISTER_FAILURE = "user/POST_REGISTER_FAILURE";
 
+/* 
+  회원가입 아이디 중복 확인
+*/
 const GET_EXISTID = "user/GET_EXISTID";
 const GET_EXISTID_SUCCESS = "user/GET_EXISTID_SUCCESS";
 const GET_EXISTID_FAILURE = "user/GET_EXISTID_FAILURE";
 
+/* 
+  회원가입 유치원 검색
+*/
 const GET_REGISTER_SEARCH = "user/GET_REGISTER_SEARCH";
 const GET_REGISTER_SEARCH_SUCCESS = "user/GET_REGISTER_SEARCH_SUCCESS";
 const GET_REGISTER_SEARCH_FAILURE = "user/GET_REGISTER_SEARCH_FAILURE";
@@ -114,25 +127,28 @@ const user = handleActions(
 
       return produce(state, (draft) => {
         draft.register.value[name] = value;
+
+        let stateValue = draft.register.value;
+        let stateValid = draft.register.valid;
+
         if (name === "emailList") {
-          draft.register.value.lastEmail = value;
+          stateValue.lastEmail = value;
           if (value === "직접 입력") {
-            draft.register.value.lastEmail = "";
+            stateValue.lastEmail = "";
           }
         }
         if (name === "rePassword") {
-          draft.register.valid[name] = validateRegister(
-            name,
-            value,
-            draft.register.value.password
-          );
+          stateValid[name] = validateRegister(name, value, stateValue.password);
         } else if (name === "emailList") {
-          draft.register.valid.lastEmail = validateRegister(
-            name,
-            draft.register.value.lastEmail
-          );
+          stateValid.lastEmail = validateRegister(name, stateValue.lastEmail);
+        } else if (
+          name === "userid" &&
+          stateValid.checkDuplication.checked &&
+          value !== stateValid.checkDuplication.id
+        ) {
+          stateValid.checkDuplication.checked = false;
         } else {
-          draft.register.valid[name] = validateRegister(name, value);
+          stateValid[name] = validateRegister(name, value);
         }
       });
     },
@@ -169,12 +185,13 @@ const user = handleActions(
     [GET_EXISTID_SUCCESS]: (state, action) =>
       produce(state, (draft) => {
         draft.loading.GET_EXISTID = false;
-        draft.register.valid.checkDuplication = true;
+        draft.register.valid.checkDuplication.checked = true;
+        draft.register.valid.checkDuplication.id = draft.register.value.userid;
       }),
     [GET_EXISTID_FAILURE]: (state) =>
       produce(state, (draft) => {
         draft.loading.GET_EXISTID = false;
-        draft.register.valid.checkDuplication = false;
+        draft.register.valid.checkDuplication.checked = false;
       }),
 
     [GET_REGISTER_SEARCH]: (state) =>
