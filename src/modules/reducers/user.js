@@ -150,7 +150,10 @@ const user = handleActions(
         if (name === "rePassword") {
           stateValid[name] = validateRegister(name, value, stateValue.password);
         } else if (name === "emailList") {
-          stateValid.lastEmail = validateRegister(name, stateValue.lastEmail);
+          stateValid.lastEmail = validateRegister(
+            "lastEmail",
+            stateValue.lastEmail
+          );
         } else if (
           name === "userid" &&
           stateValid.checkDuplication.checked &&
@@ -165,15 +168,36 @@ const user = handleActions(
 
     [SET_REGISTER_VALID]: (state, action) => {
       const type = action.payload.type;
+      const act = action.payload.act;
+      const id = action.payload.id;
 
       return produce(state, (draft) => {
-        if (type === "user") {
-          delete draft.register.valid.kindergarten_id;
-        } else {
-          if (!draft.register.search.selected.id) {
-            draft.register.valid.kindergarten_id = null;
+        let students = draft.register.students;
+        if (act === "set") {
+          switch (type) {
+            case "user":
+              delete draft.register.valid.kindergarten_id;
+              break;
+
+            case "teacher":
+            case "director":
+              if (!draft.register.search.selected.id) {
+                draft.register.valid.kindergarten_id = null;
+              }
+              draft.register.students = [];
+              break;
+
+            default:
+              break;
           }
-          delete draft.register.valid.student;
+        } else if (act === "insert" && type === "user") {
+          students.push(draft.register.student);
+          students[students.length - 1].id = id;
+        } else if (act === "delete" && type === "user") {
+          students.splice(
+            students.findIndex((element) => element.id === id),
+            1
+          );
         }
       });
     },

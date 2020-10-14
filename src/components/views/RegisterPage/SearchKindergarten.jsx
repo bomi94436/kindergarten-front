@@ -194,7 +194,6 @@ const SearchKindergarten = ({
           variant="outlined"
           type="text"
           value={state.selected.name || ""}
-          height="50%"
           disabled
         />
         <Button

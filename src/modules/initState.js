@@ -27,6 +27,7 @@ const initState = {
       firstEmail: null,
       lastEmail: null,
     },
+    students: [],
     search: {
       opened: false,
       type: "name",
@@ -40,6 +41,19 @@ const initState = {
         total: null,
         current: null,
       },
+    },
+    student: {
+      id: null,
+      // value: {
+      //   name: "",
+      //   date: new Date(),
+      //   kindergarten_id: null,
+      // },
+      // valid: {
+      //   name: null,
+      //   date: null,
+      //   kindergarten_id: null,
+      // },
     },
   },
 };

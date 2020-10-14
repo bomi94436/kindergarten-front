@@ -7,6 +7,7 @@ import SearchKindergarten from "../../../containers/RegisterPage/SearchKindergar
 import { contents } from "./registerConents";
 import { isEveryFieldValid } from "../../../utils/validation";
 import { FormInput, FormButton, FormDropdown } from "./RegisterFormComp";
+import AddStudent from "../../../containers/RegisterPage/AddStudentContainer";
 
 const FormCover = styled.div`
   max-width: 50%;
@@ -48,13 +49,13 @@ const RegisterForm = ({
     const path = history.location.pathname.split("/")[2];
     if (path === "user") {
       setTitle("학부모(일반회원)");
-      setRegisterValid({ type: "user" });
+      setRegisterValid({ type: "user", act: "set" });
     } else if (path === "teacher") {
       setTitle("선생님");
-      setRegisterValid({ type: "teacher" });
+      setRegisterValid({ type: "teacher", act: "set" });
     } else if (path === "director") {
       setTitle("원장님");
-      setRegisterValid({ type: "director" });
+      setRegisterValid({ type: "director", act: "set" });
     }
   }, [history.location.pathname, setRegisterValid]);
 
@@ -165,7 +166,9 @@ const RegisterForm = ({
 
           {title === "선생님" || title === "원장님" ? (
             <SearchKindergarten />
-          ) : null}
+          ) : (
+            <AddStudent />
+          )}
 
           <div style={{ marginTop: "3rem" }}>
             {isEveryFieldValid(state.valid) ? (
