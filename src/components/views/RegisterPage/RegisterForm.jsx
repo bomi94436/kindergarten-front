@@ -49,13 +49,13 @@ const RegisterForm = ({
     const path = history.location.pathname.split("/")[2];
     if (path === "user") {
       setTitle("학부모(일반회원)");
-      setRegisterValid({ type: "user", act: "set" });
+      setRegisterValid({ actor: "user", act: "set" });
     } else if (path === "teacher") {
       setTitle("선생님");
-      setRegisterValid({ type: "teacher", act: "set" });
+      setRegisterValid({ actor: "teacher", act: "set" });
     } else if (path === "director") {
       setTitle("원장님");
-      setRegisterValid({ type: "director", act: "set" });
+      setRegisterValid({ actor: "director", act: "set" });
     }
   }, [history.location.pathname, setRegisterValid]);
 
@@ -171,7 +171,7 @@ const RegisterForm = ({
           )}
 
           <div style={{ marginTop: "3rem" }}>
-            {isEveryFieldValid(state.valid) ? (
+            {isEveryFieldValid(state.valid, state.students) ? (
               <StyledButton type="submit" variant="contained" color="primary">
                 회원가입
               </StyledButton>

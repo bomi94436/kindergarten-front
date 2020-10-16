@@ -4,7 +4,7 @@ import { setRegisterValid } from "../../modules/reducers/user";
 
 const AddStudentContainer = connect(
   (state) => ({
-    state: state.register.students,
+    students: state.register.students,
   }),
   (dispatch) => ({
     setRegisterValid: (data) => dispatch(setRegisterValid(data)),

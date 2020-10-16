@@ -43,16 +43,33 @@ const initState = {
       },
     },
     student: {
-      id: null,
-      // value: {
-      //   name: "",
-      //   date: new Date(),
-      //   kindergarten_id: null,
-      // },
-      // valid: {
-      //   name: null,
-      //   date: null,
-      //   kindergarten_id: null,
+      value: {
+        name: "",
+        date: new Date(),
+        kindergarten_id: null,
+      },
+      valid: {
+        name: null,
+        date: null,
+        kindergarten_id: null,
+      },
+      kindergarten_selected: {
+        id: null,
+        name: null,
+      },
+      // search: {
+      //   opened: false,
+      //   type: "name",
+      //   value: "",
+      //   selected: {
+      //     id: null,
+      //     name: null,
+      //   },
+      //   contents: null,
+      //   page: {
+      //     total: null,
+      //     current: null,
+      //   },
       // },
     },
   },

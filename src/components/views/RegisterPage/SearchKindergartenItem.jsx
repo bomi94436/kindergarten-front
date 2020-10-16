@@ -28,29 +28,35 @@ const Cover = styled.div`
 `;
 
 const SearchKindergartenItem = ({
-  id,
-  name,
-  address,
-  type,
+  item,
+  actor,
   setRegisterSearch,
+  handleClose,
+  index,
 }) => {
   return (
     <Cover>
       <div>
-        <p style={{ display: "none" }}>{id}</p>
-        <p>{type}</p>
-        <h1>{name}</h1>
+        <p style={{ display: "none" }}>{item.id}</p>
+        <p>{item.type}</p>
+        <h1>{item.name}</h1>
         <p>
           <FaMapMarkerAlt />
-          {address}
+          {item.address}
         </p>
       </div>
       <Button
         type="button"
         color="primary"
-        onClick={(event) =>
-          setRegisterSearch({ name: "selected", value: { id: id, name: name } })
-        }
+        onClick={() => {
+          setRegisterSearch({
+            name: "selected",
+            value: { id: item.id, name: item.name },
+            actor: actor,
+            index: index,
+          });
+          handleClose();
+        }}
       >
         선택
       </Button>

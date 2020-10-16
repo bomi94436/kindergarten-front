@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 
 import { FaPlus } from "react-icons/fa";
-import AddStudentItem from "./AddStudentItem";
+import AddStudentItem from "../../../containers/RegisterPage/AddStudentItemContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddStudent = ({ state, setRegisterValid }) => {
+const AddStudent = ({ students, setRegisterValid }) => {
   const classes = useStyles();
-  const [id, setId] = useState(0);
 
   return (
     <>
@@ -37,11 +36,9 @@ const AddStudent = ({ state, setRegisterValid }) => {
           color="primary"
           onClick={() => {
             setRegisterValid({
-              type: "user",
+              actor: "user",
               act: "insert",
-              id: id,
             });
-            setId(id + 1);
           }}
         >
           <FaPlus />
@@ -66,13 +63,8 @@ const AddStudent = ({ state, setRegisterValid }) => {
 
         <p style={{ borderBottom: "1px solid gray", margin: "0.5rem" }}></p>
 
-        {state.map((element) => {
-          return (
-            <AddStudentItem
-              id={element.id}
-              setRegisterValid={setRegisterValid}
-            />
-          );
+        {students.map((element, index) => {
+          return <AddStudentItem key={index} index={index} student={element} />;
         })}
       </div>
     </>

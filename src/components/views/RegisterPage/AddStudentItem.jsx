@@ -9,8 +9,10 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import { AiOutlineMinusCircle } from "react-icons/ai";
+import { HiMinusCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
+
+import SearchKindergartenDialog from "./SearchKindergartenDialog";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -23,13 +25,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddStudentItem = ({ id, setRegisterValid }) => {
+const AddStudentItem = ({
+  index,
+  student,
+  search,
+  setRegister,
+  setRegisterValid,
+  setRegisterSearch,
+  getRegisterSearch,
+}) => {
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const handleOpen = () => {
+    setRegisterSearch({ name: "opened", value: true });
   };
 
   return (
@@ -41,6 +49,15 @@ const AddStudentItem = ({ id, setRegisterValid }) => {
             variant="outlined"
             type="text"
             size="small"
+            value={student.value.name || ""}
+            onChange={(event) =>
+              setRegister({
+                name: "name",
+                value: event.target.value,
+                actor: "student",
+                index: index,
+              })
+            }
             className={classes.input}
           />
         </Grid>
@@ -49,10 +66,16 @@ const AddStudentItem = ({ id, setRegisterValid }) => {
         <Grid item xs={4} style={{ display: "flex" }}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
-              id="date-picker-dialog"
               format="yyyy/MM/dd"
-              value={selectedDate}
-              onChange={handleDateChange}
+              value={student.value.date}
+              onChange={(date) =>
+                setRegister({
+                  name: "date",
+                  value: date,
+                  actor: "student",
+                  index: index,
+                })
+              }
               className={classes.input}
             />
           </MuiPickersUtilsProvider>
@@ -60,16 +83,30 @@ const AddStudentItem = ({ id, setRegisterValid }) => {
 
         {/* 소속 유치원 */}
         <Grid item xs={4} style={{ display: "flex" }}>
-          <TextField variant="outlined" type="text" size="small" disabled />
+          <TextField
+            variant="outlined"
+            type="text"
+            size="small"
+            value={student.kindergarten_selected.name || ""}
+            disabled
+          />
           <IconButton
             type="button"
             variant="contained"
             color="primary"
             size="small"
             style={{ margin: "0.2rem", width: 33 }}
+            onClick={handleOpen}
           >
             <FaSearch />
           </IconButton>
+          <SearchKindergartenDialog
+            search={search}
+            setRegisterSearch={setRegisterSearch}
+            getRegisterSearch={getRegisterSearch}
+            actor="student"
+            index={index}
+          />
         </Grid>
 
         {/* 삭제 버튼 */}
@@ -88,13 +125,13 @@ const AddStudentItem = ({ id, setRegisterValid }) => {
             color="secondary"
             onClick={() =>
               setRegisterValid({
-                type: "user",
+                actor: "user",
                 act: "delete",
-                id: id,
+                index: index,
               })
             }
           >
-            <AiOutlineMinusCircle />
+            <HiMinusCircle />
           </IconButton>
         </Grid>
       </Grid>

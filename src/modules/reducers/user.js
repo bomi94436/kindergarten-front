@@ -134,47 +134,68 @@ const user = handleActions(
     [SET_REGISTER]: (state, action) => {
       const name = action.payload.name;
       const value = action.payload.value;
+      const actor = action.payload.actor;
+      const index = action.payload.index;
 
       return produce(state, (draft) => {
+        if (actor === "student") {
+          draft.register.students[index].value[name] = value;
+          draft.register.students[index].valid[name] = validateRegister(
+            name,
+            value
+          );
+          return;
+        }
+
         draft.register.value[name] = value;
 
         let stateValue = draft.register.value;
         let stateValid = draft.register.valid;
 
-        if (name === "emailList") {
-          stateValue.lastEmail = value;
-          if (value === "직접 입력") {
-            stateValue.lastEmail = "";
-          }
-        }
-        if (name === "rePassword") {
-          stateValid[name] = validateRegister(name, value, stateValue.password);
-        } else if (name === "emailList") {
-          stateValid.lastEmail = validateRegister(
-            "lastEmail",
-            stateValue.lastEmail
-          );
-        } else if (
-          name === "userid" &&
-          stateValid.checkDuplication.checked &&
-          value !== stateValid.checkDuplication.id
-        ) {
-          stateValid.checkDuplication.checked = false;
-        } else {
-          stateValid[name] = validateRegister(name, value);
+        switch (name) {
+          case "emailList":
+            stateValue.lastEmail = value;
+            if (value === "직접 입력") {
+              stateValue.lastEmail = "";
+            }
+            stateValid.lastEmail = validateRegister(
+              "lastEmail",
+              stateValue.lastEmail
+            );
+            break;
+
+          case "rePassword":
+            stateValid[name] = validateRegister(
+              name,
+              value,
+              stateValue.password
+            );
+            break;
+
+          default:
+            if (
+              name === "userid" &&
+              stateValid.checkDuplication.checked &&
+              value !== stateValid.checkDuplication.id
+            ) {
+              stateValid.checkDuplication.checked = false;
+            }
+            stateValid[name] = validateRegister(name, value);
+            break;
         }
       });
     },
 
     [SET_REGISTER_VALID]: (state, action) => {
-      const type = action.payload.type;
+      const actor = action.payload.actor;
       const act = action.payload.act;
-      const id = action.payload.id;
+      const index = action.payload.index;
 
       return produce(state, (draft) => {
         let students = draft.register.students;
+
         if (act === "set") {
-          switch (type) {
+          switch (actor) {
             case "user":
               delete draft.register.valid.kindergarten_id;
               break;
@@ -190,14 +211,10 @@ const user = handleActions(
             default:
               break;
           }
-        } else if (act === "insert" && type === "user") {
+        } else if (act === "insert" && actor === "user") {
           students.push(draft.register.student);
-          students[students.length - 1].id = id;
-        } else if (act === "delete" && type === "user") {
-          students.splice(
-            students.findIndex((element) => element.id === id),
-            1
-          );
+        } else if (act === "delete" && actor === "user") {
+          students.splice(index, 1);
         }
       });
     },
@@ -205,12 +222,28 @@ const user = handleActions(
     [SET_REGISTER_SEARCH]: (state, action) => {
       const name = action.payload.name;
       const value = action.payload.value;
+      const actor = action.payload.actor;
+      const index = action.payload.index;
 
       return produce(state, (draft) => {
         draft.register.search[name] = value;
-        if (name === "selected") {
-          draft.register.valid.kindergarten_id = true;
-          draft.register.search.opened = false;
+
+        switch (actor) {
+          case "student":
+            if (name === "selected") {
+              draft.register.students[index].value.kindergarten_id = value.id;
+              draft.register.students[index].kindergarten_selected = value;
+              draft.register.students[index].valid.kindergarten_id = true;
+              draft.register.search.opened = false;
+            }
+            break;
+
+          default:
+            if (name === "selected") {
+              draft.register.valid.kindergarten_id = true;
+              draft.register.search.opened = false;
+            }
+            break;
         }
       });
     },

@@ -1,8 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { createMemoryHistory } from "history";
+import configureMockStore from "../../../../modules/store";
 import RegisterForm from "../../../../components/views/RegisterPage/RegisterForm";
 import initState from "../../../../modules/initState";
+import { Provider } from "react-redux";
 
 describe("<RegisterForm /> 에서", () => {
   const history = createMemoryHistory();
@@ -12,11 +14,25 @@ describe("<RegisterForm /> 에서", () => {
     "선생님 회원가입",
     "원장님 회원가입",
   ];
+  const mockChange = jest.fn();
+  const mockApi = jest.fn(() => Promise.resolve("response"));
 
   const setup = (path) => {
+    const { store } = configureMockStore();
+    let state = initState.register;
     history.push(`/register/${path}`);
+
     return render(
-      <RegisterForm history={history} state={initState.register} />
+      <Provider store={store}>
+        <RegisterForm
+          history={history}
+          state={state}
+          setRegister={mockChange}
+          setRegisterValid={mockApi}
+          postRegister={mockApi}
+          getExistId={mockApi}
+        />
+      </Provider>
     );
   };
 
