@@ -74,6 +74,18 @@ const RegisterForm = ({
 
     if (path === "teacher" || path === "director") {
       dataToSubmit.kindergarten_id = state.search.selected.id;
+    } else if (path === "user" && state.students) {
+      dataToSubmit.student = [];
+      state.students.forEach((student) => {
+        let studentData = {
+          kindergarten_id: student.value.kindergarten_id,
+          name: student.value.name,
+          year: student.value.date.getFullYear().toString(),
+          month: (student.value.date.getMonth() + 1).toString(),
+          day: student.value.date.getDate().toString(),
+        };
+        dataToSubmit.student.push(studentData);
+      });
     }
 
     postRegister(dataToSubmit, path).then((res) => {
