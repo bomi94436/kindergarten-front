@@ -10,12 +10,19 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <NavBar />
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route component={NotFound} />
-        </Switch>
+        <Route
+          path="/"
+          render={({ history }) => (
+            <React.Fragment>
+              <NavBar history={history} />
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route path="/register" component={RegisterPage} />
+                <Route component={NotFound} />
+              </Switch>
+            </React.Fragment>
+          )}
+        ></Route>
       </Router>
     </div>
   );

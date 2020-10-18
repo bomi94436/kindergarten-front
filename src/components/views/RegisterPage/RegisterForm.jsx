@@ -8,6 +8,7 @@ import { contents } from "./registerConents";
 import { isEveryFieldValid } from "../../../utils/validation";
 import { FormInput, FormButton, FormDropdown } from "./RegisterFormComp";
 import AddStudent from "../../../containers/RegisterPage/AddStudentContainer";
+import "../../../utils/styles.css";
 
 const FormCover = styled.div`
   max-width: 50%;
@@ -97,7 +98,10 @@ const RegisterForm = ({
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div
+      style={{ display: "flex", justifyContent: "center" }}
+      className="container"
+    >
       <FormCover>
         <p style={{ fontSize: "2rem", fontWeight: 500 }}>{title} 회원가입</p>
 
