@@ -13,6 +13,17 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+import Drawer from "@material-ui/core/Drawer";
+import { GoSearch } from "react-icons/go";
+import { BsCheckBox } from "react-icons/bs";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row wrap",
     justifyContent: "flex-end",
   },
-
   grow: {
     flexGrow: 1,
   },
@@ -53,11 +63,15 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  list: {
+    width: 250,
+  },
 }));
 
 const NavBar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openDrawer, setOpenDrawer] = React.useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -78,6 +92,17 @@ const NavBar = () => {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setOpenDrawer(open);
   };
 
   const menuId = "primary-search-account-menu";
@@ -125,6 +150,33 @@ const NavBar = () => {
     </Menu>
   );
 
+  const list = (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <GoSearch />
+          </ListItemIcon>
+          <ListItemText primary="유치원 검색" />
+        </ListItem>
+
+        <ListItem button>
+          <ListItemIcon>
+            <BsCheckBox />
+          </ListItemIcon>
+          <ListItemText primary="유치원 리뷰 조회" />
+        </ListItem>
+      </List>
+
+      <Divider />
+    </div>
+  );
+
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -134,9 +186,13 @@ const NavBar = () => {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            onClick={toggleDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
+          <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer(false)}>
+            {list}
+          </Drawer>
 
           <Typography className={classes.title} variant="h6" noWrap>
             <Link to="/" className={classes.title}>
