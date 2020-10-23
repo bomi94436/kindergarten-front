@@ -1,6 +1,7 @@
 .container {
-  width: 1000px;
   margin: 0 auto;
+  width: 95%;
+  max-width: 1000px;
   @media screen and (max-width: 1000px) {
     width: 100%;
     padding-left: 1rem;

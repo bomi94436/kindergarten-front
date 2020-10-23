@@ -5,24 +5,19 @@ import NavBar from "./views/NavBar/NavBar";
 import LandingPage from "./views/LandingPage/LandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NotFound from "./views/NotFound/NotFound";
+import LoginPage from "../containers/LoginPage/LoginPageContainer";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Route
-          path="/"
-          render={({ history }) => (
-            <React.Fragment>
-              <NavBar history={history} />
-              <Switch>
-                <Route exact path="/" component={LandingPage} />
-                <Route path="/register" component={RegisterPage} />
-                <Route component={NotFound} />
-              </Switch>
-            </React.Fragment>
-          )}
-        ></Route>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route component={NotFound} />
+        </Switch>
       </Router>
     </div>
   );

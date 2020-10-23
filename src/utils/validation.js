@@ -82,3 +82,18 @@ export const isEveryFieldValid = (state, students) => {
   }
   return true;
 };
+
+export const validateLogin = (target, value) => {
+  switch (target) {
+    case "userid":
+      if (value) return true;
+      else return false;
+
+    case "password":
+      if (value) return true;
+      else return false;
+
+    default:
+      return null;
+  }
+};

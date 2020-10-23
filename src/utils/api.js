@@ -1,7 +1,35 @@
 import axios from "./axios";
-import { USER_SERVER, KINDERGARTEN_SERVER } from "./config";
+import { AUTH_SERVER, USER_SERVER, KINDERGARTEN_SERVER } from "./config";
 
-export const register = (dataToSubmit, path) =>
+export const login = (dataToSubmit) =>
+  axios
+    .post(`${AUTH_SERVER}/login`, dataToSubmit, { withCredentials: true })
+    .then((response) => {
+      console.log(document.cookie);
+      console.log(response);
+      return response.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return {
+          data: {
+            success: false,
+            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
+          },
+        };
+      } else {
+        return {
+          data: {
+            success: false,
+            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
+          },
+        };
+      }
+    });
+
+export const register = (dataToSubmit) =>
   axios
     .post(`${USER_SERVER}/`, dataToSubmit)
     .then((response) => response.data)

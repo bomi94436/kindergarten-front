@@ -1,5 +1,6 @@
 const initState = {
   loading: {
+    POST_LOGIN: false,
     POST_REGISTER: false,
     GET_EXISTID: false,
     GET_REGISTER_SEARCH: false,
@@ -57,20 +58,16 @@ const initState = {
         id: null,
         name: null,
       },
-      // search: {
-      //   opened: false,
-      //   type: "name",
-      //   value: "",
-      //   selected: {
-      //     id: null,
-      //     name: null,
-      //   },
-      //   contents: null,
-      //   page: {
-      //     total: null,
-      //     current: null,
-      //   },
-      // },
+    },
+  },
+  login: {
+    value: {
+      userid: "",
+      password: "",
+    },
+    valid: {
+      userid: null,
+      password: null,
     },
   },
 };

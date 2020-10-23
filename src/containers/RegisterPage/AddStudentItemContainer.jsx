@@ -5,7 +5,7 @@ import {
   setRegisterValid,
   setRegisterSearch,
   getRegisterSearch,
-} from "../../modules/reducers/user";
+} from "../../modules/reducers/register";
 
 const AddStudentItemContainer = connect(
   (state) => ({

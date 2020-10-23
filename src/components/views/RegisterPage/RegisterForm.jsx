@@ -89,7 +89,7 @@ const RegisterForm = ({
       });
     }
 
-    postRegister(dataToSubmit, path).then((res) => {
+    postRegister(dataToSubmit).then((res) => {
       alert(res.msg);
       if (res.success) {
         history.push("/");

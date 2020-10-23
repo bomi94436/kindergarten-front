@@ -2,19 +2,17 @@ import { createStore, applyMiddleware } from "redux";
 import reduceReducers from "reduce-reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 import ReduxThunk from "redux-thunk";
+
 // import { persistStore, persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 
 import initState from "./initState";
-import user from "./reducers/user";
-
-// const persistConfig = {
-//   key: "root",
-//   storage,
-// };
+import register from "./reducers/register";
+import login from "./reducers/login";
 
 // persist 미적용
-const reducer = reduceReducers(initState, user);
+
+const reducer = reduceReducers(initState, register, login);
 
 export default function configureStore() {
   const store = createStore(
@@ -24,7 +22,16 @@ export default function configureStore() {
   return { store };
 }
 
-// const rootReducer = reduceReducers(initState, user);
+// ----------------------------------------------------------
+
+// persist 적용
+
+// const persistConfig = {
+//   key: "root",
+//   storage,
+// };
+
+// const rootReducer = reduceReducers(initState, register, login);
 // const reducer = persistReducer(persistConfig, rootReducer);
 
 // export default function configureStore() {
