@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
-import SearchKindergarten from "./SearchKindergarten";
+import SearchKindergarten from "../../../containers/RegisterPage/SearchKindergartenContainer";
 import { contents } from "./registerConents";
 import { isEveryFieldValid } from "../../../utils/validation";
-import { FormInput, FormButton, FormDropdown } from "./RegisterFormComponent";
+import { FormInput, FormButton, FormDropdown } from "./RegisterFormComp";
+import AddStudent from "../../../containers/RegisterPage/AddStudentContainer";
 
 const FormCover = styled.div`
   max-width: 50%;
@@ -17,16 +18,17 @@ const FormCover = styled.div`
   justify-content: center;
 `;
 
-const ButtonCover = styled(Button)({
-  height: "4rem",
-  flexGrow: 1,
-  borderRadius: 50,
-});
+const StyledButton = styled(Button)`
+  height: 4rem;
+  flex-grow: 1;
+  font-size: 1.2rem;
+  border-radius: 30px;
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0.5),
       display: "flex",
     },
   },
@@ -36,6 +38,7 @@ const RegisterForm = ({
   history,
   state,
   setRegister,
+  setRegisterValid,
   postRegister,
   getExistId,
 }) => {
@@ -44,14 +47,17 @@ const RegisterForm = ({
 
   useEffect(() => {
     const path = history.location.pathname.split("/")[2];
-    if (path === "parent") {
+    if (path === "user") {
       setTitle("학부모(일반회원)");
+      setRegisterValid({ actor: "user", act: "set" });
     } else if (path === "teacher") {
       setTitle("선생님");
+      setRegisterValid({ actor: "teacher", act: "set" });
     } else if (path === "director") {
       setTitle("원장님");
+      setRegisterValid({ actor: "director", act: "set" });
     }
-  }, [history.location.pathname]);
+  }, [history.location.pathname, setRegisterValid]);
 
   const handleSubmit = (e) => {
     const path = history.location.pathname.split("/")[2];
@@ -63,15 +69,28 @@ const RegisterForm = ({
       name: state.value.name,
       phone: state.value.phone,
       email: `${state.value.firstEmail}@${state.value.lastEmail}`,
+      role: path.toUpperCase(),
     };
 
-    if (path === "선생님" || path === "원장님") {
-      // 선택한 소속 유치원을 dataToSubmit에 추가
+    if (path === "teacher" || path === "director") {
+      dataToSubmit.kindergarten_id = state.search.selected.id;
+    } else if (path === "user" && state.students) {
+      dataToSubmit.student = [];
+      state.students.forEach((student) => {
+        let studentData = {
+          kindergarten_id: student.value.kindergarten_id,
+          name: student.value.name,
+          year: student.value.date.getFullYear().toString(),
+          month: (student.value.date.getMonth() + 1).toString(),
+          day: student.value.date.getDate().toString(),
+        };
+        dataToSubmit.student.push(studentData);
+      });
     }
 
     postRegister(dataToSubmit, path).then((res) => {
-      alert(res.data.msg);
-      if (res.data.success) {
+      alert(res.msg);
+      if (res.success) {
         history.push("/");
       }
     });
@@ -93,7 +112,6 @@ const RegisterForm = ({
             <div
               style={{
                 display: "flex",
-                alignSelf: "stretch",
                 marginLeft: "1rem",
               }}
             >
@@ -145,7 +163,7 @@ const RegisterForm = ({
               setRegister={setRegister}
               state={state}
             />
-            <span style={{ margin: "1rem" }}>@</span>
+            <span style={{ margin: "0.5rem" }}>@</span>
             <FormInput
               element={contents.lastEmail}
               setRegister={setRegister}
@@ -160,22 +178,24 @@ const RegisterForm = ({
 
           {title === "선생님" || title === "원장님" ? (
             <SearchKindergarten />
-          ) : null}
+          ) : (
+            <AddStudent />
+          )}
 
           <div style={{ marginTop: "3rem" }}>
-            {isEveryFieldValid(state.valid) ? (
-              <ButtonCover type="submit" variant="contained" color="primary">
+            {isEveryFieldValid(state.valid, state.students) ? (
+              <StyledButton type="submit" variant="contained" color="primary">
                 회원가입
-              </ButtonCover>
+              </StyledButton>
             ) : (
-              <ButtonCover
+              <StyledButton
                 type="submit"
                 variant="contained"
                 color="primary"
                 disabled
               >
                 회원가입
-              </ButtonCover>
+              </StyledButton>
             )}
           </div>
         </form>

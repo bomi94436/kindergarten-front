@@ -2,38 +2,81 @@
 
 exports[`<RegisterPage />에서 스냅샷이 일치한다 1`] = `
 <div>
-  <div>
-    <div>
+  <div
+    style="display: flex; justify-content: center; margin-top: 7rem;"
+  >
+    <div
+      class="sc-bdnylx dmPkfG"
+    >
       <a
-        href="/register/parent"
+        class="sc-dlnjPT iIfUEH"
+        href="/register/user"
       >
-        <button>
-          학부모(일반회원)로 회원가입
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained sc-gtssRu dUXXgs MuiButton-containedPrimary"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            학부모(일반회원)로 회원가입
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
         </button>
       </a>
       <br />
       <a
+        class="sc-dlnjPT iIfUEH"
         href="/register/teacher"
       >
-        <button>
-          선생님으로 회원가입
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained sc-gtssRu dUXXgs MuiButton-containedPrimary"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            선생님으로 회원가입
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
         </button>
       </a>
       <br />
       <a
+        class="sc-dlnjPT iIfUEH"
         href="/register/director"
       >
-        <button>
-          원장님으로 회원가입
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained sc-gtssRu dUXXgs MuiButton-containedPrimary"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            원장님으로 회원가입
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
         </button>
       </a>
       <br />
-      이미 계정이 있으신가요? 
-      <a
-        href="/login"
-      >
-        로그인
-      </a>
+      <p>
+        이미 계정이 있으신가요? 
+        <a
+          class="sc-dlnjPT iIfUEH"
+          href="/login"
+        >
+          로그인
+        </a>
+      </p>
     </div>
   </div>
 </div>

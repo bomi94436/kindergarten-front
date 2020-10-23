@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const InputCover = styled(TextField)({
-  flexGrow: 1,
-});
+const InputCover = styled(TextField)`
+  flex-grow: 1;
+`;
 
 export const FormInput = ({ element, setRegister, state }) => (
   <InputCover
@@ -44,7 +44,7 @@ export const FormButton = ({ element, getExistId, id }) => (
     color="primary"
     onClick={(event) =>
       getExistId(id).then((res) => {
-        alert(res.data.msg);
+        alert(res.data);
       })
     }
   >

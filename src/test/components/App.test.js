@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import App from "components/App";
+import App from "../../components/App";
 
 describe("<App /> 에서", () => {
   it("잘 렌더링된다", () => {

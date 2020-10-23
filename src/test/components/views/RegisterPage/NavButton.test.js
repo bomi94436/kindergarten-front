@@ -2,7 +2,7 @@ import React from "react";
 import { Router } from "react-router-dom";
 import { render, fireEvent } from "@testing-library/react";
 import { createMemoryHistory } from "history";
-import NavButton from "components/views/RegisterPage/NavButton";
+import NavButton from "../../../../components/views/RegisterPage/NavButton";
 
 describe("<NavButton /> 에서", () => {
   const history = createMemoryHistory();

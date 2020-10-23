@@ -3,6 +3,7 @@
   margin: 0 auto;
   width: 1000px;
   font-family: "나눔바른고딕";
+  font-size: 1.1rem;
 
   @media screen and (max-width: 1000px) {
     width: 100%;
