@@ -90,7 +90,7 @@ const RegisterForm = ({
     }
 
     postRegister(dataToSubmit).then((res) => {
-      alert(res.msg);
+      alert(res.data.msg);
       if (res.success) {
         history.push("/");
       }
@@ -99,7 +99,11 @@ const RegisterForm = ({
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "center" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
       className="container"
     >
       <FormCover>
@@ -123,6 +127,7 @@ const RegisterForm = ({
                 element={contents.checkDuplication}
                 getExistId={getExistId}
                 id={state.value.userid}
+                isUseridValid={state.valid.userid}
               />
             </div>
           </div>

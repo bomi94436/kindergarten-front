@@ -32,7 +32,10 @@ export const login = (dataToSubmit) =>
 export const register = (dataToSubmit) =>
   axios
     .post(`${USER_SERVER}/`, dataToSubmit)
-    .then((response) => response.data)
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    })
     .catch((error) => {
       if (error.response) {
         // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.

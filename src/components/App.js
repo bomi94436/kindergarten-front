@@ -12,6 +12,7 @@ function App() {
     <div className="App">
       <Router>
         <NavBar />
+        <div style={{ height: "64px" }}></div>
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/register" component={RegisterPage} />

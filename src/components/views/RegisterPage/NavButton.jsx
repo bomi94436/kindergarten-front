@@ -31,8 +31,8 @@ const NavButton = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
-        marginTop: "7rem",
+        alignItems: "center",
+        height: "80vh",
       }}
       className="container"
     >

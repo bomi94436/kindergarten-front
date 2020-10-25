@@ -43,7 +43,7 @@ const DrawerIcon = ({ classes }) => {
           <ListItemIcon>
             <BsCheckBox />
           </ListItemIcon>
-          <ListItemText primary="유치원 리뷰 조회" />
+          <ListItemText primary="유치원 리뷰" />
         </ListItem>
       </List>
 

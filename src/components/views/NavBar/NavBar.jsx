@@ -9,24 +9,17 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
-import { DesktopMenu, MobileMenu, menuId, mobileMenuId } from "./Menu";
 import DrawerIcon from "./DrawerIcon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  tabs: {
-    display: "flex",
-    flexFlow: "row wrap",
-    justifyContent: "flex-end",
-  },
   grow: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
   },
   title: {
     display: "none",
@@ -34,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
     textDecoration: "none",
-    color: "white",
+    color: "inherit",
   },
   sectionDesktop: {
     display: "none",
@@ -59,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
   const classes = useStyles();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -83,9 +75,54 @@ const NavBar = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <Link to="/register" className={classes.sectionDesktopMenuItem}>
+        <MenuItem onClick={handleMenuClose}>회원가입</MenuItem>
+      </Link>
+      <Link to="/login" className={classes.sectionDesktopMenuItem}>
+        <MenuItem onClick={handleMenuClose}>로그인</MenuItem>
+      </Link>
+    </Menu>
+  );
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed" color="default">
         <Toolbar className="container">
           <DrawerIcon classes={classes} />
 
@@ -96,6 +133,7 @@ const NavBar = () => {
           </Typography>
 
           <div className={classes.grow} />
+
           <div className={classes.sectionDesktop}>
             <IconButton
               edge="end"
@@ -122,18 +160,8 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
 
-      <DesktopMenu
-        classes={classes}
-        anchorEl={anchorEl}
-        isMenuOpen={isMenuOpen}
-        handleMenuClose={handleMenuClose}
-      />
-      <MobileMenu
-        mobileMoreAnchorEl={mobileMoreAnchorEl}
-        isMobileMenuOpen={isMobileMenuOpen}
-        handleMobileMenuClose={handleMobileMenuClose}
-        handleProfileMenuOpen={handleProfileMenuOpen}
-      />
+      {renderMobileMenu}
+      {renderMenu}
     </div>
   );
 };
