@@ -6,6 +6,8 @@ import LandingPage from "./views/LandingPage/LandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NotFound from "./views/NotFound/NotFound";
 import LoginPage from "../containers/LoginPage/LoginPageContainer";
+import SearchPage from "./views/SearchPage/SearchPage";
+import ReviewPage from "./views/ReviewPage/ReviewPage";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/search" component={SearchPage} />
+          <Route path="/review" component={ReviewPage} />
           <Route component={NotFound} />
         </Switch>
       </Router>

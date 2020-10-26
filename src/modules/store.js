@@ -9,10 +9,11 @@ import ReduxThunk from "redux-thunk";
 import initState from "./initState";
 import register from "./reducers/register";
 import login from "./reducers/login";
+import map from "./reducers/map";
 
 // persist 미적용
 
-const reducer = reduceReducers(initState, register, login);
+const reducer = reduceReducers(initState, register, login, map);
 
 export default function configureStore() {
   const store = createStore(

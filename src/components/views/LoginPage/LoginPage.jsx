@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { isEveryFieldValid } from "src/utils/validation";
+import * as api from "../../../utils/api";
 
 const Cover = styled.div`
   width: 40%;
@@ -94,6 +95,25 @@ const LoginPage = ({ login, setLogin, postLogin }) => {
           아직 회원이 아니신가요?
           <StyledLink to="/register">회원가입</StyledLink>
         </p>
+
+        {/* test */}
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            onClick={async () => {
+              try {
+                const response = await api.test();
+                console.log(response);
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+          >
+            test
+          </Button>
+        </div>
       </StyledForm>
     </Cover>
   );

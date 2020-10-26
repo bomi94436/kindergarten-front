@@ -124,7 +124,7 @@ const NavBar = () => {
     <div className={classes.grow}>
       <AppBar position="fixed" color="default">
         <Toolbar className="container">
-          <DrawerIcon classes={classes} />
+          <DrawerIcon />
 
           <Typography className={classes.title} variant="h6" noWrap>
             <Link to="/" className={classes.title}>

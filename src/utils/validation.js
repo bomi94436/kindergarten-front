@@ -75,8 +75,8 @@ export const isEveryFieldValid = (state, students) => {
   }
   if (students) {
     for (const student of students) {
-      for (const [key, value] of Object.entries(student.valid)) {
-        if (!value) return false;
+      for (const key in student.valid) {
+        if (!student.valid[key]) return false;
       }
     }
   }

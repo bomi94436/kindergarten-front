@@ -4,7 +4,9 @@ const initState = {
     POST_REGISTER: false,
     GET_EXISTID: false,
     GET_REGISTER_SEARCH: false,
+    GET_LATLNG: false,
   },
+
   register: {
     value: {
       userid: "",
@@ -60,6 +62,7 @@ const initState = {
       },
     },
   },
+
   login: {
     value: {
       userid: "",
@@ -69,6 +72,15 @@ const initState = {
       userid: null,
       password: null,
     },
+  },
+
+  maps: {
+    map: null,
+    mapContainer: {
+      mapCover: null,
+      container: null,
+    },
+    location: { lat: 35.1798200522868, lng: 129.075087492149 },
   },
 };
 

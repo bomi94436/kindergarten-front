@@ -9,8 +9,25 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { GoSearch } from "react-icons/go";
 import { BsCheckBox } from "react-icons/bs";
 import IconButton from "@material-ui/core/IconButton";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core";
 
-const DrawerIcon = ({ classes }) => {
+const useStyles = makeStyles((theme) => ({
+  list: {
+    width: 250,
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+  },
+  icon: {
+    display: "flex",
+    justifyContent: "center",
+  },
+}));
+
+const DrawerIcon = () => {
+  const classes = useStyles();
   const [openDrawer, setOpenDrawer] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -32,19 +49,23 @@ const DrawerIcon = ({ classes }) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <GoSearch />
-          </ListItemIcon>
-          <ListItemText primary="유치원 검색" />
-        </ListItem>
+        <Link to="/search" className={classes.link}>
+          <ListItem button>
+            <ListItemIcon className={classes.icon}>
+              <GoSearch />
+            </ListItemIcon>
+            <ListItemText primary="유치원 검색" />
+          </ListItem>
+        </Link>
 
-        <ListItem button>
-          <ListItemIcon>
-            <BsCheckBox />
-          </ListItemIcon>
-          <ListItemText primary="유치원 리뷰" />
-        </ListItem>
+        <Link to="/review" className={classes.link}>
+          <ListItem button>
+            <ListItemIcon className={classes.icon}>
+              <BsCheckBox />
+            </ListItemIcon>
+            <ListItemText primary="유치원 리뷰" />
+          </ListItem>
+        </Link>
       </List>
 
       <Divider />
