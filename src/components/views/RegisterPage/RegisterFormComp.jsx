@@ -49,7 +49,7 @@ export const FormButton = ({ element, getExistId, id, isUseridValid }) => (
         );
       } else {
         getExistId(id).then((res) => {
-          alert(res.data.msg);
+          alert(res.data);
         });
       }
     }}
