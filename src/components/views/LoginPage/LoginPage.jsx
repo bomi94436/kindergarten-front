@@ -47,14 +47,18 @@ const LoginPage = ({ history, login, setLogin, postLogin }) => {
       password: login.value.password,
     };
 
-    postLogin(dataToSubmit).then((res) => {
-      if (res.success) {
-        window.localStorage.setItem("X-AUTH-TOKEN", res.data);
-        history.push("/");
-      } else {
+    postLogin(dataToSubmit)
+      .then((res) => {
+        if (res.success) {
+          window.localStorage.setItem("X-AUTH-TOKEN", res.data);
+          history.push("/");
+        } else {
+          alert(res.msg);
+        }
+      })
+      .catch((res) => {
         alert(res.msg);
-      }
-    });
+      });
   };
 
   return (

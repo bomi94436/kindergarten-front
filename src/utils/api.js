@@ -1,6 +1,15 @@
 import axios from "./axios";
 import { AUTH_SERVER, USER_SERVER, KINDERGARTEN_SERVER } from "./config";
 
+const badResponse = () => {
+  return {
+    data: {
+      success: false,
+      msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
+    },
+  };
+};
+
 /*
     아이디와 비밀번호를 전송하여
     로그인
@@ -8,24 +17,16 @@ import { AUTH_SERVER, USER_SERVER, KINDERGARTEN_SERVER } from "./config";
 export const login = (dataToSubmit) =>
   axios
     .post(`${AUTH_SERVER}/login`, dataToSubmit, { withCredentials: true })
-    .then((response) => response.data)
+    .then((response) => {
+      return response.data;
+    })
     .catch((error) => {
       if (error.response) {
-        return error.response;
+        return error.response.data;
       } else if (error.request) {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       } else {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       }
     });
 
@@ -40,19 +41,9 @@ export const test = () =>
       if (error.response) {
         return error.response;
       } else if (error.request) {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       } else {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       }
     });
 
@@ -73,20 +64,10 @@ export const register = (dataToSubmit) =>
       } else if (error.request) {
         // 요청이 이루어 졌으나 응답을 받지 못했습니다.
         // 새로고침 시도를 요구할 것
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       } else {
         // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       }
     });
 
@@ -102,19 +83,9 @@ export const existid = (id) =>
       if (error.response) {
         return error.response;
       } else if (error.request) {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       } else {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       }
     });
 
@@ -136,19 +107,9 @@ export const searchKindergarten = (type, value, page) =>
       if (error.response) {
         return error.response;
       } else if (error.request) {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       } else {
-        return {
-          data: {
-            success: false,
-            msg: "오류가 발생하였습니다. 다시 시도해 주세요.",
-          },
-        };
+        return badResponse();
       }
     });
 
