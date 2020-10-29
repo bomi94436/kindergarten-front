@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import initState from "../initState";
+import initState, { addStudent } from "../initState";
 import * as api from "../../utils/api";
 import { validateRegister } from "../../utils/validation";
 
@@ -212,7 +212,7 @@ const register = handleActions(
               break;
           }
         } else if (act === "insert" && actor === "user") {
-          students.push(draft.register.student);
+          students.push(addStudent());
         } else if (act === "delete" && actor === "user") {
           students.splice(index, 1);
         }

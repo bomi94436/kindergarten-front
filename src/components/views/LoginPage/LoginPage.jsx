@@ -39,15 +39,21 @@ const StyledLink = styled(Link)`
   margin: 1.2rem 0.1rem;
 `;
 
-const LoginPage = ({ login, setLogin, postLogin }) => {
+const LoginPage = ({ history, login, setLogin, postLogin }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const dataToSubmit = {
       userid: login.value.userid,
       password: login.value.password,
     };
+
     postLogin(dataToSubmit).then((res) => {
-      console.log(res);
+      if (res.success) {
+        window.localStorage.setItem("X-AUTH-TOKEN", res.data);
+        history.push("/");
+      } else {
+        alert(res.msg);
+      }
     });
   };
 

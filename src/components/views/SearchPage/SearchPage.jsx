@@ -37,7 +37,7 @@ const SearchPage = () => {
   return (
     <div className="container" style={{ marginTop: "3rem" }}>
       <Grid container spacing={4}>
-        <Grid item xs={4} className={classes.root}>
+        <Grid item sm={4} xs={12} className={classes.root}>
           <Typography className={classes.title} variant="h5" noWrap>
             유치원 / 어린이집 검색
           </Typography>
@@ -57,7 +57,7 @@ const SearchPage = () => {
           <SearchCheckBox />
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item sm={8} xs={12}>
           <Typography className={classes.title} variant="h5" noWrap>
             검색결과 2건
           </Typography>

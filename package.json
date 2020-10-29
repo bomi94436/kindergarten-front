@@ -30,6 +30,7 @@
     "styled-components": "^5.2.0"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "start": "export HTTPS=true && export PORT=443 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

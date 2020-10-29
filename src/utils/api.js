@@ -8,10 +8,7 @@ import { AUTH_SERVER, USER_SERVER, KINDERGARTEN_SERVER } from "./config";
 export const login = (dataToSubmit) =>
   axios
     .post(`${AUTH_SERVER}/login`, dataToSubmit, { withCredentials: true })
-    .then((response) => {
-      console.log(response);
-      return response.data;
-    })
+    .then((response) => response.data)
     .catch((error) => {
       if (error.response) {
         return error.response;
@@ -34,7 +31,7 @@ export const login = (dataToSubmit) =>
 
 export const test = () =>
   axios
-    .post(`${AUTH_SERVER}/currentuser`, { withCredentials: true })
+    .get(`/api/users/list`, { withCredentials: true })
     .then((response) => {
       console.log(response);
       return response.data;
@@ -67,7 +64,6 @@ export const register = (dataToSubmit) =>
   axios
     .post(`${USER_SERVER}/`, dataToSubmit)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((error) => {

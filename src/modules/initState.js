@@ -45,22 +45,6 @@ const initState = {
         current: null,
       },
     },
-    student: {
-      value: {
-        name: "",
-        date: new Date(),
-        kindergarten_id: null,
-      },
-      valid: {
-        name: null,
-        date: null,
-        kindergarten_id: null,
-      },
-      kindergarten_selected: {
-        id: null,
-        name: null,
-      },
-    },
   },
 
   login: {
@@ -85,3 +69,22 @@ const initState = {
 };
 
 export default initState;
+
+export const addStudent = () => {
+  return {
+    value: {
+      name: "",
+      date: new Date(),
+      kindergarten_id: null,
+    },
+    valid: {
+      name: null,
+      date: null,
+      kindergarten_id: null,
+    },
+    kindergarten_selected: {
+      id: null,
+      name: null,
+    },
+  };
+};
