@@ -2,9 +2,9 @@ import React from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
-import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Grid from "@material-ui/core/Grid";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,11 +19,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "0.2rem",
   },
   chip: {
-    fontSize: "0.9rem",
     marginRight: "0.3rem",
   },
   address: {
-    padding: "0.5rem",
+    padding: "0.5rem 0",
     "&:hover": {
       opacity: 0.5,
       cursor: "pointer",
@@ -40,15 +39,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttonBlock: {
-    padding: "0.5rem",
     display: "flex",
     flexFlow: "row",
+    marginTop: "0.5rem",
     justifyContents: "flex-start",
     [theme.breakpoints.up("md")]: {
       flexFlow: "column",
       justifyContents: "center",
+      marginLeft: "1rem",
     },
-    margin: 0,
   },
 }));
 
@@ -60,13 +59,9 @@ const SearchItem = () => {
         <Typography className={classes.name} variant="h6">
           화명유치원
         </Typography>
-        <div style={{ display: "flex", flexFlow: "row" }}>
-          <Chip label="유치원" color="primary" className={classes.chip} />
-          <Chip label="사립" color="primary" className={classes.chip} />
-        </div>
       </Grid>
 
-      <Grid item md={6} xs={7}>
+      <Grid item md={5} xs={7}>
         <Typography
           className={classes.address}
           style={{ display: "flex", flexFlow: "row", alignItems: "center" }}
@@ -77,11 +72,25 @@ const SearchItem = () => {
           <FaMapMarkerAlt />
           &nbsp; 부산시 북구 화명동
         </Typography>
+        <div style={{ display: "flex", flexFlow: "row" }}>
+          <Chip
+            label="유치원"
+            color="primary"
+            className={classes.chip}
+            size="small"
+          />
+          <Chip
+            label="사립"
+            color="primary"
+            className={classes.chip}
+            size="small"
+          />
+        </div>
       </Grid>
 
       <Grid
         item
-        md={3}
+        md={4}
         xs={12}
         style={{
           display: "flex",
@@ -93,20 +102,7 @@ const SearchItem = () => {
           <Typography variant="h6" noWrap>
             8.5
           </Typography>
-          <div
-            style={{
-              display: "flex",
-              flexFlow: "row",
-              color: "#f5ce42",
-              fontSize: "0.9rem",
-            }}
-          >
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStarHalfAlt />
-            <FaRegStar />
-          </div>
+          <Rating value={3.5} precision={0.5} size="small" readOnly />
         </Grid>
 
         <Grid item xs={7} className={classes.buttonBlock}>

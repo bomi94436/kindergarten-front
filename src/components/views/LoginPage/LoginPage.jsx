@@ -50,7 +50,7 @@ const LoginPage = ({ history, login, setLogin, postLogin }) => {
     postLogin(dataToSubmit)
       .then((res) => {
         if (res.success) {
-          window.localStorage.setItem("X-AUTH-TOKEN", res.data);
+          window.localStorage.setItem("X-AUTH-TOKEN", res.data.token);
           history.push("/");
         } else {
           alert(res.msg);

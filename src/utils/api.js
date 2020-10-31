@@ -32,7 +32,7 @@ export const login = (dataToSubmit) =>
 
 export const test = () =>
   axios
-    .get(`/api/users/list`, { withCredentials: true })
+    .post(`/api/auth/currentuser`, { withCredentials: true })
     .then((response) => {
       console.log(response);
       return response.data;
