@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = () => {
+const NavBar = ({ role, login }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -119,6 +119,7 @@ const NavBar = () => {
       </MenuItem>
     </Menu>
   );
+  console.log(role);
 
   return (
     <div className={classes.grow}>
@@ -135,6 +136,7 @@ const NavBar = () => {
           <div className={classes.grow} />
 
           <div className={classes.sectionDesktop}>
+            {role && login.name ? <p>{login.name}님 반갑습니다</p> : null}
             <IconButton
               edge="end"
               aria-label="account of current user"

@@ -48,6 +48,8 @@ const initState = {
   },
 
   login: {
+    userid: "",
+    name: "",
     value: {
       userid: "",
       password: "",
