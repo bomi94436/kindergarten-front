@@ -5,7 +5,7 @@ import {
   postRegister,
   getExistId,
   setRegisterValid,
-} from "../../modules/reducers/user";
+} from "../../modules/reducers/register";
 
 const RegisterFormContainer = connect(
   (state) => ({
@@ -14,8 +14,7 @@ const RegisterFormContainer = connect(
   (dispatch) => ({
     setRegister: (data) => dispatch(setRegister(data)),
     setRegisterValid: (data) => dispatch(setRegisterValid(data)),
-    postRegister: (dataToSubmit, path) =>
-      dispatch(postRegister(dataToSubmit, path)),
+    postRegister: (dataToSubmit) => dispatch(postRegister(dataToSubmit)),
     getExistId: (id) => dispatch(getExistId(id)),
   })
 )(RegisterForm);

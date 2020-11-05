@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   setRegisterSearch,
   getRegisterSearch,
-} from "../../modules/reducers/user";
+} from "../../modules/reducers/register";
 
 const SearchKindergartenContainer = connect(
   (state) => ({

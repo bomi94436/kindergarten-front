@@ -1,40 +1,40 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import initState from "../../modules/initState";
+import initState, { addStudent } from "../initState";
 import * as api from "../../utils/api";
 import { validateRegister } from "../../utils/validation";
 
 /* 
   회원가입 필드 입력
 */
-const SET_REGISTER = "user/SET_REGISTER";
-const SET_REGISTER_SEARCH = "user/SET_REGISTER_SEARCH";
+const SET_REGISTER = "register/SET_REGISTER";
+const SET_REGISTER_SEARCH = "register/SET_REGISTER_SEARCH";
 
-/*
+/* 
   회원 역할에 맞는 validation 설정
 */
-const SET_REGISTER_VALID = "user/SET_REGISTER_VALID";
+const SET_REGISTER_VALID = "register/SET_REGISTER_VALID";
 
 /* 
   회원가입 버튼 클릭
 */
-const POST_REGISTER = "user/POST_REGISTER";
-const POST_REGISTER_SUCCESS = "user/POST_REGISTER_SUCCESS";
-const POST_REGISTER_FAILURE = "user/POST_REGISTER_FAILURE";
+const POST_REGISTER = "register/POST_REGISTER";
+const POST_REGISTER_SUCCESS = "register/POST_REGISTER_SUCCESS";
+const POST_REGISTER_FAILURE = "register/POST_REGISTER_FAILURE";
 
 /* 
   회원가입 아이디 중복 확인
 */
-const GET_EXISTID = "user/GET_EXISTID";
-const GET_EXISTID_SUCCESS = "user/GET_EXISTID_SUCCESS";
-const GET_EXISTID_FAILURE = "user/GET_EXISTID_FAILURE";
+const GET_EXISTID = "register/GET_EXISTID";
+const GET_EXISTID_SUCCESS = "register/GET_EXISTID_SUCCESS";
+const GET_EXISTID_FAILURE = "register/GET_EXISTID_FAILURE";
 
 /* 
   회원가입 유치원 검색
 */
-const GET_REGISTER_SEARCH = "user/GET_REGISTER_SEARCH";
-const GET_REGISTER_SEARCH_SUCCESS = "user/GET_REGISTER_SEARCH_SUCCESS";
-const GET_REGISTER_SEARCH_FAILURE = "user/GET_REGISTER_SEARCH_FAILURE";
+const GET_REGISTER_SEARCH = "register/GET_REGISTER_SEARCH";
+const GET_REGISTER_SEARCH_SUCCESS = "register/GET_REGISTER_SEARCH_SUCCESS";
+const GET_REGISTER_SEARCH_FAILURE = "register/GET_REGISTER_SEARCH_FAILURE";
 
 export const setRegister = createAction(SET_REGISTER, (data) => data);
 
@@ -48,10 +48,10 @@ export const setRegisterValid = createAction(
   (data) => data
 );
 
-export const postRegister = (dataToSubmit, path) => async (dispatch) => {
+export const postRegister = (dataToSubmit) => async (dispatch) => {
   dispatch({ type: POST_REGISTER });
   try {
-    const response = await api.register(dataToSubmit, path);
+    const response = await api.register(dataToSubmit);
 
     if (response.success) {
       dispatch({
@@ -129,7 +129,7 @@ export const getRegisterSearch = (type, value, page) => async (dispatch) => {
   }
 };
 
-const user = handleActions(
+const register = handleActions(
   {
     [SET_REGISTER]: (state, action) => {
       const name = action.payload.name;
@@ -212,7 +212,7 @@ const user = handleActions(
               break;
           }
         } else if (act === "insert" && actor === "user") {
-          students.push(draft.register.student);
+          students.push(addStudent());
         } else if (act === "delete" && actor === "user") {
           students.splice(index, 1);
         }
@@ -299,4 +299,4 @@ const user = handleActions(
   initState
 );
 
-export default user;
+export default register;

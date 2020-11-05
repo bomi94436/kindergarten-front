@@ -36,17 +36,23 @@ export const FormInput = ({ element, setRegister, state }) => (
   />
 );
 
-export const FormButton = ({ element, getExistId, id }) => (
+export const FormButton = ({ element, getExistId, id, isUseridValid }) => (
   <Button
     id={element.id}
     type="button"
     variant="contained"
     color="primary"
-    onClick={(event) =>
-      getExistId(id).then((res) => {
-        alert(res.data);
-      })
-    }
+    onClick={(event) => {
+      if (!isUseridValid) {
+        alert(
+          "유효한 아이디를 입력해주세요.\n(영어, 숫자 조합하여 6자리 이상)"
+        );
+      } else {
+        getExistId(id).then((res) => {
+          alert(res.data);
+        });
+      }
+    }}
   >
     {element.title}
   </Button>

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
+import "../../../utils/styles.css";
 
 const Cover = styled.div`
   max-width: 50%;
@@ -30,9 +31,10 @@ const NavButton = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
-        marginTop: "7rem",
+        alignItems: "center",
+        height: "80vh",
       }}
+      className="container"
     >
       <Cover>
         <StyledLink to="/register/user">

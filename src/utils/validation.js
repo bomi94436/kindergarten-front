@@ -1,5 +1,5 @@
 const numRegExp = /^\d+$/; // 숫자만 입력
-const engNumRegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // 영어, 숫자 조합해서 8자리 이상 입력
+const engNumRegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/; // 영어, 숫자 조합해서 8자리 이상 입력
 // 수정하기
 const firstEmailRegExp = /^[\w-]+(\.[\w-]+)*/;
 const lastEmailRegExp = /([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/;
@@ -75,10 +75,25 @@ export const isEveryFieldValid = (state, students) => {
   }
   if (students) {
     for (const student of students) {
-      for (const [key, value] of Object.entries(student.valid)) {
-        if (!value) return false;
+      for (const key in student.valid) {
+        if (!student.valid[key]) return false;
       }
     }
   }
   return true;
+};
+
+export const validateLogin = (target, value) => {
+  switch (target) {
+    case "userid":
+      if (value) return true;
+      else return false;
+
+    case "password":
+      if (value) return true;
+      else return false;
+
+    default:
+      return null;
+  }
 };
