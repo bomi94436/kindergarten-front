@@ -1,5 +1,11 @@
 import axios from "axios";
-import { AUTH_SERVER, USER_SERVER, KINDERGARTEN_SERVER } from "./config";
+import {
+  AUTH_SERVER,
+  USER_SERVER,
+  KINDERGARTEN_SERVER,
+  REVIEW_SERVER,
+} from "./config";
+import { REACT_APP_BACKEND_SERVER_URL, KAKAO_MAP_REST_API_KEY } from "./key";
 
 const badResponse = () => {
   return {
@@ -12,7 +18,7 @@ const badResponse = () => {
 
 const createAxios = () =>
   axios.create({
-    baseURL: process.env.REACT_APP_BACKEND_SERVER_URL,
+    baseURL: REACT_APP_BACKEND_SERVER_URL,
     timeout: 1000,
     headers: { "X-AUTH-TOKEN": localStorage.getItem("X-AUTH-TOKEN") },
   });
@@ -83,7 +89,7 @@ export const existid = (id) =>
     타입(이름 또는 주소), 찾을 값, 페이지를 전송하여
     유치원 목록 불러오기
 */
-export const searchKindergarten = (type, value, page) =>
+export const searchKindergartens = (type, value, page) =>
   createAxios()
     .get(`${KINDERGARTEN_SERVER}/${type}`, {
       params: {
@@ -105,18 +111,23 @@ export const searchKindergarten = (type, value, page) =>
       }
     });
 
-// 주소 -> 좌표 검색
+/*
+    주소 -> 좌표 검색
+*/
 export const getLatLng = (address) =>
-  createAxios().get(
+  axios.get(
     `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
     {
       headers: {
-        Authorization: `KakaoAK ${process.env.KAKAO_MAP_REST_API_KEY}`,
+        Authorization: `KakaoAK ${KAKAO_MAP_REST_API_KEY}`,
       },
     }
   );
 
-export const auth = (token) => {
+/*
+    토큰 -> 회원역할, 토큰 유효성 확인
+*/
+export const auth = () => {
   return createAxios()
     .post(`${AUTH_SERVER}/currentuser`)
     .then((response) => {
@@ -132,3 +143,37 @@ export const auth = (token) => {
       }
     });
 };
+
+/*
+    유치원 상세정보 불러오기
+*/
+export const kindergartenDetail = (id) =>
+  createAxios()
+    .get(`${KINDERGARTEN_SERVER}/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    유치원 리뷰 불러오기
+*/
+export const kindergartenReview = (id) =>
+  createAxios()
+    .get(`${REVIEW_SERVER}/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });

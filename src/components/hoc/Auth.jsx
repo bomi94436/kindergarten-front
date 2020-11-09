@@ -14,7 +14,7 @@ export default function (SpecificComponent, option) {
       api.auth().then((response) => {
         setRole(response.data);
       });
-    }, [role]);
+    }, []);
 
     return <SpecificComponent {...props} role={role} />;
   }

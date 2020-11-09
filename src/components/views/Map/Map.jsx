@@ -1,21 +1,34 @@
 import React, { useEffect } from "react";
 import "./Map.css";
 
-const MapPage = ({ maps, setMap, getLatLng }) => {
+const MapPage = ({ lat, lng }) => {
   useEffect(() => {
     let mapCover = document.getElementById("map-cover");
     let container = document.createElement("div");
-    container.setAttribute("class", "map");
+
+    if (mapCover.childNodes[0]) {
+      mapCover.removeChild(mapCover.childNodes[0]);
+    }
+
+    container.setAttribute(
+      "style",
+      "width: 100%; height: 20rem; border-radius: 0.5rem;"
+    );
     mapCover.appendChild(container);
+
     const options = {
-      center: new window.kakao.maps.LatLng(
-        maps.location.lat,
-        maps.location.lng
-      ),
+      center: new window.kakao.maps.LatLng(lat, lng),
       level: 5,
     };
-    setMap({ container, options, mapCover });
-  }, [maps.location.lat, maps.location.lng, setMap]);
+
+    const map = new window.kakao.maps.Map(container, options);
+
+    const marker = new window.kakao.maps.Marker({
+      position: options.center,
+    });
+
+    marker.setMap(map);
+  }, [lat, lng]);
 
   return (
     <div>

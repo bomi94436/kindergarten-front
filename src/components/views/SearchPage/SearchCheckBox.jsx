@@ -68,25 +68,21 @@ const SearchCheckBox = () => {
 
           <FormControlLabel
             control={<Checkbox color="primary" />}
-            label="국공립"
+            label="사립(사인)"
           />
 
           <FormControlLabel
             control={<Checkbox color="primary" />}
-            label="법인"
+            label="사립(법인)"
           />
 
           <FormControlLabel
             control={<Checkbox color="primary" />}
-            label="민간/가정"
+            label="공립(병설)"
           />
           <FormControlLabel
             control={<Checkbox color="primary" />}
-            label="사립"
-          />
-          <FormControlLabel
-            control={<Checkbox color="primary" />}
-            label="기타"
+            label="공립(단설)"
           />
         </div>
       </FormGroup>

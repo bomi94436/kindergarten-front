@@ -119,7 +119,6 @@ const NavBar = ({ role, login }) => {
       </MenuItem>
     </Menu>
   );
-  console.log(role);
 
   return (
     <div className={classes.grow}>

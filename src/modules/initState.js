@@ -5,6 +5,8 @@ const initState = {
     GET_EXISTID: false,
     GET_REGISTER_SEARCH: false,
     GET_LATLNG: false,
+    GET_KINDERGARTEN_DETAIL: false,
+    GET_KINDERGARTEN_REVIEW: false,
   },
 
   register: {
@@ -67,6 +69,15 @@ const initState = {
       container: null,
     },
     location: { lat: 35.1798200522868, lng: 129.075087492149 },
+  },
+
+  search: {
+    value: "",
+    contents: null,
+    page: {
+      total: null,
+      current: null,
+    },
   },
 };
 

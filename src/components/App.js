@@ -7,8 +7,9 @@ import LandingPage from "./views/LandingPage/LandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NotFound from "./views/NotFound/NotFound";
 import LoginPage from "../containers/LoginPage/LoginPageContainer";
-import SearchPage from "./views/SearchPage/SearchPage";
+import SearchPage from "../containers/SearchPage/SearchPageContainer";
 import ReviewPage from "./views/ReviewPage/ReviewPage";
+import KindergartenPage from "../containers/KindergartenPage/KindergartenPageContainer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/register" component={RegisterPage} />
           <Route path="/login" component={Auth(LoginPage, false)} />
           <Route path="/search" component={SearchPage} />
+          <Route path="/kindergarten/:id" component={KindergartenPage} />
           <Route path="/review" component={ReviewPage} />
           <Route component={NotFound} />
         </Switch>

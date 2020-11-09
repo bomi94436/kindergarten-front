@@ -5,6 +5,7 @@ import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Rating from "@material-ui/lab/Rating";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,12 +18,16 @@ const useStyles = makeStyles((theme) => ({
     color: "inherit",
     textDecoration: "none",
     marginLeft: "0.2rem",
+    "&:hover": {
+      opacity: 0.5,
+    },
   },
   chip: {
     marginRight: "0.3rem",
   },
   address: {
     padding: "0.5rem 0",
+    lineHeight: "1rem",
     "&:hover": {
       opacity: 0.5,
       cursor: "pointer",
@@ -51,13 +56,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchItem = () => {
+const SearchItem = ({ item, getLatLng }) => {
   const classes = useStyles();
   return (
     <Grid container className={classes.root} alignItems="center">
       <Grid item md={3} xs={5}>
-        <Typography className={classes.name} variant="h6">
-          화명유치원
+        <Typography variant="h6">
+          <Link to={`/kindergarten/${item.id}`} className={classes.name}>
+            {item.name}
+          </Link>
         </Typography>
       </Grid>
 
@@ -67,20 +74,20 @@ const SearchItem = () => {
           style={{ display: "flex", flexFlow: "row", alignItems: "center" }}
           color="primary"
           variant="subtitle1"
-          onClick={() => console.log("hi")}
+          onClick={() => getLatLng(item.address)}
         >
           <FaMapMarkerAlt />
-          &nbsp; 부산시 북구 화명동
+          {item.address}
         </Typography>
         <div style={{ display: "flex", flexFlow: "row" }}>
           <Chip
-            label="유치원"
+            label={item.kinder_type}
             color="primary"
             className={classes.chip}
             size="small"
           />
           <Chip
-            label="사립"
+            label={item.type}
             color="primary"
             className={classes.chip}
             size="small"
@@ -100,9 +107,9 @@ const SearchItem = () => {
       >
         <Grid item xs={5} className={classes.starBlock}>
           <Typography variant="h6" noWrap>
-            8.5
+            {String(item.score.toFixed(1))}
           </Typography>
-          <Rating value={3.5} precision={0.5} size="small" readOnly />
+          <Rating value={item.score} precision={0.5} size="small" readOnly />
         </Grid>
 
         <Grid item xs={7} className={classes.buttonBlock}>

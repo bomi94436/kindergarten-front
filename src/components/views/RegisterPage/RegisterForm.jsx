@@ -90,7 +90,7 @@ const RegisterForm = ({
     }
 
     postRegister(dataToSubmit).then((res) => {
-      alert(res.data.msg);
+      alert(res.msg);
       if (res.success) {
         history.push("/");
       }

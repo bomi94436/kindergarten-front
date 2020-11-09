@@ -2,7 +2,7 @@ import React from "react";
 import SearchItem from "./SearchItem";
 import { Pagination } from "@material-ui/lab";
 
-const SearchList = () => {
+const SearchList = ({ search, getSearch, getLatLng }) => {
   return (
     <div>
       <div
@@ -12,10 +12,10 @@ const SearchList = () => {
           marginTop: "1.5rem",
         }}
       >
-        <SearchItem />
-        <SearchItem />
-        <SearchItem />
-        <SearchItem />
+        {search.contents &&
+          search.contents.map((element) => (
+            <SearchItem key={element.id} item={element} getLatLng={getLatLng} />
+          ))}
       </div>
 
       <div
@@ -25,12 +25,12 @@ const SearchList = () => {
         }}
       >
         <Pagination
-          count={4}
+          count={search.page.total + 1}
           color="primary"
           style={{ margin: "0.5rem" }}
-          // onChange={(event, value) =>
-          //   getRegisterSearch(search.type, search.value, value)
-          // }
+          onChange={(event, value) =>
+            getSearch("name", search.value, value - 1)
+          }
         />
       </div>
     </div>
