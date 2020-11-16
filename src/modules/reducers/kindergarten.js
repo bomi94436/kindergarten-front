@@ -3,17 +3,17 @@ import produce from "immer";
 import initState from "../initState";
 import * as api from "../../utils/api";
 
-const GET_KINDERGARTEN_DETAIL = "loginkindergarten/GET_KINDERGARTEN_DETAIL";
+const GET_KINDERGARTEN_DETAIL = "kindergarten/GET_KINDERGARTEN_DETAIL";
 const GET_KINDERGARTEN_DETAIL_SUCCESS =
-  "loginkindergarten/GET_KINDERGARTEN_DETAIL_SUCCESS";
+  "kindergarten/GET_KINDERGARTEN_DETAIL_SUCCESS";
 const GET_KINDERGARTEN_DETAIL_FAILURE =
-  "loginkindergarten/GET_KINDERGARTEN_DETAIL_FAILURE";
+  "kindergarten/GET_KINDERGARTEN_DETAIL_FAILURE";
 
-const GET_KINDERGARTEN_REVIEW = "loginkindergarten/GET_KINDERGARTEN_REVIEW";
+const GET_KINDERGARTEN_REVIEW = "kindergarten/GET_KINDERGARTEN_REVIEW";
 const GET_KINDERGARTEN_REVIEW_SUCCESS =
-  "loginkindergarten/GET_KINDERGARTEN_REVIEW_SUCCESS";
+  "kindergarten/GET_KINDERGARTEN_REVIEW_SUCCESS";
 const GET_KINDERGARTEN_REVIEW_FAILURE =
-  "loginkindergarten/GET_KINDERGARTEN_REVIEW_FAILURE";
+  "kindergarten/GET_KINDERGARTEN_REVIEW_FAILURE";
 
 export const getKindergartenDetail = (id) => async (dispatch) => {
   dispatch({ type: GET_KINDERGARTEN_DETAIL });
@@ -77,7 +77,7 @@ export const getKindergartenReview = (id) => async (dispatch) => {
   }
 };
 
-const login = handleActions(
+const kindergarten = handleActions(
   {
     [GET_KINDERGARTEN_DETAIL]: (state) =>
       produce(state, (draft) => {
@@ -108,4 +108,4 @@ const login = handleActions(
   initState
 );
 
-export default login;
+export default kindergarten;

@@ -7,7 +7,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import Loading from "../Loading/Loading";
+import Loading from "../common/Loading/Loading";
 import { MdClose, MdCheck } from "react-icons/md";
 import { ImQuotesLeft, ImQuotesRight } from "react-icons/im";
 import { AiOutlineFrown, AiOutlineMeh, AiOutlineSmile } from "react-icons/ai";
@@ -71,8 +71,6 @@ const ReviewList = ({ id, getKindergartenReview }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(reviews);
 
   if (reviews) {
     return reviews.findReviews.map((element) => (

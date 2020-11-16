@@ -65,8 +65,6 @@ const login = handleActions(
       produce(state, (draft) => {
         draft.loading.POST_LOGIN = false;
         draft.login = initState.login;
-        draft.login.userid = action.payload.response.data.userid;
-        draft.login.name = action.payload.response.data.name;
       }),
     [POST_LOGIN_FAILURE]: (state) =>
       produce(state, (draft) => {

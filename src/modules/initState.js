@@ -50,8 +50,6 @@ const initState = {
   },
 
   login: {
-    userid: "",
-    name: "",
     value: {
       userid: "",
       password: "",
@@ -77,6 +75,26 @@ const initState = {
     page: {
       total: null,
       current: null,
+    },
+  },
+
+  kindergarten: {},
+
+  review: {
+    dialog: {
+      opened: false,
+      kindergarten_name: null,
+    },
+    value: {
+      kinderGarten_id: null, //유치원 id
+      anonymous: false, // 익명 여부
+      description: null, // 총평
+      descScore: null, // 총평점
+      eduScore: null, // 교육 점수
+      facilityScore: null, // 시설 점수
+      teacherScore: null, // 선생님 점수
+      goodThing: null, // 장점
+      badThing: null, // 단점
     },
   },
 };

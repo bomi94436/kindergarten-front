@@ -14,11 +14,12 @@ import { RiDoorOpenFill } from "react-icons/ri";
 import { BiTime } from "react-icons/bi";
 import { AiTwotonePhone } from "react-icons/ai";
 import { MdOpenInBrowser } from "react-icons/md";
-import Map from "../Map/Map";
+import Map from "../common/Map/Map";
 import * as api from "../../../utils/api";
 import Rating from "@material-ui/lab/Rating";
 import ReviewList from "./ReviewList";
-import Loading from "../Loading/Loading";
+import Loading from "../common/Loading/Loading";
+import WriteReviewDialog from "./WriteReviewDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginBottom: "1rem",
+    textAlign: "center",
   },
   leftPaper: {
     padding: "1.5rem",
@@ -95,6 +97,10 @@ const useStyles = makeStyles((theme) => ({
 
 const KindergartenPage = ({
   match,
+  review,
+  setReview,
+  getStudentList,
+  getCheckWriteReview,
   getKindergartenDetail,
   getKindergartenReview,
 }) => {
@@ -123,6 +129,10 @@ const KindergartenPage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleOpen = () => {
+    setReview({ target: "dialog", name: "opened", value: true });
+  };
+
   if (content && address.lat && address.lng) {
     return (
       <div className="container" style={{ marginTop: "3rem" }}>
@@ -144,9 +154,17 @@ const KindergartenPage = ({
               variant="contained"
               color="primary"
               className={classes.reviewButton}
+              onClick={handleOpen}
             >
               리뷰 쓰기
             </Button>
+
+            <WriteReviewDialog
+              review={review}
+              setReview={setReview}
+              getStudentList={getStudentList}
+              getCheckWriteReview={getCheckWriteReview}
+            />
           </Grid>
 
           <Grid item md={9} xs={12}>

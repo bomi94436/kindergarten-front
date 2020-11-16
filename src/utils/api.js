@@ -31,9 +31,11 @@ export const login = (dataToSubmit) =>
   createAxios()
     .post(`${AUTH_SERVER}/login`, dataToSubmit, { withCredentials: true })
     .then((response) => {
+      console.log(response);
       return response.data;
     })
     .catch((error) => {
+      console.log(error);
       if (error.response) {
         return error.response.data;
       } else if (error.request) {
@@ -167,6 +169,40 @@ export const kindergartenDetail = (id) =>
 export const kindergartenReview = (id) =>
   createAxios()
     .get(`${REVIEW_SERVER}/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    리뷰 작성 가능한 학생 리스트 불러오기
+*/
+export const reviewStudentList = () =>
+  createAxios()
+    .get(`${USER_SERVER}/students`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    해당 학생이 리뷰 작성 가능한지 확인
+*/
+export const checkWriteReview = (kindergarten_id, student_id) =>
+  createAxios()
+    .get(`${REVIEW_SERVER}/check/${kindergarten_id}/${student_id}`)
     .then((response) => response.data)
     .catch((error) => {
       if (error.response) {

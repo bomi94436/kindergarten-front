@@ -9,14 +9,19 @@ export default function (SpecificComponent, option) {
 
   function AuthenticationCheck(props) {
     const [role, setRole] = useState(null);
+    const [name, setName] = useState(null);
 
     useEffect(() => {
-      api.auth().then((response) => {
-        setRole(response.data);
-      });
+      api
+        .auth()
+        .then((response) => {
+          setRole(response.data.role);
+          setName(response.data.name);
+        })
+        .catch((error) => {});
     }, []);
 
-    return <SpecificComponent {...props} role={role} />;
+    return <SpecificComponent {...props} role={role} name={name} />;
   }
 
   return AuthenticationCheck;

@@ -11,10 +11,20 @@ import register from "./reducers/register";
 import login from "./reducers/login";
 import map from "./reducers/map";
 import search from "./reducers/search";
+import kindergarten from "./reducers/kindergarten";
+import review from "./reducers/review";
 
 // persist 미적용
 
-const reducer = reduceReducers(initState, register, login, map, search);
+const reducer = reduceReducers(
+  initState,
+  register,
+  login,
+  map,
+  search,
+  kindergarten,
+  review
+);
 
 export default function configureStore() {
   const store = createStore(

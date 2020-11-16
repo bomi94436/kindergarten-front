@@ -2,13 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Auth from "../components/hoc/Auth";
-import NavBar from "../containers/NavBar/NavBarContainer";
+import NavBar from "../components/views/common/NavBar/NavBar";
 import LandingPage from "./views/LandingPage/LandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NotFound from "./views/NotFound/NotFound";
 import LoginPage from "../containers/LoginPage/LoginPageContainer";
 import SearchPage from "../containers/SearchPage/SearchPageContainer";
-import ReviewPage from "./views/ReviewPage/ReviewPage";
 import KindergartenPage from "../containers/KindergartenPage/KindergartenPageContainer";
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
           <Route path="/login" component={Auth(LoginPage, false)} />
           <Route path="/search" component={SearchPage} />
           <Route path="/kindergarten/:id" component={KindergartenPage} />
-          <Route path="/review" component={ReviewPage} />
           <Route component={NotFound} />
         </Switch>
       </Router>

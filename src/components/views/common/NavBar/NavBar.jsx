@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import "../../../utils/styles.css";
+import "../../../../utils/styles.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ role, login }) => {
+const NavBar = ({ role, name }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -135,7 +135,7 @@ const NavBar = ({ role, login }) => {
           <div className={classes.grow} />
 
           <div className={classes.sectionDesktop}>
-            {role && login.name ? <p>{login.name}님 반갑습니다</p> : null}
+            {role ? <p>{name}님 반갑습니다</p> : null}
             <IconButton
               edge="end"
               aria-label="account of current user"

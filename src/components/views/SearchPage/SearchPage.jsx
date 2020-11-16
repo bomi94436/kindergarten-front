@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { FaSearch } from "react-icons/fa";
 import SearchCheckBox from "./SearchCheckBox";
 import Grid from "@material-ui/core/Grid";
-import Map from "../Map/Map";
+import Map from "../common/Map/Map";
 import SearchList from "./SearchList";
 
 const useStyles = makeStyles((theme) => ({
