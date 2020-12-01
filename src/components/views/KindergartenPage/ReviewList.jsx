@@ -61,19 +61,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ReviewList = ({ id, getKindergartenReview }) => {
+const ReviewList = ({ reviews }) => {
   const classes = useStyles();
-  const [reviews, setReview] = useState(null);
 
-  useEffect(() => {
-    getKindergartenReview(id).then((res) => {
-      setReview(res.data);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (reviews) {
-    return reviews.findReviews.map((element) => (
+  if (reviews.loading !== false) {
+    return <Loading />;
+  } else {
+    return reviews.data.findReviews.map((element) => (
       <Paper key={element.reviewId} className={classes.root}>
         <div className={classes.top}>
           <Typography variant="h5">
@@ -166,8 +160,6 @@ const ReviewList = ({ id, getKindergartenReview }) => {
         </div>
       </Paper>
     ));
-  } else {
-    return <Loading />;
   }
 };
 

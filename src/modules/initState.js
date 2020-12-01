@@ -1,6 +1,7 @@
+import { reducerUtils } from "./reducers/utils";
+
 const initState = {
   loading: {
-    POST_LOGIN: false,
     POST_REGISTER: false,
     GET_EXISTID: false,
     GET_REGISTER_SEARCH: false,
@@ -49,16 +50,7 @@ const initState = {
     },
   },
 
-  login: {
-    value: {
-      userid: "",
-      password: "",
-    },
-    valid: {
-      userid: null,
-      password: null,
-    },
-  },
+  login: reducerUtils.initial(),
 
   maps: {
     map: null,
@@ -78,7 +70,11 @@ const initState = {
     },
   },
 
-  kindergarten: {},
+  // kindergarten
+  kindergartenDetail: reducerUtils.initial(),
+  kindergartenReview: reducerUtils.initial(),
+  studentList: reducerUtils.initial(),
+  checkWriteReview: reducerUtils.initial(),
 
   review: {
     dialog: {

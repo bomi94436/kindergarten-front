@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import SelectStudent from "./SelectStudent";
 import Circle from "./Circle";
+import SelectStudentContainer from "src/containers/KindergartenPage/SelectStudentContainer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,20 +21,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ReviewDialog = ({
-  review,
-  setReview,
-  getStudentList,
-  getCheckWriteReview,
+  // review,
+  opened,
+  setDialog,
 }) => {
   const classes = useStyles();
   const [step, setStep] = useState(0);
+  const [field, setField] = useState({
+    name: null, //유치원 이름
+    kinderGarten_id: null, //유치원 id
+    anonymous: false, // 익명 여부
+    description: null, // 총평
+    descScore: null, // 총평점
+    eduScore: null, // 교육 점수
+    facilityScore: null, // 시설 점수
+    teacherScore: null, // 선생님 점수
+    goodThing: null, // 장점
+    badThing: null, // 단점
+  });
 
   const initStep = () => setStep(0);
   const prevStep = () => setStep(step - 1);
   const nextStep = () => setStep(step + 1);
 
-  const handleClose = () => {
-    setReview({ target: "dialog", name: "opened", value: false });
+  const updateField = (name, value) => {
+    setField({
+      ...field,
+      [name]: value,
+    });
   };
 
   const contents = () => {
@@ -42,16 +57,14 @@ const ReviewDialog = ({
         return (
           <>
             <DialogTitle>리뷰를 작성할 학생 선택</DialogTitle>
-            <SelectStudent
-              setReview={setReview}
-              getStudentList={getStudentList}
-              getCheckWriteReview={getCheckWriteReview}
+            <SelectStudentContainer
+              updateField={updateField}
               nextStep={nextStep}
             />
             <DialogActions className={classes.bottom}>
               <Circle all={4} now={step + 1} />
               <div>
-                <Button onClick={handleClose}>닫기</Button>
+                <Button onClick={() => setDialog(false)}>닫기</Button>
               </div>
             </DialogActions>
           </>
@@ -61,7 +74,7 @@ const ReviewDialog = ({
         return (
           <>
             <DialogTitle>
-              <span>{review.dialog.kindergarten_name}</span>
+              <span>{field.name}</span>
               <p className={classes.step2subtitle}>리뷰쓰기</p>
             </DialogTitle>
             <DialogActions className={classes.bottom}>
@@ -77,14 +90,14 @@ const ReviewDialog = ({
         );
 
       default:
-        handleClose();
+        setDialog(false);
         initStep();
         return <></>;
     }
   };
 
   return (
-    <Dialog open={review.dialog.opened} onClose={handleClose}>
+    <Dialog open={opened} onClose={() => setDialog(false)}>
       <div className={classes.container}>{contents()}</div>
     </Dialog>
   );

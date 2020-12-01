@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../utils/styles.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { isEveryFieldValid } from "src/utils/validation";
+import { isEveryFieldValid, validateLogin } from "src/utils/validation";
 
 const Cover = styled.div`
   width: 40%;
@@ -38,15 +38,36 @@ const StyledLink = styled(Link)`
   margin: 1.2rem 0.1rem;
 `;
 
-const LoginPage = ({ role, history, login, setLogin, postLogin }) => {
+const LoginPage = ({ role, history, postLogin }) => {
+  const [field, setField] = useState({
+    userid: "",
+    password: "",
+  });
+
+  const [valid, setValid] = useState({
+    userid: null,
+    password: null,
+  });
+
+  const updateField = (name, value) => {
+    setField({
+      ...field,
+      [name]: value,
+    });
+    setValid({
+      ...valid,
+      [name]: validateLogin(name, value),
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const dataToSubmit = {
-      userid: login.value.userid,
-      password: login.value.password,
+      userid: field.userid,
+      password: field.password,
     };
 
-    postLogin(dataToSubmit)
+    postLogin([dataToSubmit])
       .then((res) => {
         if (res.success) {
           localStorage.setItem("X-AUTH-TOKEN", res.data.token);
@@ -68,24 +89,20 @@ const LoginPage = ({ role, history, login, setLogin, postLogin }) => {
           type="text"
           label="아이디"
           variant="outlined"
-          value={login.value.userid}
-          onChange={(event) =>
-            setLogin({ name: "userid", value: event.target.value })
-          }
+          value={field.userid}
+          onChange={(event) => updateField("userid", event.target.value)}
         />
         <br />
         <StyledInput
           type="password"
           label="비밀번호"
           variant="outlined"
-          value={login.value.password}
-          onChange={(event) =>
-            setLogin({ name: "password", value: event.target.value })
-          }
+          value={field.password}
+          onChange={(event) => updateField("password", event.target.value)}
         />
         <br />
         <>
-          {isEveryFieldValid(login.valid) ? (
+          {isEveryFieldValid(valid) ? (
             <StyledButton type="submit" variant="contained" color="primary">
               로그인
             </StyledButton>

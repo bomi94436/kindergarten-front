@@ -12,14 +12,20 @@ export default function (SpecificComponent, option) {
     const [name, setName] = useState(null);
 
     useEffect(() => {
-      api
-        .auth()
-        .then((response) => {
-          setRole(response.data.role);
-          setName(response.data.name);
-        })
-        .catch((error) => {});
-    }, []);
+      if (localStorage.getItem("X-AUTH-TOKEN")) {
+        api
+          .auth()
+          .then((response) => {
+            setRole(response.data.role);
+            setName(response.data.name);
+          })
+          .catch((error) => {});
+      } else {
+        setRole(null);
+        setName(null);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [localStorage.getItem("X-AUTH-TOKEN")]);
 
     return <SpecificComponent {...props} role={role} name={name} />;
   }

@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ role, name }) => {
+const NavBar = ({ history, role, name }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -62,6 +62,10 @@ const NavBar = ({ role, name }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -69,10 +73,6 @@ const NavBar = ({ role, name }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -86,12 +86,29 @@ const NavBar = ({ role, name }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/register" className={classes.sectionDesktopMenuItem}>
-        <MenuItem onClick={handleMenuClose}>회원가입</MenuItem>
-      </Link>
-      <Link to="/login" className={classes.sectionDesktopMenuItem}>
-        <MenuItem onClick={handleMenuClose}>로그인</MenuItem>
-      </Link>
+      {role ? (
+        <div>
+          <MenuItem onClick={handleMenuClose}>회원정보 수정</MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              localStorage.removeItem("X-AUTH-TOKEN");
+              history.push("/");
+            }}
+          >
+            로그아웃
+          </MenuItem>
+        </div>
+      ) : (
+        <div>
+          <Link to="/register" className={classes.sectionDesktopMenuItem}>
+            <MenuItem onClick={handleMenuClose}>회원가입</MenuItem>
+          </Link>
+          <Link to="/login" className={classes.sectionDesktopMenuItem}>
+            <MenuItem onClick={handleMenuClose}>로그인</MenuItem>
+          </Link>
+        </div>
+      )}
     </Menu>
   );
 
@@ -147,6 +164,7 @@ const NavBar = ({ role, name }) => {
               <AccountCircle />
             </IconButton>
           </div>
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"

@@ -1,28 +1,30 @@
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import KinderagartenPage from "../../components/views/KindergartenPage/KindergartenPage";
-import { connect } from "react-redux";
 import {
   getKindergartenDetail,
   getKindergartenReview,
 } from "../../modules/reducers/kindergarten";
+import { getStudentList } from "../../modules/reducers/review";
 
-import {
-  setReview,
-  getStudentList,
-  getCheckWriteReview,
-} from "../../modules/reducers/review";
+const KindergartenPageContainer = ({ history, match }) => {
+  const { kindergartenDetail, kindergartenReview } = useSelector(
+    (state) => state
+  );
+  const dispatch = useDispatch();
 
-const KindergartenPageContainer = connect(
-  (state) => ({
-    review: state.review,
-  }),
-  (dispatch) => ({
-    setReview: (data) => dispatch(setReview(data)),
-    getStudentList: () => dispatch(getStudentList()),
-    getCheckWriteReview: (kindergarten_id, student_id) =>
-      dispatch(getCheckWriteReview(kindergarten_id, student_id)),
-    getKindergartenDetail: (id) => dispatch(getKindergartenDetail(id)),
-    getKindergartenReview: (id) => dispatch(getKindergartenReview(id)),
-  })
-)(KinderagartenPage);
+  useEffect(() => {
+    dispatch(getKindergartenDetail([match.params.id]));
+    dispatch(getKindergartenReview([match.params.id]));
+  }, [dispatch, match.params.id]);
+
+  return (
+    <KinderagartenPage
+      detail={kindergartenDetail}
+      reviews={kindergartenReview}
+      getStudentList={getStudentList}
+    />
+  );
+};
 
 export default KindergartenPageContainer;

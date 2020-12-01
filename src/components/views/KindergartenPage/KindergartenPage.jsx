@@ -95,58 +95,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const KindergartenPage = ({
-  match,
-  review,
-  setReview,
-  getStudentList,
-  getCheckWriteReview,
-  getKindergartenDetail,
-  getKindergartenReview,
-}) => {
+const KindergartenPage = ({ detail, reviews, getStudentList }) => {
   const classes = useStyles();
-  const [content, setContent] = useState(null);
   const [address, setAddress] = useState({
     lat: null,
     lng: null,
   });
+  const [dialog, setDialog] = useState(false);
 
   useEffect(() => {
-    getKindergartenDetail(match.params.id)
-      .then(async (res) => {
-        setContent(res.data);
-        const response = await api.getLatLng(res.data.address);
+    if (detail.data) {
+      (async () => {
+        const response = await api.getLatLng(detail.data.address);
+
         setAddress({
-          ...address,
           lat: Number(response.data.documents[0].y),
           lng: Number(response.data.documents[0].x),
         });
-      })
-      .catch((error) => {
-        alert("오류가 발생하였습니다. 다시 시도해주세요.");
-        console.log(error);
-      });
+      })();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [detail.data]);
 
-  const handleOpen = () => {
-    setReview({ target: "dialog", name: "opened", value: true });
-  };
-
-  if (content && address.lat && address.lng) {
+  if (
+    detail.loading !== false ||
+    !address.lat ||
+    !address.lng ||
+    !detail.data
+  ) {
+    return <Loading />;
+  } else {
     return (
       <div className="container" style={{ marginTop: "3rem" }}>
         <Grid container spacing={3}>
           <Grid item md={3} xs={12}>
             <Paper className={classes.leftPaper}>
               <Typography variant="h4" className={classes.title}>
-                {content.name}
+                {detail.data.name}
               </Typography>
               <div className={classes.rating}>
                 <Typography variant="h5">
-                  {String(content.score.toFixed(1))}
+                  {String(detail.data.score.toFixed(1))}
                 </Typography>
-                <Rating value={content.score} precision={0.5} readOnly />
+                <Rating value={detail.data.score} precision={0.5} readOnly />
               </div>
             </Paper>
             <Button
@@ -154,16 +145,15 @@ const KindergartenPage = ({
               variant="contained"
               color="primary"
               className={classes.reviewButton}
-              onClick={handleOpen}
+              onClick={() => setDialog(true)}
             >
               리뷰 쓰기
             </Button>
 
             <WriteReviewDialog
-              review={review}
-              setReview={setReview}
+              opened={dialog}
+              setDialog={setDialog}
               getStudentList={getStudentList}
-              getCheckWriteReview={getCheckWriteReview}
             />
           </Grid>
 
@@ -171,13 +161,13 @@ const KindergartenPage = ({
             <Paper className={classes.rightPaper}>
               <div>
                 <Typography variant="h5" className={classes.title}>
-                  {content.name}
+                  {detail.data.name}
                 </Typography>
               </div>
 
               <div>
                 <Chip
-                  label={content.type}
+                  label={detail.data.type}
                   color="primary"
                   className={classes.chip}
                 />
@@ -185,7 +175,7 @@ const KindergartenPage = ({
                   icon={
                     <FaMapMarkerAlt size={18} className={classes.addressIcon} />
                   }
-                  label={content.address}
+                  label={detail.data.address}
                   color="primary"
                   className={classes.chip}
                 />
@@ -207,7 +197,7 @@ const KindergartenPage = ({
                     <div className={classes.infoRow}>
                       <RiDoorOpenFill size={25} />
                       <span className={classes.info}>
-                        {content.openDate} 개원
+                        {detail.data.openDate} 개원
                       </span>
                     </div>
 
@@ -216,7 +206,7 @@ const KindergartenPage = ({
                     <div className={classes.infoRow}>
                       <BiTime size={25} />
                       <span className={classes.info}>
-                        운영시간 {content.operatingTime}
+                        운영시간 {detail.data.operatingTime}
                       </span>
                     </div>
 
@@ -224,7 +214,7 @@ const KindergartenPage = ({
 
                     <div className={classes.infoRow}>
                       <AiTwotonePhone size={25} />
-                      <span className={classes.info}>{content.phone}</span>
+                      <span className={classes.info}>{detail.data.phone}</span>
                     </div>
 
                     <Divider style={{ width: "100%" }} />
@@ -233,9 +223,11 @@ const KindergartenPage = ({
                       <MdOpenInBrowser size={25} />
                       <span
                         className={classes.website}
-                        onClick={() => window.location.replace(content.website)}
+                        onClick={() =>
+                          window.location.replace(detail.data.website)
+                        }
                       >
-                        {content.website}
+                        {detail.data.website}
                       </span>
                     </div>
 
@@ -243,23 +235,20 @@ const KindergartenPage = ({
 
                     <div className={classes.infoRow}>
                       <FaMapMarkerAlt size={25} />
-                      <span className={classes.info}>{content.address}</span>
+                      <span className={classes.info}>
+                        {detail.data.address}
+                      </span>
                     </div>
                   </div>
                 </Grid>
               </Grid>
             </Paper>
 
-            <ReviewList
-              id={match.params.id}
-              getKindergartenReview={getKindergartenReview}
-            />
+            <ReviewList reviews={reviews} />
           </Grid>
         </Grid>
       </div>
     );
-  } else {
-    return <Loading />;
   }
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, DialogContent, Grid, Typography } from "@material-ui/core";
+import Loading from "../common/Loading/Loading";
 
 const useStyles = makeStyles((theme) => ({
   dialogContent: {
@@ -29,16 +30,20 @@ const useStyles = makeStyles((theme) => ({
 const StudentList = ({
   classes,
   student,
-  setReview,
-  getCheckWriteReview,
+  updateField,
+  checkWriteReview,
   nextStep,
 }) => {
   const [check, setCheck] = useState(null);
 
   const handleCheck = (kindergarten_id, student_id) => {
-    getCheckWriteReview(kindergarten_id, student_id)
+    checkWriteReview(kindergarten_id, student_id)
       .then((res) => {
-        setCheck(res.data.status);
+        if (res.success) {
+          setCheck(res.data.status);
+        } else {
+          alert(res.msg);
+        }
       })
       .catch((res) => alert(res.msg));
   };
@@ -65,7 +70,7 @@ const StudentList = ({
             variant="contained"
             color="primary"
             onClick={() => {
-              handleCheck(student.kindergarten_id, student.student_id);
+              handleCheck(student.kindergarten_id, student.studentId);
             }}
           >
             확인
@@ -77,16 +82,8 @@ const StudentList = ({
             variant="contained"
             color="primary"
             onClick={() => {
-              setReview({
-                target: "value",
-                name: "kinderGarten_id",
-                value: student.kindergarten_id,
-              });
-              setReview({
-                target: "dialog",
-                name: "kindergarten_name",
-                value: student.kindergarten_name,
-              });
+              updateField("kinderGarten_id", student.kindergarten_id);
+              updateField("name", student.kindergarten_name);
               nextStep();
             }}
           >
@@ -103,21 +100,16 @@ const StudentList = ({
 };
 
 const SelectStudent = ({
-  setReview,
-  getStudentList,
-  getCheckWriteReview,
   nextStep,
+  studentList,
+  updateField,
+  checkWriteReview,
 }) => {
   const classes = useStyles();
-  const [students, setStudents] = useState(null);
 
-  useEffect(() => {
-    getStudentList().then((res) => {
-      setStudents(res.data.students);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  if (studentList.loading) {
+    return <Loading />;
+  }
   return (
     <DialogContent dividers className={classes.dialogContent}>
       <Grid container className={classes.content}>
@@ -138,15 +130,15 @@ const SelectStudent = ({
           <div className={classes.divider} />
         </Grid>
 
-        {students &&
-          students.map((student, index) => {
+        {studentList.data &&
+          studentList.data.students.map((student, index) => {
             return (
               <StudentList
                 key={index}
                 classes={classes}
                 student={student}
-                setReview={setReview}
-                getCheckWriteReview={getCheckWriteReview}
+                updateField={updateField}
+                checkWriteReview={checkWriteReview}
                 nextStep={nextStep}
               />
             );
