@@ -7,7 +7,7 @@ import {
 } from "../../modules/reducers/review";
 
 const SelectStudentContainer = ({ updateField, nextStep }) => {
-  const { studentList } = useSelector((state) => state);
+  const { studentList } = useSelector((state) => state.reviewState);
   const dispatch = useDispatch();
 
   useEffect(() => {

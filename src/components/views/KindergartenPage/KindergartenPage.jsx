@@ -95,7 +95,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const KindergartenPage = ({ detail, reviews, getStudentList }) => {
+const KindergartenPage = ({
+  role,
+  history,
+  detail,
+  reviews,
+  handlePostReviews,
+}) => {
   const classes = useStyles();
   const [address, setAddress] = useState({
     lat: null,
@@ -145,16 +151,28 @@ const KindergartenPage = ({ detail, reviews, getStudentList }) => {
               variant="contained"
               color="primary"
               className={classes.reviewButton}
-              onClick={() => setDialog(true)}
+              onClick={() => {
+                if (!role) {
+                  alert("로그인이 필요한 서비스입니다. 로그인 먼저 해주세요.");
+                  history.push("/login");
+                } else if (role !== "ROLE_USER") {
+                  alert("학부모가 아닌 유저는 리뷰를 작성할 수 없습니다.");
+                } else {
+                  setDialog(true);
+                }
+              }}
             >
               리뷰 쓰기
             </Button>
 
-            <WriteReviewDialog
-              opened={dialog}
-              setDialog={setDialog}
-              getStudentList={getStudentList}
-            />
+            {dialog && (
+              <WriteReviewDialog
+                history={history}
+                opened={dialog}
+                setDialog={setDialog}
+                handlePostReviews={handlePostReviews}
+              />
+            )}
           </Grid>
 
           <Grid item md={9} xs={12}>

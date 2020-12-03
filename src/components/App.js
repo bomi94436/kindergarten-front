@@ -21,7 +21,10 @@ function App() {
           <Route path="/register" component={RegisterPage} />
           <Route path="/login" component={Auth(LoginPage, false)} />
           <Route path="/search" component={SearchPage} />
-          <Route path="/kindergarten/:id" component={KindergartenPage} />
+          <Route
+            path="/kindergarten/:id"
+            component={Auth(KindergartenPage, null)}
+          />
           <Route component={NotFound} />
         </Switch>
       </Router>

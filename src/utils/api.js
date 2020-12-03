@@ -213,3 +213,20 @@ export const checkWriteReview = (kindergarten_id, student_id) =>
         return badResponse();
       }
     });
+
+/*
+    리뷰 작성
+*/
+export const postReviews = (reviews) =>
+  createAxios()
+    .post(`${REVIEW_SERVER}`, reviews)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });

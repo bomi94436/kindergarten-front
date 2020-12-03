@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Chip,
   Divider,
@@ -112,7 +112,7 @@ const ReviewList = ({ reviews }) => {
                 size={80}
                 style={{ color: "#fab400", marginBottom: "0.5rem" }}
               />
-              <Rating value={5.0} precision={0.5} readOnly />
+              <Rating value={element.descScore} precision={0.5} readOnly />
 
               <Divider
                 variant="middle"
@@ -121,27 +121,19 @@ const ReviewList = ({ reviews }) => {
 
               <div className={classes.ratingDetail}>
                 교사&nbsp;
-                <Rating
-                  value={element.teacherScore}
-                  precision={element.descScore}
-                  readOnly
-                />
+                <Rating value={element.teacherScore} precision={0.5} readOnly />
               </div>
               <div className={classes.ratingDetail}>
                 시설&nbsp;
                 <Rating
                   value={element.facilityScore}
-                  precision={element.descScore}
+                  precision={0.5}
                   readOnly
                 />
               </div>
               <div className={classes.ratingDetail}>
                 교육&nbsp;
-                <Rating
-                  value={element.eduScore}
-                  precision={element.descScore}
-                  readOnly
-                />
+                <Rating value={element.eduScore} precision={0.5} readOnly />
               </div>
             </Grid>
 

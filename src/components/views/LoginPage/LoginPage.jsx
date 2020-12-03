@@ -69,6 +69,7 @@ const LoginPage = ({ role, history, postLogin }) => {
 
     postLogin([dataToSubmit])
       .then((res) => {
+        console.log(res);
         if (res.success) {
           localStorage.setItem("X-AUTH-TOKEN", res.data.token);
           history.push("/");

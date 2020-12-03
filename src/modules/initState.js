@@ -1,3 +1,4 @@
+import { reviewState } from "./reducers/review";
 import { reducerUtils } from "./reducers/utils";
 
 const initState = {
@@ -6,8 +7,6 @@ const initState = {
     GET_EXISTID: false,
     GET_REGISTER_SEARCH: false,
     GET_LATLNG: false,
-    GET_KINDERGARTEN_DETAIL: false,
-    GET_KINDERGARTEN_REVIEW: false,
   },
 
   register: {
@@ -73,8 +72,8 @@ const initState = {
   // kindergarten
   kindergartenDetail: reducerUtils.initial(),
   kindergartenReview: reducerUtils.initial(),
-  studentList: reducerUtils.initial(),
-  checkWriteReview: reducerUtils.initial(),
+
+  reviewState: reviewState,
 
   review: {
     dialog: {

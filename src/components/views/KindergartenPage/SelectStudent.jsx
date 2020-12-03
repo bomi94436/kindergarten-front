@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, DialogContent, Grid, Typography } from "@material-ui/core";
 import Loading from "../common/Loading/Loading";
@@ -42,7 +42,7 @@ const StudentList = ({
         if (res.success) {
           setCheck(res.data.status);
         } else {
-          alert(res.msg);
+          alert(res.data.msg);
         }
       })
       .catch((res) => alert(res.msg));
@@ -82,8 +82,8 @@ const StudentList = ({
             variant="contained"
             color="primary"
             onClick={() => {
-              updateField("kinderGarten_id", student.kindergarten_id);
               updateField("name", student.kindergarten_name);
+              updateField("kinderGarten_id", student.kindergarten_id);
               nextStep();
             }}
           >
