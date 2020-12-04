@@ -1,11 +1,6 @@
 import produce from "immer";
 import * as api from "../../utils/api";
-import {
-  createPostPromiseThunk,
-  createPromiseThunk,
-  handleAsyncActions,
-  reducerUtils,
-} from "./utils";
+import { createPromiseThunk, handleAsyncActions, reducerUtils } from "./utils";
 
 const GET_STUDENT_LIST = "review/GET_STUDENT_LIST";
 const GET_STUDENT_LIST_SUCCESS = "review/GET_STUDENT_LIST_SUCCESS";
@@ -15,14 +10,24 @@ const GET_CHECK_WRITE_REVIEW = "review/GET_CHECK_WRITE_REVIEW";
 const GET_CHECK_WRITE_REVIEW_SUCCESS = "review/GET_CHECK_WRITE_REVIEW_SUCCESS";
 const GET_CHECK_WRITE_REVIEW_FAILURE = "review/GET_CHECK_WRITE_REVIEW_FAILURE";
 
+const GET_COMMENT = "review/GET_COMMENT";
+const GET_COMMENT_SUCCESS = "review/GET_COMMENT_SUCCESS";
+const GET_COMMENT_FAILURE = "review/GET_COMMENT_FAILURE";
+
 const POST_REVIEWS = "review/POST_REVIEWS";
 const POST_REVIEWS_SUCCESS = "review/POST_REVIEWS_SUCCESS";
 const POST_REVIEWS_FAILURE = "review/POST_REVIEWS_FAILURE";
 
+const POST_REVIEWS_COMMENTS = "review/POST_REVIEWS_COMMENTS";
+const POST_REVIEWS_COMMENTS_SUCCESS = "review/POST_REVIEWS_COMMENTS_SUCCESS";
+const POST_REVIEWS_COMMENTS_FAILURE = "review/POST_REVIEWS_COMMENTS_FAILURE";
+
 export const reviewState = {
   checkWriteReview: reducerUtils.initial(),
   studentList: reducerUtils.initial(),
+  reviewComment: reducerUtils.initial(),
   writeReviews: reducerUtils.initial(),
+  writeReviewsComments: reducerUtils.initial(),
 };
 
 export const getStudentList = createPromiseThunk(
@@ -35,9 +40,13 @@ export const getCheckWriteReview = createPromiseThunk(
   api.checkWriteReview
 );
 
-export const postReviews = createPostPromiseThunk(
-  POST_REVIEWS,
-  api.postReviews
+export const getComment = createPromiseThunk(GET_COMMENT, api.getComment);
+
+export const postReviews = createPromiseThunk(POST_REVIEWS, api.postReviews);
+
+export const postReviewsComments = createPromiseThunk(
+  POST_REVIEWS_COMMENTS,
+  api.postReviewsComments
 );
 
 const review = (state = reviewState, action) => {
@@ -61,10 +70,28 @@ const review = (state = reviewState, action) => {
         );
         break;
 
+      case GET_COMMENT:
+      case GET_COMMENT_SUCCESS:
+      case GET_COMMENT_FAILURE:
+        handleAsyncActions(GET_COMMENT, "reviewComment")(
+          draft.reviewState,
+          action
+        );
+        break;
+
       case POST_REVIEWS:
       case POST_REVIEWS_SUCCESS:
       case POST_REVIEWS_FAILURE:
         handleAsyncActions(POST_REVIEWS, "writeReviews")(
+          draft.reviewState,
+          action
+        );
+        break;
+
+      case POST_REVIEWS_COMMENTS:
+      case POST_REVIEWS_COMMENTS_SUCCESS:
+      case POST_REVIEWS_COMMENTS_FAILURE:
+        handleAsyncActions(POST_REVIEWS_COMMENTS, "writeReviewsComments")(
           draft.reviewState,
           action
         );

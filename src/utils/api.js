@@ -4,6 +4,7 @@ import {
   USER_SERVER,
   KINDERGARTEN_SERVER,
   REVIEW_SERVER,
+  COMMENT_SERVER,
 } from "./config";
 import { REACT_APP_BACKEND_SERVER_URL, KAKAO_MAP_REST_API_KEY } from "./key";
 
@@ -168,7 +169,7 @@ export const kindergartenDetail = (id) =>
 */
 export const kindergartenReview = (id) =>
   createAxios()
-    .get(`${REVIEW_SERVER}/${id}`)
+    .get(`${REVIEW_SERVER}/kindergartens/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       if (error.response) {
@@ -220,6 +221,40 @@ export const checkWriteReview = (kindergarten_id, student_id) =>
 export const postReviews = (reviews) =>
   createAxios()
     .post(`${REVIEW_SERVER}`, reviews)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    리뷰의 댓글 조회
+*/
+export const getComment = (reviewId) =>
+  createAxios()
+    .get(`${REVIEW_SERVER}/${reviewId}/comments`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    리뷰의 댓글 작성
+*/
+export const postReviewsComments = (reviewId, body) =>
+  createAxios()
+    .post(`${REVIEW_SERVER}/${reviewId}/comments`, body)
     .then((response) => response.data)
     .catch((error) => {
       if (error.response) {

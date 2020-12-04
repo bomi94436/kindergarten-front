@@ -45,30 +45,6 @@ export const createPromiseThunk = (type, API) => {
   };
 };
 
-export const createPostPromiseThunk = (type, API) => {
-  const [SUCCESS, FAILURE] = [`${type}_SUCCESS`, `${type}_FAILURE`];
-
-  return (body) => async (dispatch) => {
-    dispatch({ type, body });
-
-    try {
-      const payload = await API(body);
-
-      if (payload.success) {
-        dispatch({ type: SUCCESS, payload });
-      } else {
-        dispatch({ type: FAILURE, payload });
-      }
-
-      console.log(payload);
-      return payload;
-    } catch (e) {
-      console.log(e);
-      dispatch({ type: FAILURE, payload: e, error: true });
-    }
-  };
-};
-
 export const handleAsyncActions = (type, key) => {
   const [SUCCESS, FAILURE] = [`${type}_SUCCESS`, `${type}_FAILURE`];
   return (draft, action) => {

@@ -18,7 +18,7 @@ export const StyledDialog = styled.div`
   }
 `;
 
-export const StyeldQuestion = styled.div`
+export const StyledQuestion = styled.div`
   padding: 24px;
 
   .slider {
@@ -66,5 +66,95 @@ export const StyeldQuestion = styled.div`
 
   .description {
     width: 100%;
+  }
+`;
+
+export const StyledReviewList = styled.div`
+  .root {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .top {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .middle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rating {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin-right: 1rem;
+  }
+
+  .desc {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    height: 100%;
+  }
+
+  .desc-text {
+    margin: 0.5rem 0;
+    height: 112px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  .rating-detail {
+    display: flex;
+    align-items: center;
+  }
+
+  .comment {
+    span {
+      margin-left: 4px;
+    }
+  }
+`;
+
+export const StyledReviewComment = styled.div`
+  padding: 10px 20px;
+
+  p {
+    margin: 5px 0;
+  }
+
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .content {
+    border: 0.5px solid ${palette.gray};
+    border-radius: 4px;
+    padding: 15px 20px;
+    font-size: 16px;
+  }
+
+  .description {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
   }
 `;

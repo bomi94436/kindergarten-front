@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import Circle from "./Circle";
 import SelectStudentContainer from "src/containers/KindergartenPage/SelectStudentContainer";
-import { StyeldQuestion, StyledDialog } from "./styles";
+import { StyledQuestion, StyledDialog } from "./styles";
 
 const marks = [
   {
@@ -91,7 +91,7 @@ const Step1 = ({ field, updateField, step, prevStep, nextStep }) => (
       <p className="step2subtitle">리뷰쓰기</p>
     </DialogTitle>
 
-    <StyeldQuestion>
+    <StyledQuestion>
       {/* 질문1. ㅇㅇ유치원에 얼마나 만족하시나요? */}
       <div className="step1">
         <div>
@@ -118,7 +118,7 @@ const Step1 = ({ field, updateField, step, prevStep, nextStep }) => (
           }
         />
       </div>
-    </StyeldQuestion>
+    </StyledQuestion>
 
     <DialogActions className="bottom">
       <Circle all={4} now={step + 1} />
@@ -148,7 +148,7 @@ const Step2 = ({ field, updateField, step, prevStep, nextStep }) => (
       <p className="step2subtitle">리뷰쓰기</p>
     </DialogTitle>
 
-    <StyeldQuestion>
+    <StyledQuestion>
       {/* 질문2. 선생님, 원장님이 자녀들에 대한 지도 및 관심이 적극적이라고 생각하시나요? */}
       <div className="step2">
         <div>
@@ -234,7 +234,7 @@ const Step2 = ({ field, updateField, step, prevStep, nextStep }) => (
           }
         />
       </div>
-    </StyeldQuestion>
+    </StyledQuestion>
 
     <DialogActions className="bottom">
       <Circle all={4} now={step + 1} />
@@ -276,7 +276,7 @@ const Step3 = ({
       <p className="step2subtitle">리뷰쓰기</p>
     </DialogTitle>
 
-    <StyeldQuestion>
+    <StyledQuestion>
       {/* 유치원에 대한 한줄평을 작성해주세요. */}
       <div>
         <p>유치원에 대한 한줄평을 작성해주세요.</p>
@@ -327,7 +327,7 @@ const Step3 = ({
         }
         label="익명으로 작성"
       />
-    </StyeldQuestion>
+    </StyledQuestion>
 
     <DialogActions className="bottom">
       <Circle all={4} now={step + 1} />

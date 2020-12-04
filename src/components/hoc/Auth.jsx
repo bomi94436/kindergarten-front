@@ -10,6 +10,7 @@ export default function (SpecificComponent, option) {
   function AuthenticationCheck(props) {
     const [role, setRole] = useState(null);
     const [name, setName] = useState(null);
+    const [userid, setUserid] = useState(null);
 
     useEffect(() => {
       if (localStorage.getItem("X-AUTH-TOKEN")) {
@@ -18,16 +19,22 @@ export default function (SpecificComponent, option) {
           .then((response) => {
             setRole(response.data.role);
             setName(response.data.name);
+            setUserid(response.data.userid);
           })
-          .catch((error) => {});
+          .catch((error) => {
+            localStorage.removeItem("X-AUTH-TOKEN");
+          });
       } else {
         setRole(null);
         setName(null);
+        setUserid(null);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localStorage.getItem("X-AUTH-TOKEN")]);
 
-    return <SpecificComponent {...props} role={role} name={name} />;
+    return (
+      <SpecificComponent {...props} role={role} name={name} userid={userid} />
+    );
   }
 
   return AuthenticationCheck;

@@ -97,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
 
 const KindergartenPage = ({
   role,
+  userid,
   history,
   detail,
   reviews,
@@ -262,7 +263,7 @@ const KindergartenPage = ({
               </Grid>
             </Paper>
 
-            <ReviewList reviews={reviews} />
+            <ReviewList userid={userid} reviews={reviews} />
           </Grid>
         </Grid>
       </div>

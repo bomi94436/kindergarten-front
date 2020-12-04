@@ -7,7 +7,7 @@ import {
 } from "../../modules/reducers/kindergarten";
 import { postReviews } from "../../modules/reducers/review";
 
-const KindergartenPageContainer = ({ history, match, role }) => {
+const KindergartenPageContainer = ({ history, match, role, userid }) => {
   const { kindergartenDetail, kindergartenReview } = useSelector(
     (state) => state
   );
@@ -33,7 +33,7 @@ const KindergartenPageContainer = ({ history, match, role }) => {
         badThing: field.badThing,
       };
 
-      return dispatch(postReviews(body));
+      return dispatch(postReviews([body]));
     },
     [dispatch]
   );
@@ -41,6 +41,7 @@ const KindergartenPageContainer = ({ history, match, role }) => {
   return (
     <KinderagartenPage
       role={role}
+      userid={userid}
       history={history}
       detail={kindergartenDetail}
       reviews={kindergartenReview}
