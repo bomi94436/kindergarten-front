@@ -265,3 +265,54 @@ export const postReviewsComments = (reviewId, body) =>
         return badResponse();
       }
     });
+
+/*
+    리뷰 삭제
+*/
+export const deleteReviews = (reviewId) =>
+  createAxios()
+    .delete(`${REVIEW_SERVER}/${reviewId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    리뷰의 댓글 삭제
+*/
+export const deleteReviewsComments = (commentId) =>
+  createAxios()
+    .delete(`${REVIEW_SERVER}/comments/${commentId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    리뷰의 댓글 수정
+*/
+export const putReviewsComments = (commentId, body) =>
+  createAxios()
+    .put(`${REVIEW_SERVER}/comments/${commentId}`, body)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });

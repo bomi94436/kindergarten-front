@@ -80,13 +80,19 @@ export const StyledReviewList = styled.div`
     flex-flow: column;
   }
 
-  .name {
+  .middle {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .middle {
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .name {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -136,9 +142,26 @@ export const StyledReviewComment = styled.div`
     margin: 5px 0;
   }
 
-  .name {
-    font-size: 18px;
-    font-weight: bold;
+  .head {
+    display: flex;
+    justify-content: space-between;
+
+    .head-left {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+
+      .profile {
+        width: 30px;
+        height: 30px;
+      }
+
+      .name {
+        margin-left: 8px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
   }
 
   .content {

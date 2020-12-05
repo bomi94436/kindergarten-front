@@ -5,19 +5,21 @@ import {
   getKindergartenDetail,
   getKindergartenReview,
 } from "../../modules/reducers/kindergarten";
-import { postReviews } from "../../modules/reducers/review";
+import { postReviews, deleteReviews } from "../../modules/reducers/review";
 
 const KindergartenPageContainer = ({ history, match, role, userid }) => {
   const { kindergartenDetail, kindergartenReview } = useSelector(
     (state) => state
   );
-  const { writeReviews } = useSelector((state) => state.reviewState);
+  const { writeReviews, removeReviews } = useSelector(
+    (state) => state.reviewState
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getKindergartenDetail([match.params.id]));
     dispatch(getKindergartenReview([match.params.id]));
-  }, [dispatch, match.params.id, writeReviews.loading]);
+  }, [dispatch, match.params.id, writeReviews.loading, removeReviews.loading]);
 
   const handlePostReviews = useCallback(
     (field) => {
@@ -38,6 +40,11 @@ const KindergartenPageContainer = ({ history, match, role, userid }) => {
     [dispatch]
   );
 
+  const handleDeleteReviews = useCallback(
+    (reviewId) => dispatch(deleteReviews([reviewId])),
+    [dispatch]
+  );
+
   return (
     <KinderagartenPage
       role={role}
@@ -46,6 +53,7 @@ const KindergartenPageContainer = ({ history, match, role, userid }) => {
       detail={kindergartenDetail}
       reviews={kindergartenReview}
       handlePostReviews={handlePostReviews}
+      handleDeleteReviews={handleDeleteReviews}
     />
   );
 };

@@ -9,6 +9,8 @@ import NotFound from "./views/NotFound/NotFound";
 import LoginPage from "../containers/LoginPage/LoginPageContainer";
 import SearchPage from "../containers/SearchPage/SearchPageContainer";
 import KindergartenPage from "../containers/KindergartenPage/KindergartenPageContainer";
+import ModifyUserInfoPageContainer from "src/containers/ModifyUserInfoPage/ModifyUserInfoPageContainer";
+import ModifyPasswordPageContainer from "src/containers/ModifyUserInfoPage/ModifyPasswordPageContainer";
 
 function App() {
   return (
@@ -24,6 +26,14 @@ function App() {
           <Route
             path="/kindergarten/:id"
             component={Auth(KindergartenPage, null)}
+          />
+          <Route
+            path="/modify-user"
+            component={Auth(ModifyUserInfoPageContainer, null)}
+          />
+          <Route
+            path="/modify-password"
+            component={Auth(ModifyPasswordPageContainer, null)}
           />
           <Route component={NotFound} />
         </Switch>

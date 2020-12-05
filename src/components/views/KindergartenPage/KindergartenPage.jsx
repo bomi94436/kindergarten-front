@@ -102,6 +102,7 @@ const KindergartenPage = ({
   detail,
   reviews,
   handlePostReviews,
+  handleDeleteReviews,
 }) => {
   const classes = useStyles();
   const [address, setAddress] = useState({
@@ -263,7 +264,11 @@ const KindergartenPage = ({
               </Grid>
             </Paper>
 
-            <ReviewList userid={userid} reviews={reviews} />
+            <ReviewList
+              userid={userid}
+              reviews={reviews}
+              handleDeleteReviews={handleDeleteReviews}
+            />
           </Grid>
         </Grid>
       </div>

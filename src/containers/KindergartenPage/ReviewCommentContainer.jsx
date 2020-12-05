@@ -1,19 +1,33 @@
 import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ReviewComment from "src/components/views/KindergartenPage/ReviewComment";
-import { getComment, postReviewsComments } from "../../modules/reducers/review";
+import {
+  deleteReviewsComments,
+  getComment,
+  postReviewsComments,
+  putReviewsComments,
+} from "../../modules/reducers/review";
 
 const ReviewCommentContainer = ({ userid, reviewId, reviewWriter }) => {
-  const { reviewComment, writeReviewsComments } = useSelector(
-    (state) => state.reviewState
-  );
+  const {
+    reviewComment,
+    writeReviewsComments,
+    removeReviewsComments,
+    updateReviewsComments,
+  } = useSelector((state) => state.reviewState);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getComment([reviewId]));
-  }, [dispatch, reviewId, writeReviewsComments.data]);
+  }, [
+    dispatch,
+    reviewId,
+    writeReviewsComments.data,
+    removeReviewsComments.loading,
+    updateReviewsComments.loading,
+  ]);
 
-  const handleWriteReviewComment = useCallback(
+  const handlePostReviewComment = useCallback(
     (userid, desc) => {
       const body = {
         writer: userid,
@@ -25,12 +39,29 @@ const ReviewCommentContainer = ({ userid, reviewId, reviewWriter }) => {
     [dispatch, reviewId]
   );
 
+  const handlePutReviewComment = useCallback(
+    (commentId, desc) => {
+      const body = {
+        desc,
+      };
+      dispatch(putReviewsComments([commentId, body]));
+    },
+    [dispatch]
+  );
+
+  const handleDeleteReviewComment = useCallback(
+    (commentId) => dispatch(deleteReviewsComments([commentId])),
+    [dispatch]
+  );
+
   return (
     <ReviewComment
       userid={userid}
       comment={reviewComment}
       reviewWriter={reviewWriter}
-      handleWriteReviewComment={handleWriteReviewComment}
+      handlePostReviewComment={handlePostReviewComment}
+      handlePutReviewComment={handlePutReviewComment}
+      handleDeleteReviewComment={handleDeleteReviewComment}
     />
   );
 };

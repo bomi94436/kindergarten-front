@@ -17,6 +17,7 @@ export default function (SpecificComponent, option) {
         api
           .auth()
           .then((response) => {
+            console.log(response);
             setRole(response.data.role);
             setName(response.data.name);
             setUserid(response.data.userid);

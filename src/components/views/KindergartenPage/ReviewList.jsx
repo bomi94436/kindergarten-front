@@ -6,6 +6,10 @@ import {
   Paper,
   Typography,
   Button,
+  Collapse,
+  Dialog,
+  DialogContent,
+  DialogActions,
 } from "@material-ui/core";
 import Loading from "../common/Loading/Loading";
 import { MdClose, MdCheck } from "react-icons/md";
@@ -17,8 +21,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { StyledReviewList } from "./styles";
 import ReviewCommentContainer from "src/containers/KindergartenPage/ReviewCommentContainer";
 
-const ReviewList = ({ userid, reviews }) => {
+const ReviewList = ({ userid, reviews, handleDeleteReviews }) => {
   const [openComment, setOpenComment] = useState(false);
+  const [removeReviewDialog, setRemoveReviewDialog] = useState(false);
 
   if (reviews.loading !== false) {
     return <Loading />;
@@ -65,10 +70,22 @@ const ReviewList = ({ userid, reviews }) => {
 
             <Grid className="middle">
               <Grid item md={4} xs={12} className="rating">
-                <AiOutlineSmile
-                  size={80}
-                  style={{ color: "#fab400", marginBottom: "0.5rem" }}
-                />
+                {element.descScore < 1.5 ? (
+                  <AiOutlineFrown
+                    size={80}
+                    style={{ color: "#fab400", marginBottom: "0.5rem" }}
+                  />
+                ) : element.descScore > 3.5 ? (
+                  <AiOutlineSmile
+                    size={80}
+                    style={{ color: "#fab400", marginBottom: "0.5rem" }}
+                  />
+                ) : (
+                  <AiOutlineMeh
+                    size={80}
+                    style={{ color: "#fab400", marginBottom: "0.5rem" }}
+                  />
+                )}
                 <Rating value={element.descScore} precision={0.5} readOnly />
 
                 <Divider
@@ -112,25 +129,65 @@ const ReviewList = ({ userid, reviews }) => {
             </Grid>
 
             <Grid item xs={12}>
-              <Button
-                className="comment"
-                color="primary"
-                onClick={() => setOpenComment((value) => !value)}
-              >
-                <FaRegCommentAlt />
-                {openComment ? <span> 댓글닫기</span> : <span> 댓글보기</span>}
-              </Button>
+              <div className="bottom">
+                <Button
+                  className="comment"
+                  color="primary"
+                  onClick={() => setOpenComment((value) => !value)}
+                >
+                  <FaRegCommentAlt />
+                  {openComment ? (
+                    <span> 댓글닫기</span>
+                  ) : (
+                    <span> 댓글보기</span>
+                  )}
+                </Button>
+                {element.writer === userid && (
+                  <Button
+                    color="secondary"
+                    onClick={() => setRemoveReviewDialog(true)}
+                  >
+                    리뷰 삭제
+                  </Button>
+                )}
+              </div>
 
-              {openComment && (
+              {/* 댓글 */}
+              <Collapse in={openComment}>
                 <ReviewCommentContainer
                   userid={userid}
                   reviewId={element.reviewId}
                   reviewWriter={element.writer}
                 />
-              )}
+              </Collapse>
             </Grid>
           </div>
         </Paper>
+
+        <Dialog
+          open={removeReviewDialog}
+          onClose={() => setRemoveReviewDialog(false)}
+        >
+          <DialogContent>정말 리뷰를 삭제하시겠습니까?</DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => setRemoveReviewDialog(false)}
+              color="primary"
+            >
+              아니요
+            </Button>
+            <Button
+              onClick={() => {
+                handleDeleteReviews(element.reviewId);
+                setRemoveReviewDialog(false);
+              }}
+              color="secondary"
+              autoFocus
+            >
+              네, 삭제합니다
+            </Button>
+          </DialogActions>
+        </Dialog>
       </StyledReviewList>
     ));
   }

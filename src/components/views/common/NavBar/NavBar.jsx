@@ -88,7 +88,10 @@ const NavBar = ({ history, role, name }) => {
     >
       {role ? (
         <div>
-          <MenuItem onClick={handleMenuClose}>회원정보 수정</MenuItem>
+          <Link to="/modify-user" className={classes.sectionDesktopMenuItem}>
+            <MenuItem onClick={handleMenuClose}>회원정보 수정</MenuItem>
+          </Link>
+
           <MenuItem
             onClick={() => {
               handleMenuClose();

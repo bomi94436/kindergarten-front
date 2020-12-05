@@ -50,7 +50,7 @@ export const handleAsyncActions = (type, key) => {
   return (draft, action) => {
     switch (action.type) {
       case type:
-        draft[key] = reducerUtils.loading();
+        draft[key] = reducerUtils.loading(draft[key].data);
         break;
       case SUCCESS:
         draft[key] = reducerUtils.success(action.payload.data);
