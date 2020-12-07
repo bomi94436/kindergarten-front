@@ -4,9 +4,10 @@ import {
   USER_SERVER,
   KINDERGARTEN_SERVER,
   REVIEW_SERVER,
-  COMMENT_SERVER,
+  MANAGEMENT_SERVER,
 } from "./config";
 import { REACT_APP_BACKEND_SERVER_URL, KAKAO_MAP_REST_API_KEY } from "./key";
+import userRole from "./role";
 
 const badResponse = () => {
   return {
@@ -316,3 +317,221 @@ export const putReviewsComments = (commentId, body) =>
         return badResponse();
       }
     });
+
+/*
+    유저 회원정보 수정 전 비밀번호 검사
+*/
+export const postPasswordValid = (body) =>
+  createAxios()
+    .post(`${AUTH_SERVER}/passwordvalid`, body)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    유저 회원정보 조회
+*/
+export const getUser = () =>
+  createAxios()
+    .get(`${USER_SERVER}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    유저 회원정보 수정
+*/
+export const putUser = (body) =>
+  createAxios()
+    .put(`${USER_SERVER}`, body)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    유저(학부모) 학생정보 조회
+*/
+export const getStudent = () =>
+  createAxios()
+    .get(`${USER_SERVER}/students`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    유치원 관계자의 승인요청 학생 조회
+*/
+export const getManagementStudent = (kindergartenId) =>
+  createAxios()
+    .get(`${MANAGEMENT_SERVER}/kindergartens/${kindergartenId}/students`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    유치원 관계자의 승인요청 선생 조회
+*/
+export const getManagementTeacher = (kindergartenId) => {
+  return createAxios()
+    .get(
+      `${MANAGEMENT_SERVER}/kindergartens/${kindergartenId}/users?role=${userRole.ROLE_NOT_PERMITTED_TEACHER}`
+    )
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+};
+
+/*
+    유치원 관계자의 학생 승인
+*/
+export const putManagementStudent = (studentId) => {
+  return createAxios()
+    .put(`${MANAGEMENT_SERVER}/students/${studentId}?access=true`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+};
+
+/*
+    유치원 관계자의 선생 승인
+*/
+export const putManagementTeacher = (teacherId) => {
+  return createAxios()
+    .put(
+      `${MANAGEMENT_SERVER}/users/${teacherId}/role?role=${userRole.ROLE_TEACHER}`
+    )
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+};
+
+/*
+    관리자의 승인요청 학생 조회
+*/
+export const getStudentInAdmin = () =>
+  createAxios()
+    .get(`${MANAGEMENT_SERVER}/student/access/false`)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    관리자의 승인요청 선생 조회
+*/
+export const getTeacherInAdmin = () =>
+  createAxios()
+    .get(
+      `${MANAGEMENT_SERVER}/users/role/${userRole.ROLE_NOT_PERMITTED_TEACHER}`
+    )
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    관리자의 승인요청 원장 조회
+*/
+export const getDirectorInAdmin = () =>
+  createAxios()
+    .get(
+      `${MANAGEMENT_SERVER}/users/role/${userRole.ROLE_NOT_PERMITTED_DIRECTOR}`
+    )
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+
+/*
+    관리자의 원장 승인
+*/
+export const putManagementDirector = (directorId) => {
+  return createAxios()
+    .put(
+      `${MANAGEMENT_SERVER}/users/${directorId}/role?role=${userRole.ROLE_DIRECTOR}`
+    )
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        return badResponse();
+      } else {
+        return badResponse();
+      }
+    });
+};

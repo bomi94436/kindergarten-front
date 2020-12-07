@@ -181,3 +181,5 @@ export const StyledReviewComment = styled.div`
     justify-content: flex-end;
   }
 `;
+
+export const StyledManagementList = styled.div``;

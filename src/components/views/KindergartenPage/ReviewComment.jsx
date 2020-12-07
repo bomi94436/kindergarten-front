@@ -4,7 +4,7 @@ import { Divider, TextField, Button, Avatar } from "@material-ui/core";
 import { BsFillPersonFill } from "react-icons/bs";
 
 const ReviewComment = ({
-  userid,
+  loggedInfo,
   comment,
   reviewWriter,
   handlePostReviewComment,
@@ -18,11 +18,11 @@ const ReviewComment = ({
   if (comment.data)
     return (
       <>
-        {userid === reviewWriter ? (
+        {loggedInfo.userid === reviewWriter ? (
           <StyledReviewComment>
             <div className="head">
               <div className="head-left">
-                <p className="name">{userid}</p>
+                <p className="name">{loggedInfo.userid}</p>
               </div>
             </div>
             <TextField
@@ -42,7 +42,7 @@ const ReviewComment = ({
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  handlePostReviewComment(userid, desc);
+                  handlePostReviewComment(loggedInfo.userid, desc);
                   setDesc("");
                 }}
               >
@@ -92,7 +92,7 @@ const ReviewComment = ({
                 </div>
 
                 <div>
-                  {item.userid === userid &&
+                  {item.userid === loggedInfo.userid &&
                     (!updateInput ? (
                       <>
                         <Button

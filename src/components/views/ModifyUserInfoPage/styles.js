@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   height: 80vh;
 `;
 
-export const StyledConfirmPassword = styled.div`
+export const StyledConfirmPassword = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;

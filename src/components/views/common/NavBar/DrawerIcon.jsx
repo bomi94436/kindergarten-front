@@ -8,9 +8,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { GoSearch } from "react-icons/go";
 import { HiHome } from "react-icons/hi";
+import { AiOutlineAudit } from "react-icons/ai";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
+import userRole from "src/utils/role";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DrawerIcon = () => {
+const DrawerIcon = ({ role }) => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = React.useState(false);
 
@@ -66,6 +68,17 @@ const DrawerIcon = () => {
             <ListItemText primary="유치원 검색" />
           </ListItem>
         </Link>
+
+        {role === userRole.ROLE_ADMIN && (
+          <Link to="/access" className={classes.link}>
+            <ListItem button>
+              <ListItemIcon className={classes.icon}>
+                <AiOutlineAudit />
+              </ListItemIcon>
+              <ListItemText primary="유치원 승인 관리" />
+            </ListItem>
+          </Link>
+        )}
       </List>
 
       {/* <Divider /> */}

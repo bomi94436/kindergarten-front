@@ -11,6 +11,7 @@ import SearchPage from "../containers/SearchPage/SearchPageContainer";
 import KindergartenPage from "../containers/KindergartenPage/KindergartenPageContainer";
 import ModifyUserInfoPageContainer from "src/containers/ModifyUserInfoPage/ModifyUserInfoPageContainer";
 import ModifyPasswordPageContainer from "src/containers/ModifyUserInfoPage/ModifyPasswordPageContainer";
+import ManagementPageContainer from "src/containers/ManagementPage/ManagementPageContainer";
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
           <Route
             path="/modify-password"
             component={Auth(ModifyPasswordPageContainer, null)}
+          />
+          <Route
+            path="/access"
+            component={Auth(ManagementPageContainer, "admin")}
           />
           <Route component={NotFound} />
         </Switch>

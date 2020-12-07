@@ -38,7 +38,7 @@ const StyledLink = styled(Link)`
   margin: 1.2rem 0.1rem;
 `;
 
-const LoginPage = ({ role, history, postLogin }) => {
+const LoginPage = ({ history, postLogin }) => {
   const [field, setField] = useState({
     userid: "",
     password: "",

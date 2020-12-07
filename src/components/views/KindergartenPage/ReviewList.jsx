@@ -21,7 +21,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { StyledReviewList } from "./styles";
 import ReviewCommentContainer from "src/containers/KindergartenPage/ReviewCommentContainer";
 
-const ReviewList = ({ userid, reviews, handleDeleteReviews }) => {
+const ReviewList = ({ loggedInfo, reviews, handleDeleteReviews }) => {
   const [openComment, setOpenComment] = useState(false);
   const [removeReviewDialog, setRemoveReviewDialog] = useState(false);
 
@@ -142,7 +142,7 @@ const ReviewList = ({ userid, reviews, handleDeleteReviews }) => {
                     <span> 댓글보기</span>
                   )}
                 </Button>
-                {element.writer === userid && (
+                {element.writer === loggedInfo.userid && (
                   <Button
                     color="secondary"
                     onClick={() => setRemoveReviewDialog(true)}
@@ -155,7 +155,7 @@ const ReviewList = ({ userid, reviews, handleDeleteReviews }) => {
               {/* 댓글 */}
               <Collapse in={openComment}>
                 <ReviewCommentContainer
-                  userid={userid}
+                  loggedInfo={loggedInfo}
                   reviewId={element.reviewId}
                   reviewWriter={element.writer}
                 />

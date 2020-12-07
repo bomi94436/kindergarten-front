@@ -13,6 +13,8 @@ import map from "./reducers/map";
 import search from "./reducers/search";
 import kindergarten from "./reducers/kindergarten";
 import review from "./reducers/review";
+import user from "./reducers/user";
+import management from "./reducers/management";
 
 // persist 미적용
 
@@ -23,7 +25,9 @@ const reducer = reduceReducers(
   map,
   search,
   kindergarten,
-  review
+  review,
+  user,
+  management
 );
 
 export default function configureStore() {

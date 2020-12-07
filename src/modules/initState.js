@@ -1,4 +1,6 @@
+import { managementState } from "src/modules/reducers/management";
 import { reviewState } from "./reducers/review";
+import { userState } from "./reducers/user";
 import { reducerUtils } from "./reducers/utils";
 
 const initState = {
@@ -73,25 +75,14 @@ const initState = {
   kindergartenDetail: reducerUtils.initial(),
   kindergartenReview: reducerUtils.initial(),
 
+  // review
   reviewState: reviewState,
 
-  review: {
-    dialog: {
-      opened: false,
-      kindergarten_name: null,
-    },
-    value: {
-      kinderGarten_id: null, //유치원 id
-      anonymous: false, // 익명 여부
-      description: null, // 총평
-      descScore: null, // 총평점
-      eduScore: null, // 교육 점수
-      facilityScore: null, // 시설 점수
-      teacherScore: null, // 선생님 점수
-      goodThing: null, // 장점
-      badThing: null, // 단점
-    },
-  },
+  // user
+  userState: userState,
+
+  // management
+  managementState: managementState,
 };
 
 export default initState;

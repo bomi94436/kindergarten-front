@@ -8,7 +8,7 @@ import {
   putReviewsComments,
 } from "../../modules/reducers/review";
 
-const ReviewCommentContainer = ({ userid, reviewId, reviewWriter }) => {
+const ReviewCommentContainer = ({ loggedInfo, reviewId, reviewWriter }) => {
   const {
     reviewComment,
     writeReviewsComments,
@@ -28,9 +28,9 @@ const ReviewCommentContainer = ({ userid, reviewId, reviewWriter }) => {
   ]);
 
   const handlePostReviewComment = useCallback(
-    (userid, desc) => {
+    (loggedInfo, desc) => {
       const body = {
-        writer: userid,
+        writer: loggedInfo.userid,
         desc,
       };
 
@@ -56,7 +56,7 @@ const ReviewCommentContainer = ({ userid, reviewId, reviewWriter }) => {
 
   return (
     <ReviewComment
-      userid={userid}
+      loggedInfo={loggedInfo}
       comment={reviewComment}
       reviewWriter={reviewWriter}
       handlePostReviewComment={handlePostReviewComment}

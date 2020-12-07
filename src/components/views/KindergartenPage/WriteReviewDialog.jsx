@@ -447,15 +447,12 @@ const ReviewDialog = ({ history, opened, setDialog, handlePostReviews }) => {
   const prevStep = useCallback(() => setStep(step - 1), [step]);
   const nextStep = useCallback(() => setStep(step + 1), [step]);
 
-  const updateField = useCallback(
-    (name, value) => {
-      setField((field) => ({
-        ...field,
-        [name]: value,
-      }));
-    },
-    [field]
-  );
+  const updateField = useCallback((name, value) => {
+    setField((field) => ({
+      ...field,
+      [name]: value,
+    }));
+  }, []);
 
   console.log(field);
 

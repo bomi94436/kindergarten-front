@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ history, role, name }) => {
+const NavBar = ({ history, loggedInfo }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -86,7 +86,7 @@ const NavBar = ({ history, role, name }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {role ? (
+      {loggedInfo.role ? (
         <div>
           <Link to="/modify-user" className={classes.sectionDesktopMenuItem}>
             <MenuItem onClick={handleMenuClose}>회원정보 수정</MenuItem>
@@ -144,7 +144,7 @@ const NavBar = ({ history, role, name }) => {
     <div className={classes.grow}>
       <AppBar position="fixed" color="default">
         <Toolbar className="container">
-          <DrawerIcon />
+          <DrawerIcon role={loggedInfo.role} />
 
           <Typography className={classes.title} variant="h6" noWrap>
             <Link to="/" className={classes.title}>
@@ -155,7 +155,7 @@ const NavBar = ({ history, role, name }) => {
           <div className={classes.grow} />
 
           <div className={classes.sectionDesktop}>
-            {role ? <p>{name}님 반갑습니다</p> : null}
+            {loggedInfo.role ? <p>{loggedInfo.name}님 반갑습니다</p> : null}
             <IconButton
               edge="end"
               aria-label="account of current user"

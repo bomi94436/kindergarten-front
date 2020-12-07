@@ -8,6 +8,8 @@ import {
   Typography,
   Button,
   Divider,
+  Tabs,
+  Tab,
 } from "@material-ui/core";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { RiDoorOpenFill } from "react-icons/ri";
@@ -20,6 +22,8 @@ import Rating from "@material-ui/lab/Rating";
 import ReviewList from "./ReviewList";
 import Loading from "../common/Loading/Loading";
 import WriteReviewDialog from "./WriteReviewDialog";
+import userRole from "src/utils/role";
+import ManagementList from "./ManagementList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1rem",
     padding: "0.7rem",
     borderRadius: "30px",
+  },
+  tabs: {
+    marginBottom: "10px",
   },
   rightPaper: {
     padding: "1.5rem",
@@ -96,13 +103,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const KindergartenPage = ({
-  role,
-  userid,
+  loggedInfo,
   history,
+  typeIndex,
+  setTypeIndex,
   detail,
   reviews,
   handlePostReviews,
   handleDeleteReviews,
+  readStudent,
+  readTeacher,
+  handleAccessTeacher,
+  handleAccessStudent,
 }) => {
   const classes = useStyles();
   const [address, setAddress] = useState({
@@ -126,10 +138,9 @@ const KindergartenPage = ({
   }, [detail.data]);
 
   if (
-    detail.loading !== false ||
+    (detail.loading !== false && !detail.data) ||
     !address.lat ||
-    !address.lng ||
-    !detail.data
+    !address.lng
   ) {
     return <Loading />;
   } else {
@@ -154,10 +165,10 @@ const KindergartenPage = ({
               color="primary"
               className={classes.reviewButton}
               onClick={() => {
-                if (!role) {
+                if (!loggedInfo.role) {
                   alert("로그인이 필요한 서비스입니다. 로그인 먼저 해주세요.");
                   history.push("/login");
-                } else if (role !== "ROLE_USER") {
+                } else if (loggedInfo.role !== userRole.ROLE_USER) {
                   alert("학부모가 아닌 유저는 리뷰를 작성할 수 없습니다.");
                 } else {
                   setDialog(true);
@@ -178,97 +189,132 @@ const KindergartenPage = ({
           </Grid>
 
           <Grid item md={9} xs={12}>
-            <Paper className={classes.rightPaper}>
-              <div>
-                <Typography variant="h5" className={classes.title}>
-                  {detail.data.name}
-                </Typography>
-              </div>
+            {loggedInfo.kindergartenid === detail.data.id &&
+              (loggedInfo.role === userRole.ROLE_TEACHER ||
+                loggedInfo.role === userRole.ROLE_DIRECTOR) && (
+                <Tabs
+                  className={classes.tabs}
+                  value={typeIndex}
+                  onChange={(event, newValue) => {
+                    setTypeIndex(newValue);
+                  }}
+                  indicatorColor="primary"
+                  textColor="primary"
+                >
+                  <Tab label="정보" />
+                  <Tab label="관리" />
+                </Tabs>
+              )}
 
-              <div>
-                <Chip
-                  label={detail.data.type}
-                  color="primary"
-                  className={classes.chip}
-                />
-                <Chip
-                  icon={
-                    <FaMapMarkerAlt size={18} className={classes.addressIcon} />
-                  }
-                  label={detail.data.address}
-                  color="primary"
-                  className={classes.chip}
-                />
-              </div>
-            </Paper>
-
-            <Paper className={classes.rightPaper2}>
-              <Typography variant="h5" className={classes.title}>
-                기본 정보
-              </Typography>
-
-              <Grid container spacing={3}>
-                <Grid item md={6} xs={12}>
-                  <Map lat={address.lat} lng={address.lng} />
-                </Grid>
-
-                <Grid item md={6} xs={12}>
-                  <div className={classes.infoColumn}>
-                    <div className={classes.infoRow}>
-                      <RiDoorOpenFill size={25} />
-                      <span className={classes.info}>
-                        {detail.data.openDate} 개원
-                      </span>
-                    </div>
-
-                    <Divider style={{ width: "100%" }} />
-
-                    <div className={classes.infoRow}>
-                      <BiTime size={25} />
-                      <span className={classes.info}>
-                        운영시간 {detail.data.operatingTime}
-                      </span>
-                    </div>
-
-                    <Divider style={{ width: "100%" }} />
-
-                    <div className={classes.infoRow}>
-                      <AiTwotonePhone size={25} />
-                      <span className={classes.info}>{detail.data.phone}</span>
-                    </div>
-
-                    <Divider style={{ width: "100%" }} />
-
-                    <div className={classes.infoRow}>
-                      <MdOpenInBrowser size={25} />
-                      <span
-                        className={classes.website}
-                        onClick={() =>
-                          window.location.replace(detail.data.website)
-                        }
-                      >
-                        {detail.data.website}
-                      </span>
-                    </div>
-
-                    <Divider style={{ width: "100%" }} />
-
-                    <div className={classes.infoRow}>
-                      <FaMapMarkerAlt size={25} />
-                      <span className={classes.info}>
-                        {detail.data.address}
-                      </span>
-                    </div>
+            {typeIndex === 0 ? (
+              <>
+                <Paper className={classes.rightPaper}>
+                  <div>
+                    <Typography variant="h5" className={classes.title}>
+                      {detail.data.name}
+                    </Typography>
                   </div>
-                </Grid>
-              </Grid>
-            </Paper>
 
-            <ReviewList
-              userid={userid}
-              reviews={reviews}
-              handleDeleteReviews={handleDeleteReviews}
-            />
+                  <div>
+                    <Chip
+                      label={detail.data.type}
+                      color="primary"
+                      className={classes.chip}
+                    />
+                    <Chip
+                      icon={
+                        <FaMapMarkerAlt
+                          size={18}
+                          className={classes.addressIcon}
+                        />
+                      }
+                      label={detail.data.address}
+                      color="primary"
+                      className={classes.chip}
+                    />
+                  </div>
+                </Paper>
+
+                <Paper className={classes.rightPaper2}>
+                  <Typography variant="h5" className={classes.title}>
+                    기본 정보
+                  </Typography>
+
+                  <Grid container spacing={3}>
+                    <Grid item md={6} xs={12}>
+                      <Map lat={address.lat} lng={address.lng} />
+                    </Grid>
+
+                    <Grid item md={6} xs={12}>
+                      <div className={classes.infoColumn}>
+                        <div className={classes.infoRow}>
+                          <RiDoorOpenFill size={25} />
+                          <span className={classes.info}>
+                            {detail.data.openDate} 개원
+                          </span>
+                        </div>
+
+                        <Divider style={{ width: "100%" }} />
+
+                        <div className={classes.infoRow}>
+                          <BiTime size={25} />
+                          <span className={classes.info}>
+                            운영시간 {detail.data.operatingTime}
+                          </span>
+                        </div>
+
+                        <Divider style={{ width: "100%" }} />
+
+                        <div className={classes.infoRow}>
+                          <AiTwotonePhone size={25} />
+                          <span className={classes.info}>
+                            {detail.data.phone}
+                          </span>
+                        </div>
+
+                        <Divider style={{ width: "100%" }} />
+
+                        <div className={classes.infoRow}>
+                          <MdOpenInBrowser size={25} />
+                          <span
+                            className={classes.website}
+                            onClick={() =>
+                              window.location.replace(detail.data.website)
+                            }
+                          >
+                            {detail.data.website}
+                          </span>
+                        </div>
+
+                        <Divider style={{ width: "100%" }} />
+
+                        <div className={classes.infoRow}>
+                          <FaMapMarkerAlt size={25} />
+                          <span className={classes.info}>
+                            {detail.data.address}
+                          </span>
+                        </div>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Paper>
+
+                <ReviewList
+                  loggedInfo={loggedInfo}
+                  reviews={reviews}
+                  handleDeleteReviews={handleDeleteReviews}
+                />
+              </>
+            ) : (
+              <ManagementList
+                detail={detail}
+                loggedInfo={loggedInfo}
+                students={readStudent}
+                teachers={readTeacher}
+                handleAccessStudent={handleAccessStudent}
+                handleAccessTeacher={handleAccessTeacher}
+              />
+            )}
           </Grid>
         </Grid>
       </div>

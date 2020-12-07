@@ -1,8 +1,8 @@
 import React from "react";
 import "../../../utils/styles.css";
 
-const LandingPage = ({ role }) => {
-  return <div className="container">LandingPage {role}</div>;
+const LandingPage = ({ loggedInfo }) => {
+  return <div className="container">LandingPage {loggedInfo.role}</div>;
 };
 
 export default LandingPage;
