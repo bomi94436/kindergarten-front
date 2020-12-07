@@ -1,6 +1,10 @@
+import { managementState } from "src/modules/reducers/management";
+import { reviewState } from "./reducers/review";
+import { userState } from "./reducers/user";
+import { reducerUtils } from "./reducers/utils";
+
 const initState = {
   loading: {
-    POST_LOGIN: false,
     POST_REGISTER: false,
     GET_EXISTID: false,
     GET_REGISTER_SEARCH: false,
@@ -47,18 +51,7 @@ const initState = {
     },
   },
 
-  login: {
-    userid: "",
-    name: "",
-    value: {
-      userid: "",
-      password: "",
-    },
-    valid: {
-      userid: null,
-      password: null,
-    },
-  },
+  login: reducerUtils.initial(),
 
   maps: {
     map: null,
@@ -68,6 +61,28 @@ const initState = {
     },
     location: { lat: 35.1798200522868, lng: 129.075087492149 },
   },
+
+  search: {
+    value: "",
+    contents: null,
+    page: {
+      total: null,
+      current: null,
+    },
+  },
+
+  // kindergarten
+  kindergartenDetail: reducerUtils.initial(),
+  kindergartenReview: reducerUtils.initial(),
+
+  // review
+  reviewState: reviewState,
+
+  // user
+  userState: userState,
+
+  // management
+  managementState: managementState,
 };
 
 export default initState;

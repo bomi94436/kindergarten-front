@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { FaSearch } from "react-icons/fa";
 import SearchCheckBox from "./SearchCheckBox";
 import Grid from "@material-ui/core/Grid";
-import MapPage from "../../../containers/Map/MapPageContainer";
+import Map from "../common/Map/Map";
 import SearchList from "./SearchList";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchPage = () => {
+const SearchPage = ({ search, maps, setSearch, getSearch, getLatLng }) => {
   const classes = useStyles();
 
   return (
@@ -48,8 +48,15 @@ const SearchPage = () => {
               size="small"
               className={classes.searchInput}
               placeholder="검색"
+              value={search.value}
+              onChange={(event) =>
+                setSearch({ name: "value", value: event.target.value })
+              }
             />
-            <IconButton color="primary">
+            <IconButton
+              color="primary"
+              onClick={() => getSearch("name", search.value, 0)}
+            >
               <FaSearch />
             </IconButton>
           </div>
@@ -58,13 +65,17 @@ const SearchPage = () => {
         </Grid>
 
         <Grid item sm={8} xs={12}>
-          <Typography className={classes.title} variant="h5" noWrap>
+          {/* <Typography className={classes.title} variant="h5" noWrap>
             검색결과 2건
-          </Typography>
+          </Typography> */}
 
-          <MapPage />
+          <Map lat={maps.location.lat} lng={maps.location.lng} />
 
-          <SearchList />
+          <SearchList
+            search={search}
+            getSearch={getSearch}
+            getLatLng={getLatLng}
+          />
         </Grid>
       </Grid>
     </div>

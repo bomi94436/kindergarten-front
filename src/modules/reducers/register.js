@@ -105,7 +105,7 @@ export const getExistId = (id) => async (dispatch) => {
 export const getRegisterSearch = (type, value, page) => async (dispatch) => {
   dispatch({ type: GET_REGISTER_SEARCH });
   try {
-    const response = await api.searchKindergarten(type, value, page);
+    const response = await api.searchKindergartens(type, value, page);
 
     if (response.success) {
       dispatch({

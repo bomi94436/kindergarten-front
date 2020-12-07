@@ -10,10 +10,25 @@ import initState from "./initState";
 import register from "./reducers/register";
 import login from "./reducers/login";
 import map from "./reducers/map";
+import search from "./reducers/search";
+import kindergarten from "./reducers/kindergarten";
+import review from "./reducers/review";
+import user from "./reducers/user";
+import management from "./reducers/management";
 
 // persist 미적용
 
-const reducer = reduceReducers(initState, register, login, map);
+const reducer = reduceReducers(
+  initState,
+  register,
+  login,
+  map,
+  search,
+  kindergarten,
+  review,
+  user,
+  management
+);
 
 export default function configureStore() {
   const store = createStore(

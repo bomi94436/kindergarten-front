@@ -144,11 +144,11 @@ const SearchKindergartenDialog = ({
 
         <StyledRow>
           <Pagination
-            count={search.page.total}
+            count={search.page.total + 1}
             color="primary"
             style={{ margin: "0.5rem" }}
             onChange={(event, value) =>
-              getRegisterSearch(search.type, search.value, value)
+              getRegisterSearch(search.type, search.value, value - 1)
             }
           />
         </StyledRow>

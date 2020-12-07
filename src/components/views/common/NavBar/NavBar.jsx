@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import "../../../utils/styles.css";
+import "../../../../utils/styles.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ role, login }) => {
+const NavBar = ({ history, loggedInfo }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -62,6 +62,10 @@ const NavBar = ({ role, login }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -69,10 +73,6 @@ const NavBar = ({ role, login }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -86,12 +86,32 @@ const NavBar = ({ role, login }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/register" className={classes.sectionDesktopMenuItem}>
-        <MenuItem onClick={handleMenuClose}>회원가입</MenuItem>
-      </Link>
-      <Link to="/login" className={classes.sectionDesktopMenuItem}>
-        <MenuItem onClick={handleMenuClose}>로그인</MenuItem>
-      </Link>
+      {loggedInfo.role ? (
+        <div>
+          <Link to="/modify-user" className={classes.sectionDesktopMenuItem}>
+            <MenuItem onClick={handleMenuClose}>회원정보 수정</MenuItem>
+          </Link>
+
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              localStorage.removeItem("X-AUTH-TOKEN");
+              history.push("/");
+            }}
+          >
+            로그아웃
+          </MenuItem>
+        </div>
+      ) : (
+        <div>
+          <Link to="/register" className={classes.sectionDesktopMenuItem}>
+            <MenuItem onClick={handleMenuClose}>회원가입</MenuItem>
+          </Link>
+          <Link to="/login" className={classes.sectionDesktopMenuItem}>
+            <MenuItem onClick={handleMenuClose}>로그인</MenuItem>
+          </Link>
+        </div>
+      )}
     </Menu>
   );
 
@@ -119,13 +139,12 @@ const NavBar = ({ role, login }) => {
       </MenuItem>
     </Menu>
   );
-  console.log(role);
 
   return (
     <div className={classes.grow}>
       <AppBar position="fixed" color="default">
         <Toolbar className="container">
-          <DrawerIcon />
+          <DrawerIcon role={loggedInfo.role} />
 
           <Typography className={classes.title} variant="h6" noWrap>
             <Link to="/" className={classes.title}>
@@ -136,7 +155,7 @@ const NavBar = ({ role, login }) => {
           <div className={classes.grow} />
 
           <div className={classes.sectionDesktop}>
-            {role && login.name ? <p>{login.name}님 반갑습니다</p> : null}
+            {loggedInfo.role ? <p>{loggedInfo.name}님 반갑습니다</p> : null}
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -148,6 +167,7 @@ const NavBar = ({ role, login }) => {
               <AccountCircle />
             </IconButton>
           </div>
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
